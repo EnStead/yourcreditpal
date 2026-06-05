@@ -1,0 +1,160 @@
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Parkinsans:wght@300..800&display=swap');
+@import "tailwindcss";
+
+/* Define your theme directly in CSS */
+@theme {
+  --color-brand-title: #151515;
+  --color-brand-secondary: #111111;
+  --color-brand-body: #333333;
+  --color-brand-accent1: #FEA801;
+  --color-brand-accent2: #FE2A01;
+  --color-brand-primary: #0157FE;
+  --color-brand-lightblue: #E5EEFE;
+  --color-brand-label: #797979;
+  --color-brand-white: #FFFFFF;
+  --color-brand-stroke: #EDEDED;
+  --color-brand-placeholder: #B2B2B2;
+  --color-brand-offwhite: #F9F9F9;
+  --color-brand-black: #000000;
+  --color-brand-xblack: #000819;
+  --color-brand-darkBlue: #002B7F;
+  --color-brand-skyBlue: #80ABFE;
+
+
+
+  --font-sans: "DM Sans", sans-serif;
+  --font-heading: "Parkinsans", serif;
+
+  --radius-xl: 1rem;
+  --radius-2xl: 1.5rem;
+
+  --shadow-soft: 0 4px 12px rgba(0, 0, 0, 0.08);
+  --shadow-card: 0 6px 16px rgba(0, 0, 0, 0.1);
+
+  
+  --breakpoint-ssm: 27.813rem;  /*445.008 */
+  --breakpoint-xsm: 34.063rem; /* 545.008px*/
+  --breakpoint-ml: 52.813rem;  /* 845.008px*/
+  --breakpoint-ls: 59.063rem; /* 945.008px*/
+  --breakpoint-lss: 68.75rem;  /* 1100px*/
+  --breakpoint-xls: 75rem;    /* 1200px*/
+  --breakpoint-xlls: 80rem;    /* 1280px*/
+  --breakpoint-xxls: 87.5rem; /* 1400px*/
+  /* --breakpoint-2xl: 100rem;
+  --breakpoint-3xl: 120rem; */
+
+  --animate-fade-in-up: fade-in-up 2.5s cubic-bezier(0.16, 1, 0.3, 1);
+
+  @keyframes fade-in-up {
+    0% {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    100% {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    @apply font-sans;
+
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    @apply font-heading text-brand-title;
+  }
+
+
+  button {
+    @apply cursor-pointer text-sm sm:text-base font-semibold font-heading rounded-xl;
+  }
+
+  a {
+    color: inherit;
+    text-decoration: none;
+  }
+
+  img {
+    display: block;
+  }
+}
+
+
+
+
+
+.custom-pagination .swiper-pagination-bullet {
+  @apply w-2 h-2 bg-brand-secondary rounded-full transition-all duration-300;
+}
+
+.custom-pagination .swiper-pagination-bullet-active {
+  @apply w-6 h-2 bg-brand-accent2 rounded-full;
+}
+
+
+.prose img[alt="image"] {
+  height: 700px;
+}
+
+
+/* Hide scrollbar but keep scroll functionality */
+.hide-scrollbar {
+  scrollbar-width: none; /* Firefox */
+}
+
+.hide-scrollbar::-webkit-scrollbar {
+  display: none; /* Chrome, Safari */
+}
+
+/* Continuous Swiper Marquee */
+.continuous-slider .swiper-wrapper {
+  transition-timing-function: linear !important;
+}
+
+
+@media (min-width:1920px) {
+  .cnt{
+    max-width: 1440px !important;
+    margin: auto !important;
+  }
+  .cnt_nav{
+    max-width: 1370px !important;
+    margin: auto !important;
+  }
+}
+
+@media (min-width: 768px) {
+  .feature-card,
+  .story-card {
+    padding: 2rem;
+  }
+
+  .step-card {
+    padding: 1.75rem;
+  }
+
+  .cta-panel {
+    padding: 2.5rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  .cta-panel {
+    flex-direction: row;
+    align-items: end;
+  }
+}
