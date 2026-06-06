@@ -16,23 +16,117 @@ The product UI was designed in Figma:
 
 [CreditPal Figma File](https://www.figma.com/design/MZZFCz7O3nBR3RrTTBeEtL/CreditPal)
 
+## Product Flow
+
+YourCreditPal is designed around a lead qualification and routing flow:
+
+```text
+Loan applicant
+  -> Frontend loan form
+  -> Backend validation, scoring, and suppression
+  -> Third-party checks
+  -> Qualified leads route to Boberdoo
+  -> Buyer/lender response returns to frontend
+  -> Database stores the full lead record and routing result
+```
+
+In simple terms: the frontend collects the applicant, the backend qualifies the applicant, Boberdoo attempts to match or sell the qualified lead, and the database keeps the full record.
+
 ## Credits
 
-| Role | Name | GitHub | X | Portfolio |
-| --- | --- | --- | --- | --- |
-| Product Designer | DesignedbyBami | [designedbybami](https://github.com/designedbybami) |  |  |
-| Developer | Anjyfade | [anjyfade1](https://github.com/anjyfade1) |  |  |
+| Role | Name | GitHub |
+| --- | --- | --- |
+| Product Designer | DesignedbyBami | [designedbybami](https://github.com/designedbybami) |
+| Developer | Anjyfade | [anjyfade1](https://github.com/anjyfade1) |
 
 ## What Is Inside
 
 - Home page with hero, benefits, loan purposes, testimonials, and security sections
 - Multi-step loan application form
+- Planned matched, fallback, and correction states for backend responses
 - FAQ page
 - Blog listing and article pages powered by Sanity
 - Legal and disclosure pages
 - Unsubscribe and communication preferences page
 - Netlify deployment configuration
 - Responsive Tailwind-based interface
+
+## Application Flow Requirements
+
+The intended applicant flow has two main stages.
+
+**Page 1: Loan Basics**
+
+- Loan amount
+- Loan purpose
+- Credit score range
+- First name and last name
+- Email and phone
+- State and ZIP code
+- CTA: `See My Loan Options`
+
+**Page 2: Applicant Details**
+
+- Employment status
+- Monthly income
+- Bank name
+- Account type
+- Housing status
+- Date of birth
+- Street address
+- City and ZIP code
+- CTA: `Submit My Application`
+
+After submission, the frontend should show the correct result based on the backend response:
+
+- Matched page
+- Still searching or soft-reject thank-you page
+- Error/correction state
+- No-buyer fallback page
+
+## Integration Plan
+
+| Service | Purpose | Owner |
+| --- | --- | --- |
+| [TrustedForm](https://activeprospect.com/products/trustedform-for-publishers/) | Capture and store proof of consent | Frontend + Backend |
+| [Twilio Lookup](https://www.twilio.com/en-us/user-authentication-identity/lookup) | Validate phone number, carrier, and VoIP status | Backend |
+| [Email Verifier](https://emailverifier.io/) | Validate email deliverability and filter risky addresses | Backend |
+| [Google Sheets](https://workspace.google.com/products/sheets/) | Store soft rejects, lower-quality leads, and remarketing records | Backend |
+| [Boberdoo](https://www.boberdoo.com/) | Route qualified leads to buyers/lenders | Backend |
+| Database | Store lead records, scores, suppression checks, and routing history | Backend |
+
+## Response Handling
+
+The backend should classify every submission and return one of the expected outcomes:
+
+```json
+{
+  "status": "matched",
+  "redirect_url": "https://buyer.com/continue"
+}
+```
+
+```json
+{
+  "status": "soft_reject",
+  "message": "We are still searching for lenders."
+}
+```
+
+```json
+{
+  "status": "hard_reject",
+  "message": "Please check your information and try again."
+}
+```
+
+## Team Ownership
+
+| Area | Owner |
+| --- | --- |
+| Form UX, validation states, thank-you pages, legal pages, user guidance copy | Design |
+| Form implementation, input collection, TrustedForm capture, backend submission, response handling | Frontend |
+| Validation, suppression checks, scoring, database, Google Sheets, Boberdoo routing, third-party APIs | Backend |
 
 ## Tech Stack
 
@@ -158,18 +252,29 @@ The redirect keeps React Router pages working after deployment.
 
 ## Launch Notes
 
-- The application form UI is present, but still needs a real submission endpoint.
-- The unsubscribe form should be connected to the planned spreadsheet workflow.
-- The legal opt-out link should point to the planned Google Form.
+- The current application form UI should be aligned with the final two-stage loan flow.
+- The application form still needs backend submission, TrustedForm capture, loading states, and backend response handling.
+- Backend validation should cover phone, email, age, ZIP/state match, income, loan amount, and name quality.
+- Backend suppression should check phone, email, previous opt-outs, complaints, and recent duplicates.
+- Qualified leads should route to Boberdoo.
+- Soft rejects and lower-quality leads should be stored in Google Sheets or the configured database workflow.
+- All valid records should be stored with score, source, status, suppression result, routing result, and timestamp.
+- The unsubscribe form should be connected to an Excel or Google Sheets spreadsheet workflow.
+- The legal opt-out link should point to a Google Form.
 - Blog content depends on the configured Sanity project.
-- Legal copy should be reviewed before production use.
-- Support contact should remain consistent as `support@yourcreditpal.com`.
+- Legal copy and disclaimers should be reviewed before production use.
 
 ## Pre-Launch Checklist
 
 - Run `npm run lint` and fix reported issues.
 - Run `npm run build` on a supported Node version.
-- Connect the application form to the required backend, CRM, or lender workflow.
+- Align the application UI with the final two-stage loan flow.
+- Add loading, hard-reject, soft-reject, matched, and no-buyer fallback states.
+- Connect the application form to the backend lead workflow.
+- Add TrustedForm certificate capture.
+- Connect Twilio Lookup and Email Verifier through the backend.
+- Connect qualified lead routing to Boberdoo.
+- Store lead records, scores, suppression results, and routing history in the database.
 - Connect unsubscribe requests to the spreadsheet or preference-management flow.
 - Add the legal privacy request Google Form URL.
 - Move Sanity values into environment variables.
