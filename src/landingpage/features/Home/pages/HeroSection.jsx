@@ -1,6 +1,6 @@
 import { useState, useRef, useLayoutEffect } from "react";
 import { NavLink } from "react-router-dom";
-import heroImage from "../../../../assets/HeroImg.png"; // Update with your actual image name and extension
+import heroImage from "../../../../assets/HeroImg.webp"; // Update with your actual image name and extension
 import Logo from "../../../../assets/Logo.svg?react";
 import GreenTick from "../../../../assets/GreenTick.svg?react";
 import Line1 from "../../../../assets/Line1.png";
