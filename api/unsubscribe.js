@@ -21,6 +21,18 @@ const parseBody = (body) => {
 
 const wait = (milliseconds) => new Promise((resolve) => setTimeout(resolve, milliseconds))
 
+const formatTimestamp = () =>
+  new Intl.DateTimeFormat('en-US', {
+    month: 'long',
+    day: 'numeric',
+    year: 'numeric',
+    hour: 'numeric',
+    minute: '2-digit',
+    hour12: true,
+    timeZone: 'UTC',
+    timeZoneName: 'short',
+  }).format(new Date())
+
 const appendWithRetry = async (sheets, params, retries = 2) => {
   for (let attempt = 0; attempt <= retries; attempt += 1) {
     try {
@@ -160,7 +172,7 @@ export default async function handler(request, response) {
       requestBody: {
         values: [
           [
-            new Date().toISOString(),
+            formatTimestamp(),
             firstName,
             lastName,
             email,
@@ -171,7 +183,7 @@ export default async function handler(request, response) {
             hasSelected('Browser Notifications') || allCommunications ? 'Yes' : 'No',
             allCommunications ? 'Yes' : 'No',
             '/unsubscribe',
-            'New',
+            'Received',
             notes,
           ],
         ],
