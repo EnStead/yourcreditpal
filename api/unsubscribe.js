@@ -1,6 +1,6 @@
 import { google } from 'googleapis'
 
-const SHEET_RANGE = "'YourCreditPal Unsubscribe Sheets'!A:M"
+const SHEET_RANGE = 'A:M'
 
 const json = (response, statusCode, body) => {
   response.status(statusCode).json(body)
@@ -42,7 +42,11 @@ const appendWithRetry = async (sheets, params, retries = 2) => {
 
 const getGoogleErrorDetails = (error) => {
   const status = error?.response?.status || error?.code
-  const message = error?.response?.data?.error || error?.response?.data?.message || error?.message || ''
+  const googleError = error?.response?.data?.error
+  const message =
+    typeof googleError === 'string'
+      ? googleError
+      : googleError?.message || error?.response?.data?.message || error?.message || ''
 
   if ([429, 500, 502, 503, 504].includes(Number(status))) {
     return {
