@@ -19,27 +19,44 @@ const parseBody = (body) => {
   return body || {}
 }
 
-const getGoogleErrorMessage = (error) => {
+const getGoogleErrorDetails = (error) => {
   const status = error?.response?.status || error?.code
   const message = error?.response?.data?.error || error?.response?.data?.message || error?.message || ''
 
   if (status === 403) {
-    return 'Google Sheets permission denied. Share the sheet with the service account email and confirm the Sheets API is enabled.'
+    return {
+      code: 'GOOGLE_PERMISSION_DENIED',
+      message: 'Google Sheets permission denied. Share the sheet with the service account email and confirm the Sheets API is enabled.',
+    }
   }
 
   if (status === 404) {
-    return 'Google Sheet not found. Confirm GOOGLE_SHEET_ID is the spreadsheet ID, not the full URL.'
+    return {
+      code: 'GOOGLE_SHEET_NOT_FOUND',
+      message: 'Google Sheet not found. Confirm GOOGLE_SHEET_ID is the spreadsheet ID, not the full URL.',
+    }
   }
 
   if (/Unable to parse range|range/i.test(message)) {
-    return `Google Sheets could not find or parse the tab range ${SHEET_RANGE}. Confirm the sheet tab name matches exactly.`
+    return {
+      code: 'GOOGLE_RANGE_NOT_FOUND',
+      message: `Google Sheets could not find or parse the tab range ${SHEET_RANGE}. Confirm the sheet tab name matches exactly.`,
+    }
   }
 
   if (/invalid_grant|private key|PEM|DECODER|credentials/i.test(message)) {
-    return 'Google service account authentication failed. Confirm GOOGLE_PRIVATE_KEY is copied correctly in Vercel.'
+    return {
+      code: 'GOOGLE_AUTH_FAILED',
+      message: 'Google service account authentication failed. Confirm GOOGLE_PRIVATE_KEY is copied correctly in Vercel.',
+    }
   }
 
-  return 'Could not submit request. Please try again.'
+  return {
+    code: 'GOOGLE_UNKNOWN_ERROR',
+    message: 'Could not submit request. Please try again.',
+    detail: message || 'No error detail returned by Google.',
+    status: status || 'unknown',
+  }
 }
 
 export default async function handler(request, response) {
@@ -55,7 +72,21 @@ export default async function handler(request, response) {
     if (!serviceAccountEmail || !privateKey || !spreadsheetId) {
       return json(response, 500, {
         success: false,
+        code: 'GOOGLE_ENV_MISSING',
         message: 'Google Sheets is not configured. Check Vercel environment variables.',
+        missing: {
+          serviceAccountEmail: !serviceAccountEmail,
+          privateKey: !privateKey,
+          spreadsheetId: !spreadsheetId,
+        },
+      })
+    }
+
+    if (!privateKey.includes('BEGIN PRIVATE KEY')) {
+      return json(response, 500, {
+        success: false,
+        code: 'GOOGLE_PRIVATE_KEY_INVALID_FORMAT',
+        message: 'GOOGLE_PRIVATE_KEY does not look like a service account private key.',
       })
     }
 
@@ -116,6 +147,8 @@ export default async function handler(request, response) {
 
     return json(response, 200, { success: true })
   } catch (error) {
+    const errorDetails = getGoogleErrorDetails(error)
+
     console.error('Unsubscribe error:', {
       message: error?.message,
       status: error?.response?.status || error?.code,
@@ -123,7 +156,7 @@ export default async function handler(request, response) {
     })
     return json(response, 500, {
       success: false,
-      message: getGoogleErrorMessage(error),
+      ...errorDetails,
     })
   }
 }
