@@ -3,7 +3,7 @@ export const legalPages = {
     eyebrow: 'Privacy Rights',
     title: 'Do Not Sell or Share My Personal Information',
     intro:
-      'CreditPal provides users with options to request limitations on certain information-sharing practices in accordance with applicable privacy laws.',
+      'YourCreditpal provides users with options to request limitations on certain information-sharing practices in accordance with applicable privacy laws.',
     calloutTitle: 'Your Privacy Choices Matter',
     calloutBody:
       'Depending on your location and applicable laws, you may have the right to request limitations regarding how certain personal information is shared with third parties.',
@@ -23,7 +23,7 @@ export const legalPages = {
       {
         title: '1. Overview',
         paragraphs: [
-          'CreditPal may share certain information with lending partners, marketing providers, and service providers in order to support platform functionality and loan matching services.',
+          'YourCreditpal may share certain information with lending partners, marketing providers, and service providers in order to support platform functionality and loan matching services.',
           'Depending on applicable laws, users may request limitations regarding specific categories of information sharing.',
         ],
       },
@@ -41,7 +41,7 @@ export const legalPages = {
       },
       {
         title: '3. Information Sharing Practices',
-        paragraphs: ['Information submitted through CreditPal may be shared with:'],
+        paragraphs: ['Information submitted through YourCreditpal may be shared with:'],
         bullets: [
           'lending partners',
           'financial service providers',
@@ -58,16 +58,16 @@ export const legalPages = {
         anchor: 'opt-out-request',
         paragraphs: [
           'Users may request limitations regarding certain information-sharing activities by submitting a privacy request through the form below or by contacting support directly.',
-          'Requests may require identity verification before completion. CreditPal may contact you regarding your request if additional information is needed.',
+          'Requests may require identity verification before completion. YourCreditpal may contact you regarding your request if additional information is needed.',
         ],
         linkPrefix: 'Submit a Privacy Request via Google Form: ',
         linkText: 'Opt-Out Form Link',
-        linkHref: '#',
+        linkHref: 'https://docs.google.com/forms/d/e/1FAIpQLSelUHgUe3kpNQEip5u5ugU1qCQNljanTpYIaS5TkHbAEHq3gQ/viewform',
       },
       {
         title: '5. Verification Requirements',
         paragraphs: [
-          'To protect user information, CreditPal may require verification before fulfilling privacy-related requests.',
+          'To protect user information, YourCreditpal may require verification before fulfilling privacy-related requests.',
           'Verification may include confirming:',
         ],
         bullets: ['name', 'email address', 'phone number', 'prior application information'],
@@ -89,7 +89,7 @@ export const legalPages = {
       {
         title: '8. Processing Requests',
         paragraphs: [
-          'CreditPal works to process verified privacy requests within applicable legal timeframes.',
+          'YourCreditpal works to process verified privacy requests within applicable legal timeframes.',
           'Response timelines may vary depending on:',
         ],
         bullets: ['request complexity', 'identity verification', 'applicable legal requirements'],
@@ -104,16 +104,16 @@ export const legalPages = {
     ],
     noteTitle: 'Committed to Privacy Transparency',
     noteBody:
-      'CreditPal works to support responsible privacy practices and user data control in accordance with applicable regulations.',
+      'YourCreditpal works to support responsible privacy practices and user data control in accordance with applicable regulations.',
   },
   'marketing-partners': {
     eyebrow: 'Partner Network',
     title: 'Marketing Partners & Service Providers',
     intro:
-      'CreditPal may work with lending partners, service providers, and marketing providers to support loan matching and related platform operations.',
+      'YourCreditpal may work with lending partners, service providers, and marketing providers to support loan matching and related platform operations.',
     calloutTitle: 'Please Read Carefully',
     calloutBody:
-      'Submitting a request through CreditPal may result in communications from lending partners or authorized service providers related to your application or financial offers.',
+      'Submitting a request through YourCreditpal may result in communications from lending partners or authorized service providers related to your application or financial offers.',
     updatedAt: 'May, 2026',
     toc: [
       'Overview',
@@ -129,7 +129,7 @@ export const legalPages = {
     sections: [
       {
         title: '1. Overview',
-        paragraphs: ['CreditPal works with a network of independent:'],
+        paragraphs: ['YourCreditpal works with a network of independent:'],
         bullets: [
           'lenders',
           'financial service providers',
@@ -144,15 +144,15 @@ export const legalPages = {
       {
         title: '2. Lending Partners',
         paragraphs: [
-          'Information submitted through CreditPal may be shared with participating lending partners for the purpose of evaluating potential loan opportunities.',
+          'Information submitted through YourCreditpal may be shared with participating lending partners for the purpose of evaluating potential loan opportunities.',
           'Participating lenders independently determine:',
         ],
         bullets: ['loan eligibility', 'approval decisions', 'repayment terms', 'interest rates', 'funding timelines'],
-        paragraphsAfter: ['CreditPal does not control lender decisions or financial products offered by lenders.'],
+        paragraphsAfter: ['YourCreditpal does not control lender decisions or financial products offered by lenders.'],
       },
       {
         title: '3. Marketing Communications',
-        paragraphs: ['Users may receive communications from CreditPal or authorized partners regarding:'],
+        paragraphs: ['Users may receive communications from YourCreditpal or authorized partners regarding:'],
         bullets: ['loan opportunities', 'financial products', 'promotional offers', 'application updates', 'related financial services'],
         subParagraphs: ['Communications may be delivered through:'],
         subBullets: ['email', 'SMS/text messages', 'phone calls', 'online advertising'],
@@ -160,13 +160,13 @@ export const legalPages = {
       },
       {
         title: '4. Service Providers',
-        paragraphs: ['CreditPal may work with third-party providers that support:'],
+        paragraphs: ['YourCreditpal may work with third-party providers that support:'],
         bullets: ['identity verification', 'fraud prevention', 'analytics', 'website functionality', 'communication delivery', 'customer support'],
         paragraphsAfter: ['These providers may access limited information necessary to perform operational services.'],
       },
       {
         title: '5. Data Sharing Practices',
-        paragraphs: ['CreditPal may share submitted information only as necessary to:'],
+        paragraphs: ['YourCreditpal may share submitted information only as necessary to:'],
         bullets: ['support lender matching', 'provide requested services', 'improve platform operations', 'comply with legal obligations', 'reduce fraudulent activity'],
         paragraphsAfter: ['Information sharing practices are further described in our Privacy Policy.'],
       },
@@ -195,16 +195,16 @@ export const legalPages = {
     ],
     noteTitle: 'Committed to Transparency',
     noteBody:
-      'CreditPal works to maintain responsible communication and information-sharing practices throughout the application process.',
+      'YourCreditpal works to maintain responsible communication and information-sharing practices throughout the application process.',
   },
   'electronic-consent': {
     eyebrow: 'Electronic Communications',
     title: 'Electronic Consent Agreement',
     intro:
-      'This Electronic Consent Agreement explains how CreditPal and participating lending partners may provide disclosures, notices, and communications electronically.',
+      'This Electronic Consent Agreement explains how YourCreditpal and participating lending partners may provide disclosures, notices, and communications electronically.',
     calloutTitle: 'Please Read Carefully',
     calloutBody:
-      'By using CreditPal and submitting a loan request, you consent to receive communications and disclosures electronically instead of through paper documents.',
+      'By using YourCreditpal and submitting a loan request, you consent to receive communications and disclosures electronically instead of through paper documents.',
     updatedAt: 'May, 2026',
     toc: [
       'Overview',
@@ -221,15 +221,15 @@ export const legalPages = {
       {
         title: '1. Overview',
         paragraphs: [
-          'CreditPal and participating lending partners may provide required disclosures, agreements, notices, and communications electronically.',
+          'YourCreditpal and participating lending partners may provide required disclosures, agreements, notices, and communications electronically.',
           'These electronic communications may include:',
         ],
         bullets: ['loan disclosures', 'agreements', 'notices', 'application updates', 'lender communications', 'marketing communications where permitted'],
       },
       {
         title: '2. Consent to Electronic Communications',
-        paragraphs: ['By submitting information through CreditPal, you agree to receive electronic communications from:'],
-        bullets: ['CreditPal', 'lending partners', 'service providers', 'authorized third parties involved in the application process'],
+        paragraphs: ['By submitting information through YourCreditpal, you agree to receive electronic communications from:'],
+        bullets: ['YourCreditpal', 'lending partners', 'service providers', 'authorized third parties involved in the application process'],
         paragraphsAfter: ['Electronic communications may be delivered through:'],
         subBullets: ['email', 'website notifications', 'SMS/text messages', 'downloadable documents', 'electronic signatures'],
       },
@@ -242,7 +242,7 @@ export const legalPages = {
       {
         title: '4. Electronic Signatures',
         paragraphs: [
-          'Electronic signatures and acknowledgments provided through CreditPal or participating lenders may carry the same legal effect as handwritten signatures where permitted by applicable laws.',
+          'Electronic signatures and acknowledgments provided through YourCreditpal or participating lenders may carry the same legal effect as handwritten signatures where permitted by applicable laws.',
         ],
       },
       {
@@ -314,7 +314,7 @@ export const legalPages = {
       {
         title: '1. Rates & Fees',
         paragraphs: [
-          'CreditPal does not charge fees for submitting a loan request through our platform.',
+          'YourCreditpal does not charge fees for submitting a loan request through our platform.',
           'Loan rates, APRs, repayment terms, and associated fees are determined independently by participating lenders and may vary depending on:',
         ],
         bullets: ['credit profile', 'loan amount', 'income', 'state regulations', 'lender policies'],
@@ -351,7 +351,7 @@ export const legalPages = {
         anchor: 'non-payment',
         paragraphs: ['Failure to repay a loan may negatively affect a borrower’s financial standing and credit profile.', 'Some lenders may:'],
         bullets: ['initiate collection efforts', 'report delinquent accounts', 'pursue legal remedies where permitted by law'],
-        paragraphsAfter: ['CreditPal is not responsible for lender collection activities or repayment enforcement.'],
+        paragraphsAfter: ['YourCreditpal is not responsible for lender collection activities or repayment enforcement.'],
         cards: [
           { title: 'APR & Fees', body: 'Interest rates and fees vary by lender and financial profile.' },
           { title: 'Repayment Terms', body: 'Always review monthly payment obligations before accepting a loan.' },
@@ -380,7 +380,7 @@ export const legalPages = {
       {
         title: '8. Lender Responsibility Disclaimer',
         anchor: 'lender-responsibility',
-        paragraphs: ['CreditPal is not a lender and does not determine:'],
+        paragraphs: ['YourCreditpal is not a lender and does not determine:'],
         bullets: ['loan approval', 'repayment schedules', 'APRs', 'lender fees', 'collection policies'],
         paragraphsAfter: ['All loan-related decisions are made solely by participating lenders.'],
       },
@@ -400,7 +400,7 @@ export const legalPages = {
     eyebrow: 'Privacy & Security',
     title: 'Privacy Policy',
     intro:
-      'Learn how CreditPal collects, uses, shares, and protects your personal information when using our platform.',
+      'Learn how YourCreditpal collects, uses, shares, and protects your personal information when using our platform.',
     updatedAt: 'May, 2026',
     toc: [
       'Information We Collect',
@@ -418,7 +418,7 @@ export const legalPages = {
     sections: [
       {
         title: '1. Information We Collect',
-        paragraphs: ['CreditPal may collect personal, financial, and technical information submitted through our platform, including:'],
+        paragraphs: ['YourCreditpal may collect personal, financial, and technical information submitted through our platform, including:'],
         bullets: [
           'name',
           'email address',
@@ -434,7 +434,7 @@ export const legalPages = {
       {
         title: '2. How We Use Information',
         anchor: 'how-information-is-used',
-        paragraphs: ['CreditPal may use submitted information to:'],
+        paragraphs: ['YourCreditpal may use submitted information to:'],
         bullets: [
           'process loan requests',
           'connect users with lending partners',
@@ -448,7 +448,7 @@ export const legalPages = {
       {
         title: '3. Sharing of Information',
         anchor: 'sharing-information',
-        paragraphs: ['Information submitted through CreditPal may be shared with:'],
+        paragraphs: ['Information submitted through YourCreditpal may be shared with:'],
         bullets: [
           'lending partners',
           'financial service providers',
@@ -467,14 +467,14 @@ export const legalPages = {
       },
       {
         title: '5. Cookies & Tracking Technologies',
-        paragraphs: ['CreditPal may use cookies, analytics tools, and similar technologies to:'],
+        paragraphs: ['YourCreditpal may use cookies, analytics tools, and similar technologies to:'],
         bullets: ['improve user experience', 'analyze website traffic', 'remember user preferences', 'enhance platform performance'],
         paragraphsAfter: ['Users may manage cookie preferences through browser settings.'],
       },
       {
         title: '6. Data Security',
         paragraphs: [
-          'CreditPal uses reasonable technical and organizational safeguards designed to help protect personal information against unauthorized access, misuse, or disclosure.',
+          'YourCreditpal uses reasonable technical and organizational safeguards designed to help protect personal information against unauthorized access, misuse, or disclosure.',
           'While we work to protect submitted information, no method of electronic transmission or storage can be guaranteed to be completely secure.',
         ],
       },
@@ -487,19 +487,19 @@ export const legalPages = {
       {
         title: '8. Third-Party Websites & Services',
         paragraphs: [
-          'CreditPal may integrate with third-party services and lender websites. We are not responsible for the privacy practices or policies of external services or lending partners.',
+          'YourCreditpal may integrate with third-party services and lender websites. We are not responsible for the privacy practices or policies of external services or lending partners.',
           'Users are encouraged to review third-party privacy policies independently.',
         ],
       },
       {
         title: '9. Children’s Privacy',
-        paragraphs: ['CreditPal is intended only for individuals who are at least 18 years old.', 'We do not knowingly collect personal information from minors.'],
+        paragraphs: ['YourCreditpal is intended only for individuals who are at least 18 years old.', 'We do not knowingly collect personal information from minors.'],
       },
       {
         title: '10. Changes to This Privacy Policy',
         anchor: 'policy-updates',
         paragraphs: [
-          'CreditPal may update this Privacy Policy periodically to reflect platform, operational, or legal changes.',
+          'YourCreditpal may update this Privacy Policy periodically to reflect platform, operational, or legal changes.',
           'Continued use of the platform following updates constitutes acceptance of the revised policy.',
         ],
       },
@@ -513,12 +513,12 @@ export const legalPages = {
     ],
     noteTitle: 'Committed to Responsible Data Practices',
     noteBody:
-      'CreditPal works to maintain secure systems and responsible data handling practices throughout the application process.',
+      'YourCreditpal works to maintain secure systems and responsible data handling practices throughout the application process.',
   },
   terms: {
     eyebrow: 'Legal',
     title: 'Terms & Conditions',
-    intro: 'Please read these Terms & Conditions carefully before using CreditPal and submitting any loan request through our platform.',
+    intro: 'Please read these Terms & Conditions carefully before using YourCreditpal and submitting any loan request through our platform.',
     updatedAt: 'May, 2026',
     toc: [
       'Overview',
@@ -538,14 +538,14 @@ export const legalPages = {
       {
         title: '1. Overview',
         paragraphs: [
-          'CreditPal is a loan matching platform that connects consumers with independent lending partners and financial service providers. CreditPal is not a lender, broker, or financial institution and does not make lending or credit decisions.',
+          'YourCreditpal is a loan matching platform that connects consumers with independent lending partners and financial service providers. YourCreditpal is not a lender, broker, or financial institution and does not make lending or credit decisions.',
           'By accessing or using our platform, you agree to comply with these Terms & Conditions and all applicable laws and regulations.',
         ],
       },
       {
         title: '2. Eligibility Requirements',
         anchor: 'eligibility',
-        paragraphs: ['To use CreditPal, you must:'],
+        paragraphs: ['To use YourCreditpal, you must:'],
         bullets: ['Be at least 18 years old', 'Be a U.S. resident', 'Provide accurate and truthful information', 'Have the legal ability to enter into agreements'],
         paragraphsAfter: ['Submitting false or misleading information may result in rejection of your application or restricted access to the platform.'],
       },
@@ -553,8 +553,8 @@ export const legalPages = {
         title: '3. Use of the Platform',
         anchor: 'use-of-platform',
         paragraphs: [
-          'CreditPal provides an online platform designed to help users explore loan opportunities through participating lending partners.',
-          'Using CreditPal does not guarantee:',
+          'YourCreditpal provides an online platform designed to help users explore loan opportunities through participating lending partners.',
+          'Using YourCreditpal does not guarantee:',
         ],
         bullets: ['loan approval', 'loan offers', 'specific interest rates', 'funding timelines'],
         paragraphsAfter: ['Lending decisions are made independently by third-party lenders based on their own criteria and applicable laws.'],
@@ -562,14 +562,14 @@ export const legalPages = {
       {
         title: '4. Loan Matching Services',
         paragraphs: [
-          'CreditPal is not a lender and does not issue loans directly to consumers.',
+          'YourCreditpal is not a lender and does not issue loans directly to consumers.',
           'Our platform may share submitted information with lending partners, service providers, and financial marketing partners for the purpose of reviewing potential loan opportunities.',
           'Any loan agreement entered into is solely between the applicant and the lender.',
         ],
       },
       {
         title: '5. No Guarantee of Approval',
-        paragraphs: ['Submitting a request through CreditPal does not guarantee:'],
+        paragraphs: ['Submitting a request through YourCreditpal does not guarantee:'],
         bullets: ['approval for a loan', 'lender matching', 'loan funding', 'specific loan amounts or repayment terms'],
         paragraphsAfter: ['Availability may vary depending on credit profile, income, state regulations, and lender requirements.'],
       },
@@ -577,12 +577,12 @@ export const legalPages = {
         title: '6. User Responsibilities',
         paragraphs: ['Users agree to:'],
         bullets: ['provide accurate information', 'submit lawful applications', 'maintain truthful financial details', 'avoid fraudulent or abusive activity'],
-        paragraphsAfter: ['CreditPal reserves the right to restrict or deny access to users who violate these Terms & Conditions.'],
+        paragraphsAfter: ['YourCreditpal reserves the right to restrict or deny access to users who violate these Terms & Conditions.'],
       },
       {
         title: '7. Consent to Communications',
         paragraphs: [
-          'By submitting information through CreditPal, you consent to receive communications from CreditPal, lending partners, and service providers, including:',
+          'By submitting information through YourCreditpal, you consent to receive communications from YourCreditpal, lending partners, and service providers, including:',
         ],
         bullets: ['phone calls', 'emails', 'SMS/text messages'],
         paragraphsAfter: ['Message and data rates may apply. Users may opt out of marketing communications at any time by following unsubscribe instructions or contacting support.'],
@@ -590,7 +590,7 @@ export const legalPages = {
       {
         title: '8. Third-Party Services & Links',
         paragraphs: [
-          'CreditPal may integrate with or link to third-party services, websites, and lending partners.',
+          'YourCreditpal may integrate with or link to third-party services, websites, and lending partners.',
           'We are not responsible for:',
         ],
         bullets: ['third-party content', 'lender decisions', 'external websites', 'loan agreements', 'financial products offered by lenders'],
@@ -598,21 +598,21 @@ export const legalPages = {
       },
       {
         title: '9. Limitation of Liability',
-        paragraphs: ['CreditPal shall not be liable for:'],
+        paragraphs: ['YourCreditpal shall not be liable for:'],
         bullets: ['lending decisions', 'denied applications', 'loan repayment obligations', 'third-party lender actions', 'financial losses arising from lender agreements'],
         paragraphsAfter: ['Use of the platform is provided “as is” and “as available.”'],
       },
       {
         title: '10. Privacy & Data Usage',
         paragraphs: [
-          'Your use of CreditPal is also governed by our Privacy Policy, which explains how personal information may be collected, used, stored, and shared.',
+          'Your use of YourCreditpal is also governed by our Privacy Policy, which explains how personal information may be collected, used, stored, and shared.',
           'Users are encouraged to review the Privacy Policy carefully before submitting information.',
         ],
       },
       {
         title: '11. Changes to These Terms',
         paragraphs: [
-          'CreditPal reserves the right to update or modify these Terms & Conditions at any time without prior notice.',
+          'YourCreditpal reserves the right to update or modify these Terms & Conditions at any time without prior notice.',
           'Continued use of the platform following updates constitutes acceptance of the revised terms.',
         ],
       },
@@ -626,6 +626,6 @@ export const legalPages = {
     ],
     noteTitle: 'Disclaimer',
     noteBody:
-      'CreditPal is not a lender and does not make lending decisions. Loan approval, rates, and terms are determined solely by individual lenders.',
+      'YourCreditpal is not a lender and does not make lending decisions. Loan approval, rates, and terms are determined solely by individual lenders.',
   },
 }

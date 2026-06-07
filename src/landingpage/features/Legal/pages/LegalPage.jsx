@@ -49,7 +49,7 @@ const LegalPage = ({ page }) => {
       href: resolveTocHref(page, item),
       id: resolveTocHref(page, item).slice(1),
     }))
-  }, [page.toc, page.sections])
+  }, [page])
 
   useEffect(() => {
     const sectionElements = Array.from(sectionIdMap.values())

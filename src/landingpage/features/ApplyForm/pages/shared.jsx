@@ -44,7 +44,7 @@ export const SecureNoticeCard = ({ title, text }) => (
 
 export const ConsentText = () => (
   <p className="mt-4 text-sm leading-6 text-brand-body">
-    By clicking &ldquo;Continue,&rdquo; you agree to receive <span className="text-brand-secondary">communications</span> from CreditPal and our <span className="text-brand-secondary">lending partners</span> regarding your request, including calls, emails, and text messages where permitted.
+    By clicking &ldquo;Continue,&rdquo; you agree to receive <span className="text-brand-secondary">communications</span> from YourCreditpal and our <span className="text-brand-secondary">lending partners</span> regarding your request, including calls, emails, and text messages where permitted.
   </p>
 )
 
@@ -54,7 +54,7 @@ export const ConsentList = () => (
       By submitting your request, you acknowledge and agree that:
     </p>
     <ul className="mt-3 list-disc space-y-3 pl-5 text-sm leading-6 text-brand-body">
-      <li>CreditPal may securely share your information with <span className="text-brand-secondary">lending partners</span> to help identify potential loan opportunities.</li>
+      <li>YourCreditpal may securely share your information with <span className="text-brand-secondary">lending partners</span> to help identify potential loan opportunities.</li>
       <li>You may receive calls, emails, or text messages regarding your request, even if your number appears on a federal or state Do Not Call list. Message and data rates may apply.</li>
       <li>Your information is processed in accordance with our <span className="text-brand-secondary">Terms &amp; Conditions</span>, <span className="text-brand-secondary">Privacy Policy</span>, and <span className="text-brand-secondary">E-Consent Agreement</span>.</li>
     </ul>

@@ -18,6 +18,8 @@ const FormSection = ({ submitted, onSubmit }) => {
     phone: '',
     communications: ['Email Marketing'],
   })
+  const [submitting, setSubmitting] = useState(false)
+  const [error, setError] = useState('')
 
   const handleChange = (event) => {
     const { name, value } = event.target
@@ -46,9 +48,29 @@ const FormSection = ({ submitted, onSubmit }) => {
     })
   }
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault()
-    onSubmit?.()
+    setError('')
+    setSubmitting(true)
+
+    try {
+      const response = await fetch('/api/unsubscribe', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(form),
+      })
+      const result = await response.json()
+
+      if (!response.ok || !result.success) {
+        throw new Error(result.message || 'Could not submit request.')
+      }
+
+      onSubmit?.()
+    } catch (submitError) {
+      setError(submitError.message || 'Could not submit request. Please try again.')
+    } finally {
+      setSubmitting(false)
+    }
   }
 
   return (
@@ -61,7 +83,7 @@ const FormSection = ({ submitted, onSubmit }) => {
                 We Respect Your Preferences
               </h2>
               <p className="mt-4 max-w-xl sm:text-lg leading-8 text-brand-body/80">
-                CreditPal works to process unsubscribe requests as quickly as possible. Some third-party partner systems may take additional time to fully update communication preferences.
+                YourCreditpal works to process unsubscribe requests as quickly as possible. Some third-party partner systems may take additional time to fully update communication preferences.
               </p>
 
               <form onSubmit={handleSubmit} className="mt-10 max-w-xl">
@@ -75,6 +97,7 @@ const FormSection = ({ submitted, onSubmit }) => {
                       value={form.firstName}
                       onChange={handleChange}
                       placeholder="E.g; John"
+                      required
                       className="mt-2 w-full border-0 border-b border-brand-stroke bg-transparent px-0 pb-3 text-base text-brand-title outline-none placeholder:text-brand-placeholder focus:border-brand-primary"
                     />
                   </label>
@@ -87,6 +110,7 @@ const FormSection = ({ submitted, onSubmit }) => {
                       value={form.lastName}
                       onChange={handleChange}
                       placeholder="E.g; Doe"
+                      required
                       className="mt-2 w-full border-0 border-b border-brand-stroke bg-transparent px-0 pb-3 text-base text-brand-title outline-none placeholder:text-brand-placeholder focus:border-brand-primary"
                     />
                   </label>
@@ -98,9 +122,11 @@ const FormSection = ({ submitted, onSubmit }) => {
                   </span>
                   <input
                     name="email"
+                    type="email"
                     value={form.email}
                     onChange={handleChange}
                     placeholder="johndoe@gmail.com"
+                    required
                     className="mt-2 w-full border-0 border-b border-brand-stroke bg-transparent px-0 pb-3 text-base text-brand-title outline-none placeholder:text-brand-placeholder focus:border-brand-primary"
                   />
                 </label>
@@ -111,6 +137,7 @@ const FormSection = ({ submitted, onSubmit }) => {
                   </span>
                   <input
                     name="phone"
+                    type="tel"
                     value={form.phone}
                     onChange={handleChange}
                     placeholder="(+1) 234-567-8900"
@@ -135,11 +162,18 @@ const FormSection = ({ submitted, onSubmit }) => {
                   </div>
                 </div>
 
+                {error ? (
+                  <p className="mt-6 rounded-xl border border-brand-accent2/20 bg-brand-accent2/5 px-4 py-3 text-sm text-brand-accent2">
+                    {error}
+                  </p>
+                ) : null}
+
                 <button
                   type="submit"
-                  className="mt-10 inline-flex bg-brand-primary text-brand-white px-10 py-3 transition hover:bg-brand-offwhite"
+                  disabled={submitting}
+                  className="mt-10 inline-flex bg-brand-primary text-brand-white px-10 py-3 transition hover:bg-brand-offwhite disabled:cursor-not-allowed disabled:opacity-60"
                 >
-                  Submit Request
+                  {submitting ? 'Submitting...' : 'Submit Request'}
                 </button>
               </form>
             </div>

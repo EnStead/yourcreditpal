@@ -1,12 +1,3 @@
-import {
-  BadgeCheck,
-  BriefcaseBusiness,
-  CircleDot,
-  CircleHelp,
-  House,
-  Landmark,
-  WalletCards,
-} from "lucide-react";
 import MoneyBag from "../../../../assets/MoneyBag.svg?react";
 import Emergency from "../../../../assets/Emergency.svg?react";
 import HomeIcon from "../../../../assets/Home.svg?react";

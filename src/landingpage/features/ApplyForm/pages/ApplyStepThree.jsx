@@ -1,4 +1,4 @@
-import { BriefcaseBusiness, Search } from 'lucide-react'
+import { BriefcaseBusiness, ChevronRight, Search } from 'lucide-react'
 import { ConfidenceBox, ConsentText, Field } from './shared'
 
 const ApplyStepThree = ({ employment, setEmployment, employmentOptions }) => {

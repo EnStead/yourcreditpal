@@ -1,11 +1,7 @@
-import { useState } from 'react'
 import { ChevronLeft, ChevronRight, Lock, Mail, ShieldCheck } from 'lucide-react'
-import { Swiper, SwiperSlide } from 'swiper/react'
-import { Navigation, Autoplay } from 'swiper/modules'
 import 'swiper/css'
 import 'swiper/css/navigation'
 import Testimony from '../../../../assets/Testimony.jpg'
-import Star from '../../../../assets/Star.svg?react'
 
 const testimonials = [
   {
@@ -21,7 +17,7 @@ const testimonials = [
     image: Testimony,
   },
   {
-    text: 'CreditPal made it easier to explore my options without having to fill out multiple applications.',
+    text: 'YourCreditpal made it easier to explore my options without having to fill out multiple applications.',
     name: 'Jason M.',
     location: 'Tampa, FL',
     image: Testimony,
@@ -29,16 +25,16 @@ const testimonials = [
 ]
 
 const ApplyTestimonialsPanel = () => {
-  const [activeIndex, setActiveIndex] = useState(0)
+  const activeIndex = 0
 
   return (
     <aside className="hidden bg-brand-lightblue px-5 py-5 sm:px-7 sm:py-7 lg:flex lg:flex-col lg:px-8 lg:py-8">
       <div className="flex items-center justify-between text-sm text-brand-body">
         <span className="inline-flex items-center gap-2">
           <Mail className="h-4 w-4" />
-          info@creditpal.com
+          info@yourcreditpal.com
         </span>
-        <span>© 2026 CreditPal.</span>
+        <span>© 2026 YourCreditpal.</span>
       </div>
  
       {/* <div className="flex flex-1 items-center justify-center py-8">

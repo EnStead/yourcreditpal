@@ -50,7 +50,7 @@ const HeroSection = () => {
           </p>
           <NavLink
             to="/apply"
-            className="mt-8 inline-flex text-sm md:text-base bg-brand-primary text-brand-white px-7 md:px-10 py-3 transition hover:opacity-90"
+            className="mt-8 inline-flex items-center justify-center rounded-xl bg-brand-primary px-7 py-3 font-heading text-sm font-semibold text-brand-white transition hover:opacity-90 md:px-10 md:text-base"
           >
             See My Loan Options
           </NavLink>

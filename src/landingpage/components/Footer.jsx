@@ -63,7 +63,7 @@ const Footer = () => {
               <span className="text-lg font-semibold tracking-[-0.03em] text-brand-title">YourCreditPal</span>
             </NavLink>
             <p className="mt-4 max-w-sm text-sm leading-6 text-brand-label">
-              CreditPal helps connect applicants with lending partners through a fast, secure, and simplified online
+              YourCreditpal helps connect applicants with lending partners through a fast, secure, and simplified online
               experience.
             </p>
           </div>
@@ -103,13 +103,13 @@ const Footer = () => {
         </div>
 
         <div className="rounded-2xl border-2 border-brand-lightblue px-5 py-4 text-sm leading-7 text-brand-body">
-          CreditPal is not a lender and does not make credit decisions. Loan approval, rates, and terms are
+          YourCreditpal is not a lender and does not make credit decisions. Loan approval, rates, and terms are
           determined by individual lenders based on their own criteria and applicable laws. Submitting a request
-          through CreditPal does not guarantee approval for a loan offer.
+          through YourCreditpal does not guarantee approval for a loan offer.
         </div>
 
         <div className="mt-8 flex flex-col gap-6 md:flex-row md:items-center md:justify-between">
-          <p className="text-sm text-brand-body">© 2026 CreditPal. All rights reserved.</p>
+          <p className="text-sm text-brand-body">© 2026 YourCreditpal. All rights reserved.</p>
 
           <div className="flex items-center gap-4">
             {socials.map((social) => (

@@ -19,13 +19,13 @@ const data = [
     image: Testimony,
     name: "Sarah Jenkins",
     country: "United States",
-    text: "CreditPal made finding a loan incredibly easy. I was matched with a lender within minutes and the funds were deposited the next day.",
+    text: "YourCreditpal made finding a loan incredibly easy. I was matched with a lender within minutes and the funds were deposited the next day.",
   },
   {
     image: Testimony,
     name: "Michael Chen",
     country: "Canada",
-    text: "I was worried about my credit history, but CreditPal found options that worked for me. Highly recommend their service!",
+    text: "I was worried about my credit history, but YourCreditpal found options that worked for me. Highly recommend their service!",
   },
   {
     image: Testimony,
@@ -43,7 +43,7 @@ const data = [
     image: Testimony,
     name: "Aisha Patel",
     country: "New Zealand",
-    text: "I've used other loan matching services before, but CreditPal is by far the most reliable and user-friendly.",
+    text: "I've used other loan matching services before, but YourCreditpal is by far the most reliable and user-friendly.",
   },
 ]
 
@@ -120,10 +120,10 @@ const TestimonialSection = () => {
             <Star className="h-3 w-3 text-brand-accent2" />
           </div>
           <h2 className="font-bold text-3xl md:text-5xl text-brand-title my-7">
-            Applicants Continue to Trust CreditPal Every Day
+            Applicants Continue to Trust YourCreditpal Every Day
           </h2>
           <p className="text-brand-body font-sans text-lg font-normal">
-            CreditPal helps connect applicants with lending partners through a
+            YourCreditpal helps connect applicants with lending partners through a
             fast, secure, and simplified online experience.
           </p>
         </div>
@@ -131,10 +131,10 @@ const TestimonialSection = () => {
         {/* Right: Carousel Buttons */}
         <div className="w-full ml:w-1/2 flex justify-center ml:justify-end gap-10">
           <button className="custom-prev !static !w-12 sm:!w-14 !h-12 sm:!h-14 !rounded-full !bg-brand-offwhite border-none flex items-center justify-center font-bold text-brand-black text-2xl  hover:!bg-brand-secondary hover:!text-brand-white active:!bg-brand-secondary active:!text-brand-white ">
-            <Left className="w-4 sm:w-6 h-4 sm:h-6" />
+            <Left className="h-4 w-4" />
           </button>
           <button className="custom-next !static !w-12 sm:!w-14 !h-12 sm:!h-14 !rounded-full !bg-brand-offwhite border-none flex items-center justify-center text-brand-black text-2xl  hover:!bg-brand-secondary hover:!text-brand-white active:!bg-brand-secondary active:!text-brand-white">
-            <Right className="w-4 sm:w-6 h-4 sm:h-6" />
+            <Right className="h-4 w-4" />
           </button>
         </div>
       </div>

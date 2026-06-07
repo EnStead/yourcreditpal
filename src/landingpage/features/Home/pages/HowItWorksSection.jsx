@@ -199,7 +199,7 @@ const HowItWorksSection = () => {
           <div className="pt-2">
             <NavLink
               to="/apply"
-              className="inline-flex rounded-xl bg-brand-secondary px-10 py-3 text-brand-white transition hover:opacity-90"
+              className="inline-flex items-center justify-center rounded-xl bg-brand-secondary px-10 py-3 font-heading text-sm font-semibold text-brand-white transition hover:opacity-90 sm:text-base"
             >
               Apply Now
             </NavLink>

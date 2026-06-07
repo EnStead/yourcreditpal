@@ -4,7 +4,7 @@
 [![Vite](https://img.shields.io/badge/Vite-8-646CFF?logo=vite&logoColor=fff)](https://vite.dev/)
 [![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-4-38BDF8?logo=tailwindcss&logoColor=fff)](https://tailwindcss.com/)
 [![Sanity](https://img.shields.io/badge/Sanity-CMS-F03E2F?logo=sanity&logoColor=fff)](https://www.sanity.io/)
-[![Netlify](https://img.shields.io/badge/Deploy-Netlify-00C7B7?logo=netlify&logoColor=fff)](https://www.netlify.com/)
+[![Vercel](https://img.shields.io/badge/Deploy-Vercel-000000?logo=vercel&logoColor=fff)](https://vercel.com/)
 
 YourCreditPal is a modern loan discovery and application experience that helps users explore personal loan options with a clear, friendly, and trustworthy interface.
 
@@ -14,7 +14,7 @@ The project includes a public marketing site, multi-step application flow, FAQ, 
 
 The product UI was designed in Figma:
 
-[CreditPal Figma File](https://www.figma.com/design/MZZFCz7O3nBR3RrTTBeEtL/CreditPal)
+[YourCreditpal Figma File](https://www.figma.com/design/MZZFCz7O3nBR3RrTTBeEtL/YourCreditpal)
 
 ## Product Flow
 
@@ -48,7 +48,7 @@ In simple terms: the frontend collects the applicant, the backend qualifies the 
 - Blog listing and article pages powered by Sanity
 - Legal and disclosure pages
 - Unsubscribe and communication preferences page
-- Netlify deployment configuration
+- Vercel deployment configuration
 - Responsive Tailwind-based interface
 
 ## Application Flow Requirements
@@ -139,7 +139,7 @@ The backend should classify every submission and return one of the expected outc
 | Sanity CMS | Blog content management |
 | Swiper | Carousels and sliders |
 | GSAP | Motion and animation |
-| Netlify | Hosting and deployment |
+| Vercel | Hosting and serverless functions |
 
 ## Project Structure
 
@@ -193,9 +193,6 @@ http://localhost:5173
 | `npm run build` | Create a production build in `dist/` |
 | `npm run preview` | Preview the production build locally |
 | `npm run lint` | Run ESLint checks |
-| `npm run netlify:dev` | Run the app with Netlify Dev |
-| `npm run netlify:deploy` | Build and deploy to Netlify |
-| `npm run netlify:deploy:prod` | Build and deploy to production |
 
 ## Routes
 
@@ -235,20 +232,46 @@ VITE_SANITY_API_VERSION=
 
 ## Deployment
 
-The project is configured for Netlify with `netlify.toml`.
+The project is configured for Vercel with `vercel.json`.
 
-```toml
-[build]
-  command = "npm run build"
-  publish = "dist"
-
-[[redirects]]
-  from = "/*"
-  to = "/index.html"
-  status = 200
+```json
+{
+  "rewrites": [
+    {
+      "source": "/api/:path*",
+      "destination": "/api/:path*"
+    },
+    {
+      "source": "/(.*)",
+      "destination": "/index.html"
+    }
+  ]
+}
 ```
 
-The redirect keeps React Router pages working after deployment.
+The first rewrite keeps API functions available under `/api/*`. The second rewrite keeps React Router pages working after deployment.
+
+## Environment Variables
+
+Add these in Vercel before deploying:
+
+```text
+GOOGLE_SERVICE_ACCOUNT_EMAIL
+GOOGLE_PRIVATE_KEY
+GOOGLE_SHEET_ID
+```
+
+Optional:
+
+```text
+GOOGLE_UNSUBSCRIBE_RANGE
+```
+
+If `GOOGLE_UNSUBSCRIBE_RANGE` is not provided, unsubscribe requests are appended to:
+
+```text
+'YourCreditPal Unsubscribe Sheets'!A:M
+```
 
 ## Launch Notes
 
