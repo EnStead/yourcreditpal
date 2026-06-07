@@ -32,7 +32,7 @@ const ApplyTestimonialsPanel = () => {
       <div className="flex items-center justify-between text-sm text-brand-body">
         <span className="inline-flex items-center gap-2">
           <Mail className="h-4 w-4" />
-          info@yourcreditpal.com
+          contact@yourcreditpal.com
         </span>
         <span>© 2026 YourCreditpal.</span>
       </div>

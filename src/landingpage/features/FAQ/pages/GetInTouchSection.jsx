@@ -17,7 +17,7 @@ const GetInTouchSection = () => {
             Our team is here to help you better understand the application and matching process.
         </p>
         <div className="mt-10 flex flex-col sm:flex-row items-center justify-center gap-4">
-          <a href="mailto:support@yourcreditpal.com" className="inline-flex text-sm sm:text-base items-center justify-center font-semibold font-heading rounded-xl bg-brand-primary text-brand-white px-10 py-3 transition hover:opacity-90">
+          <a href="mailto:contact@yourcreditpal.com" className="inline-flex text-sm sm:text-base items-center justify-center font-semibold font-heading rounded-xl bg-brand-primary text-brand-white px-10 py-3 transition hover:opacity-90">
             Contact Support
           </a>
           <button className="bg-transparent border-2 border-brand-placeholder text-brand-title px-10 py-3 transition hover:bg-brand-offwhite">

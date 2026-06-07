@@ -23,7 +23,7 @@ const legalLinks = [
 ]
 
 const supportLinks = [
-  { label: 'Contact Support', to: '/' },
+  { label: 'Contact Support', href: 'mailto:contact@yourcreditpal.com' },
   { label: 'Unsubscribe', to: '/unsubscribe' },
 ]
 
@@ -40,8 +40,8 @@ const Footer = () => {
       <div className="px-5 py-12 sm:px-8 lg:px-20">
         <div className="flex flex-col gap-6 border-b border-brand-stroke pb-6 md:flex-row md:items-center md:justify-between">
           <div>
-            <h2 className="max-w-2xl text-3xl font-bold tracking-[-0.04em] text-brand-secondary sm:text-4xl">
-              Explore Your Loan Options Today
+            <h2 className="max-w-3xl text-3xl font-bold tracking-[-0.04em] text-brand-secondary sm:text-4xl">
+              Explore Your Personal Loan Options Today
             </h2>
             <p className="mt-4 max-w-3xl text-base leading-7 text-brand-label">
               Complete a quick application and see if you may qualify through our lending partner network.
@@ -94,9 +94,15 @@ const Footer = () => {
             <h3 className="text-sm font-semibold text-brand-title">Support</h3>
             <div className="mt-4 flex flex-col gap-3 text-sm text-brand-body">
               {supportLinks.map((link) => (
-                <NavLink key={link.label} to={link.to} className="w-fit transition hover:text-brand-primary">
-                  {link.label}
-                </NavLink>
+                link.href ? (
+                  <a key={link.label} href={link.href} className="w-fit transition hover:text-brand-primary">
+                    {link.label}
+                  </a>
+                ) : (
+                  <NavLink key={link.label} to={link.to} className="w-fit transition hover:text-brand-primary">
+                    {link.label}
+                  </NavLink>
+                )
               ))}
             </div>
           </div>

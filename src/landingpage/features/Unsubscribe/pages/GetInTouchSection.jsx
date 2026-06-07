@@ -17,7 +17,7 @@ const GetInTouchSection = () => {
           If you continue receiving communications after your request has been processed, please contact support.
         </p>
         <div className="mt-10 flex flex-col sm:flex-row items-center justify-center gap-4">
-          <a href="mailto:support@yourcreditpal.com" className="inline-flex text-sm sm:text-base items-center justify-center font-semibold font-heading rounded-xl bg-brand-primary text-brand-white px-10 py-3 transition hover:opacity-90">
+          <a href="mailto:contact@yourcreditpal.com" className="inline-flex text-sm sm:text-base items-center justify-center font-semibold font-heading rounded-xl bg-brand-primary text-brand-white px-10 py-3 transition hover:opacity-90">
             Contact Support
           </a>
           <button className="bg-brand-white border border-brand-placeholder text-brand-title px-10 py-3 transition hover:bg-brand-offwhite">

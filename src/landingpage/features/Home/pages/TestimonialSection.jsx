@@ -18,31 +18,31 @@ const data = [
   {
     image: Testimony,
     name: "Sarah Jenkins",
-    country: "United States",
+    country: "Houston, TX",
     text: "YourCreditpal made finding a loan incredibly easy. I was matched with a lender within minutes and the funds were deposited the next day.",
   },
   {
     image: Testimony,
     name: "Michael Chen",
-    country: "Canada",
+    country: "Atlanta, GA",
     text: "I was worried about my credit history, but YourCreditpal found options that worked for me. Highly recommend their service!",
   },
   {
     image: Testimony,
     name: "Emma Thompson",
-    country: "United Kingdom",
+    country: "Phoenix, AZ",
     text: "The transparency and speed of the entire process were outstanding. No hidden fees and straight to the point.",
   },
   {
     image: Testimony,
     name: "David Rodriguez",
-    country: "Australia",
+    country: "Tampa, FL",
     text: "Excellent service! The platform is very intuitive and it saved me hours of researching different lenders manually.",
   },
   {
     image: Testimony,
     name: "Aisha Patel",
-    country: "New Zealand",
+    country: "Charlotte, NC",
     text: "I've used other loan matching services before, but YourCreditpal is by far the most reliable and user-friendly.",
   },
 ]

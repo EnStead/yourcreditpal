@@ -192,7 +192,7 @@ const HowItWorksSection = () => {
               A Simple 3-Step Process
             </h2>
             <p className="text-lg max-w-xl text-brand-body">
-              We make it easy to explore loan options from our network of
+              We make it easy to explore personal loan options from our network of
               lending partners.
             </p>
           </div>

@@ -19,9 +19,38 @@ const parseBody = (body) => {
   return body || {}
 }
 
+const wait = (milliseconds) => new Promise((resolve) => setTimeout(resolve, milliseconds))
+
+const appendWithRetry = async (sheets, params, retries = 2) => {
+  for (let attempt = 0; attempt <= retries; attempt += 1) {
+    try {
+      return await sheets.spreadsheets.values.append(params)
+    } catch (error) {
+      const status = error?.response?.status || error?.code
+      const shouldRetry = [429, 500, 502, 503, 504].includes(Number(status))
+
+      if (!shouldRetry || attempt === retries) {
+        throw error
+      }
+
+      await wait(500 * (attempt + 1))
+    }
+  }
+
+  return null
+}
+
 const getGoogleErrorDetails = (error) => {
   const status = error?.response?.status || error?.code
   const message = error?.response?.data?.error || error?.response?.data?.message || error?.message || ''
+
+  if ([429, 500, 502, 503, 504].includes(Number(status))) {
+    return {
+      code: 'GOOGLE_TEMPORARILY_UNAVAILABLE',
+      message: 'Google Sheets is temporarily unavailable. Please try again in a moment.',
+      status,
+    }
+  }
 
   if (status === 403) {
     return {
@@ -120,7 +149,7 @@ export default async function handler(request, response) {
 
     const sheets = google.sheets({ version: 'v4', auth })
 
-    await sheets.spreadsheets.values.append({
+    await appendWithRetry(sheets, {
       spreadsheetId,
       range: SHEET_RANGE,
       valueInputOption: 'USER_ENTERED',
