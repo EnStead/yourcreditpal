@@ -2,12 +2,12 @@ import { useState } from 'react'
 import GreenTick from '../../../../assets/GreenTick.svg?react'
 import ShieldCheck from '../../../../assets/ShieldCheck.svg?react'
 
-export const Field = ({ label, placeholder, icon: Icon, full, ...props }) => {
+export const Field = ({ label, placeholder, icon: Icon, full, forceActive = false, ...props }) => {
   const [isFocused, setIsFocused] = useState(false)
   const [hasValue, setHasValue] = useState(false)
 
   const isFilled = hasValue || (props.value && String(props.value).length > 0) || (props.defaultValue && String(props.defaultValue).length > 0)
-  const isActive = isFocused || isFilled
+  const isActive = forceActive || isFocused || isFilled
   const inputType = props.type === 'date' && !isActive ? 'text' : props.type || 'text'
 
   return (

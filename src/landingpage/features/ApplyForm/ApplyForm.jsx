@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { ChevronRight } from "lucide-react";
 import { NavLink } from 'react-router-dom'
 import {
@@ -45,6 +45,31 @@ const employmentOptions = [
 const housingOptions = ["Own Home", "Rent", "Living with Family", "Other"];
 const countPhoneDigits = (value) => value.replace(/\D/g, "").slice(0, 10).length;
 
+const isAtLeast18 = (value) => {
+  const match = /^(\d{2})\/(\d{2})\/(\d{4})$/.exec(value);
+  if (!match) return false;
+
+  const [, month, day, year] = match;
+  const dob = new Date(Number(year), Number(month) - 1, Number(day));
+
+  if (
+    dob.getFullYear() !== Number(year) ||
+    dob.getMonth() !== Number(month) - 1 ||
+    dob.getDate() !== Number(day)
+  ) {
+    return false;
+  }
+
+  const today = new Date();
+  const eighteenthBirthday = new Date(
+    dob.getFullYear() + 18,
+    dob.getMonth(),
+    dob.getDate(),
+  );
+
+  return eighteenthBirthday <= today;
+};
+
 const TrustedForm = () => {
   useEffect(() => {
     const existingScript = document.querySelector('script[data-trustedform="true"]');
@@ -76,6 +101,7 @@ const TrustedForm = () => {
 };
 
 const ApplyForm = () => {
+  const formPanelRef = useRef(null);
   const [step, setStep] = useState(1);
   const [loanAmount, setLoanAmount] = useState(5000);
   const [purpose, setPurpose] = useState("");
@@ -91,6 +117,7 @@ const ApplyForm = () => {
   const [usState, setUsState] = useState("");
 
   const [monthlyIncome, setMonthlyIncome] = useState("");
+  const [bankId, setBankId] = useState("");
   const [bankName, setBankName] = useState("");
   const [accountType, setAccountType] = useState("");
 
@@ -111,7 +138,7 @@ const ApplyForm = () => {
     lastName !== "" &&
     email !== "" &&
     countPhoneDigits(phone) === 10 &&
-    dob !== "" &&
+    isAtLeast18(dob) &&
     usState !== "";
   const isStepThreeValid = employment !== "" && monthlyIncome !== "" && bankName !== "" && accountType !== "";
   const isStepFourValid = housing !== "" && streetAddress !== "" && city !== "" && zipCode !== "";
@@ -128,12 +155,28 @@ const ApplyForm = () => {
       ? "Continue"
       : "Next";
 
+  const scrollFormToTop = () => {
+    requestAnimationFrame(() => {
+      formPanelRef.current?.scrollTo({ top: 0, behavior: "smooth" });
+    });
+  };
+
+  const goToStep = (nextStep) => {
+    setStep((current) => {
+      const targetStep =
+        typeof nextStep === "function" ? nextStep(current) : nextStep;
+
+      return Math.min(4, Math.max(1, targetStep));
+    });
+    scrollFormToTop();
+  };
+
   return (
     <>
       <TrustedForm />
     <main className="h-screen overflow-hidden">
       <div className="mx-auto grid h-full grid-cols-1 overflow-hidden bg-brand-white lg:grid-cols-[2.5fr_2fr]">
-        <section className="flex h-full flex-col overflow-y-auto px-5 py-6 sm:px-8 lg:px-14 lg:py-10 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
+        <section ref={formPanelRef} className="flex h-full flex-col overflow-y-auto px-5 py-6 sm:px-8 lg:px-14 lg:py-10 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
           <div className="flex items-center justify-between gap-4">
             <div className="flex items-center gap-3">
               <NavLink
@@ -225,6 +268,8 @@ const ApplyForm = () => {
                 employmentOptions={employmentOptions}
                 monthlyIncome={monthlyIncome}
                 setMonthlyIncome={setMonthlyIncome}
+                bankId={bankId}
+                setBankId={setBankId}
                 bankName={bankName}
                 setBankName={setBankName}
                 accountType={accountType}
@@ -252,7 +297,7 @@ const ApplyForm = () => {
               {step > 1 && (
                 <button
                   type="button"
-                  onClick={() => setStep((current) => Math.max(1, current - 1))}
+                  onClick={() => goToStep((current) => current - 1)}
                   className="rounded-xl border border-brand-title bg-brand-white px-6 py-3 text-sm font-semibold text-brand-title transition hover:bg-brand-offwhite"
                 >
                   Back
@@ -262,7 +307,7 @@ const ApplyForm = () => {
               <button
                 type="button"
                 disabled={!isCurrentStepValid}
-                onClick={() => setStep((current) => Math.min(4, current + 1))}
+                onClick={() => goToStep((current) => current + 1)}
                 className={`rounded-xl px-6 py-3 text-sm font-semibold text-brand-white transition-all duration-300 ${
                   buttonText === "Continue" ? "min-w-[15rem]" : "min-w-[10rem]"
                 } ${

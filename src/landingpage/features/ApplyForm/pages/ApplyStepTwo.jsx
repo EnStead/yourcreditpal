@@ -1,7 +1,7 @@
 import { forwardRef, useMemo, useState } from 'react'
 import * as Select from '@radix-ui/react-select'
 import DatePicker from 'react-datepicker'
-import { format, parse } from 'date-fns'
+import { format, parse, subYears } from 'date-fns'
 import 'react-datepicker/dist/react-datepicker.css'
 import { CalendarDays, ChevronDown, Search, X } from 'lucide-react'
 import { ConfidenceBox, ConsentText, Field, Notice } from './shared'
@@ -53,6 +53,8 @@ const ApplyStepTwo = ({
 }) => {
   const [stateSearch, setStateSearch] = useState('')
   const selectedDate = dob ? parse(dob, 'MM/dd/yyyy', new Date()) : null
+  const latestEligibleDob = subYears(new Date(), 18)
+  const earliestDob = subYears(new Date(), 100)
 
   const filteredStates = useMemo(() => {
     const q = stateSearch.trim().toLowerCase()
@@ -126,10 +128,13 @@ const ApplyStepTwo = ({
             onChange={(date) => setDob(date ? format(date, 'MM/dd/yyyy') : '')}
             dateFormat="MM/dd/yyyy"
             placeholderText="MM/DD/YYYY"
-            maxDate={new Date()}
+            minDate={earliestDob}
+            maxDate={latestEligibleDob}
+            openToDate={latestEligibleDob}
             showMonthDropdown
             showYearDropdown
             dropdownMode="select"
+            calendarClassName="creditpal-datepicker"
             customInput={<DateInput />}
             wrapperClassName="w-full"
           />
