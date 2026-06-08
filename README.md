@@ -14,7 +14,7 @@ The project includes a public marketing site, multi-step application flow, FAQ, 
 
 The product UI was designed in Figma:
 
-[YourCreditPal Figma File](https://www.figma.com/design/MZZFCz7O3nBR3RrTTBeEtL/YourCreditPal)
+[YourCreditPal Figma File](https://www.figma.com/design/MZZFCz7O3nBR3RrTTBeEtL/CreditPal)
 
 ## Product Flow
 
