@@ -3,7 +3,7 @@ import * as Select from '@radix-ui/react-select'
 import DatePicker from 'react-datepicker'
 import { format, parse } from 'date-fns'
 import 'react-datepicker/dist/react-datepicker.css'
-import { CalendarDays, ChevronDown, ChevronRight, Search, UserRound, X } from 'lucide-react'
+import { CalendarDays, ChevronDown, Search, X } from 'lucide-react'
 import { ConfidenceBox, ConsentText, Field, Notice } from './shared'
 import USAFlag from '../../../../assets/USA.png'
 
@@ -36,8 +36,6 @@ const formatPhone = (value) => {
   if (digits.length > 6) parts.push(`-${digits.slice(6, 10)}`)
   return parts.join('').replace(/\s+/g, ' ')
 }
-
-const phoneDigits = (value) => value.replace(/\D/g, '').slice(0, 10)
 
 const ApplyStepTwo = ({
   firstName,

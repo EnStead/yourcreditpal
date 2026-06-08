@@ -2,11 +2,6 @@ import { useState } from "react";
 import * as Select from "@radix-ui/react-select";
 import {
   BriefcaseBusiness,
-  Briefcase,
-  UserRound,
-  Coffee,
-  HeartPulse,
-  SearchX,
   Search,
   ChevronDown,
 } from "lucide-react";
@@ -15,7 +10,7 @@ import Self from "../../../../assets/Self.svg?react";
 import Retired from "../../../../assets/Retired.svg?react";
 import Benefits from "../../../../assets/Benefits.svg?react";
 import Unemployed from "../../../../assets/Unemployed.svg?react";
-import { ConfidenceBox, ConsentText, Field } from "./shared";
+import { ConfidenceBox, Field } from "./shared";
 
 const formatIncome = (value) => {
   const digits = String(value).replace(/\D/g, "");
