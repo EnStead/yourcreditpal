@@ -23,7 +23,7 @@ const HeroSection = () => {
   useLayoutEffect(() => {
     const container = containerRef.current;
     if (!container) return;
-    
+
     const observer = new ResizeObserver((entries) => {
       const { width, height } = entries[0].contentRect;
       setScale(Math.min(width / 900, height / 400));
@@ -42,7 +42,7 @@ const HeroSection = () => {
           </div>
           <h1 className="font-bold text-4xl md:text-6xl">
             Find Loan Offers That <br />{" "}
-            <span className="text-brand-accent2">Match Your Needs</span>
+            <span className="text-brand-accent2">Match Your Needs </span>
           </h1>
           <p className="text-brand-body md:text-lg max-w-xl mx-auto mt-6 text-center">
             Complete a quick application and get matched with lenders based on
@@ -67,142 +67,142 @@ const HeroSection = () => {
 
           <div className="relative overflow-hidden h-72 xsm:h-90 sm:h-90 ls:h-140 rounded-2xl bg-brand-lightblue p-2 md:p-6 md:col-span-3 xls:col-span-2">
             {/* Right Box (Larger) */}
-            <div 
+            <div
               ref={containerRef}
               className="relative z-10 w-full h-full flex items-center justify-center overflow-hidden"
             >
-              <div 
+              <div
                 className="relative flex justify-between items-center w-[900px] h-[400px] flex-shrink-0 origin-center"
                 style={{ transform: `scale(${scale})` }}
               >
-              <div className="rounded-xl relative z-10 bg-brand-white h-70 py-5 px-5 flex flex-col justify-between flex-shrink-0">
-                {[
-                  "Phone Verified",
-                  "Identity Checked",
-                  "ZIP Confirmed",
-                  "Income Validated",
-                  "Application Submitted",
-                  "Finding Lenders",
-                ].map((text, idx) => (
-                  <div key={idx} className="flex items-center gap-2">
-                    <GreenTick className="w-3 h-3 flex-shrink-0" />
-                    <span className="text-xs font-medium text-brand-body">
-                      {text}
-                    </span>
-                  </div>
-                ))}
-              </div>
+                <div className="rounded-xl relative z-10 bg-brand-white h-70 py-5 px-5 flex flex-col justify-between flex-shrink-0">
+                  {[
+                    "Phone Verified",
+                    "Identity Checked",
+                    "ZIP Confirmed",
+                    "Income Validated",
+                    "Application Submitted",
+                    "Finding Lenders",
+                  ].map((text, idx) => (
+                    <div key={idx} className="flex items-center gap-2">
+                      <GreenTick className="w-3 h-3 flex-shrink-0" />
+                      <span className="text-xs font-medium text-brand-body">
+                        {text}
+                      </span>
+                    </div>
+                  ))}
+                </div>
 
-              {/* This decorative line is positioned between the first and second columns */}
-              <img
-                src={Line1}
-                alt=""
-                className="absolute top-1/2 left-[31%] -translate-y-1/2 -translate-x-1/2"
-              />
-              <img
-                src={Line2}
-                alt=""
-                className="absolute top-[34%] left-[34.5%] -translate-y-1/2 -translate-x-1/2"
-              />
-              <img
-                src={Line3}
-                alt=""
-                className="absolute bottom-[0%] left-[34.5%] -translate-y-1/2 -translate-x-1/2"
-              />
-              <img
-                src={Line4}
-                alt=""
-                className="absolute top-1/2 right-[15%] -translate-y-1/2 -translate-x-1/2"
-              />
-              <img
-                src={Line5}
-                alt=""
-                className="absolute top-[22%] right-[2%] -translate-y-1/2 -translate-x-1/2"
-              />
-              <img
-                src={Line7}
-                alt=""
-                className="absolute bottom-[12%] right-[2%] -translate-y-1/2 -translate-x-1/2"
-              />
+                {/* This decorative line is positioned between the first and second columns */}
+                <img
+                  src={Line1}
+                  alt=""
+                  className="absolute top-1/2 left-[31%] -translate-y-1/2 -translate-x-1/2"
+                />
+                <img
+                  src={Line2}
+                  alt=""
+                  className="absolute top-[34%] left-[34.5%] -translate-y-1/2 -translate-x-1/2"
+                />
+                <img
+                  src={Line3}
+                  alt=""
+                  className="absolute bottom-[0%] left-[34.5%] -translate-y-1/2 -translate-x-1/2"
+                />
+                <img
+                  src={Line4}
+                  alt=""
+                  className="absolute top-1/2 right-[15%] -translate-y-1/2 -translate-x-1/2"
+                />
+                <img
+                  src={Line5}
+                  alt=""
+                  className="absolute top-[22%] right-[2%] -translate-y-1/2 -translate-x-1/2"
+                />
+                <img
+                  src={Line7}
+                  alt=""
+                  className="absolute bottom-[12%] right-[2%] -translate-y-1/2 -translate-x-1/2"
+                />
 
-              <div className=" relative z-10 flex flex-col justify-center gap-18 ">
-                {[
-                  {
-                    Icon: RacingCar,
-                    title: "Estimated Loan",
-                    amount: "$5,900",
-                    period: "87% matched",
-                    bgClass: "bg-brand-accent2/15",
-                    textClass: "text-brand-accent2",
-                  },
-                  {
-                    Icon: MedicalCase,
-                    title: "Medical Loan",
-                    amount: "$5,000",
-                    period: "99% matched",
-                    bgClass: "bg-brand-primary/15",
-                    textClass: "text-brand-primary",
-                  },
-                  {
-                    Icon: HouseGarden,
-                    title: "Home Improvement",
-                    amount: "$8,000",
-                    period: "65% matched",
-                    bgClass: "bg-brand-accent1/15",
-                    textClass: "text-brand-accent1",
-                  },
-                ].map(
-                  (
-                    { Icon, title, amount, period, bgClass, textClass },
-                    idx,
-                  ) => (
-                    <div
-                      key={idx}
-                      className="rounded-xl bg-brand-white h-16 flex items-center p-1.5 gap-3"
-                    >
-                      <div className="bg-brand-offwhite p-1 rounded-lg flex-shrink-0 w-10 h-10 flex items-center justify-center ">
-                        <img
-                          src={Icon}
-                          alt={title}
-                          className="w-full h-full object-contain"
-                        />
-                      </div>
-                      <div className="flex flex-col w-full">
-                        <span className="text-xs text-brand-title font-medium">
-                          {title}
-                        </span>
-                        <div className="flex items-baseline gap-1">
-                          <span className="font-bold text-lg text-brand-black">
-                            {amount}
+                <div className=" relative z-10 flex flex-col justify-center gap-18 ">
+                  {[
+                    {
+                      Icon: RacingCar,
+                      title: "Estimated Loan",
+                      amount: "$5,900",
+                      period: "87% matched",
+                      bgClass: "bg-brand-accent2/15",
+                      textClass: "text-brand-accent2",
+                    },
+                    {
+                      Icon: MedicalCase,
+                      title: "Medical Loan",
+                      amount: "$5,000",
+                      period: "99% matched",
+                      bgClass: "bg-brand-primary/15",
+                      textClass: "text-brand-primary",
+                    },
+                    {
+                      Icon: HouseGarden,
+                      title: "Home Improvement",
+                      amount: "$8,000",
+                      period: "65% matched",
+                      bgClass: "bg-brand-accent1/15",
+                      textClass: "text-brand-accent1",
+                    },
+                  ].map(
+                    (
+                      { Icon, title, amount, period, bgClass, textClass },
+                      idx,
+                    ) => (
+                      <div
+                        key={idx}
+                        className="rounded-xl bg-brand-white h-16 flex items-center p-1.5 gap-3"
+                      >
+                        <div className="bg-brand-offwhite p-1 rounded-lg flex-shrink-0 w-10 h-10 flex items-center justify-center ">
+                          <img
+                            src={Icon}
+                            alt={title}
+                            className="w-full h-full object-contain"
+                          />
+                        </div>
+                        <div className="flex flex-col w-full">
+                          <span className="text-xs text-brand-title font-medium">
+                            {title}
                           </span>
-                          <span
-                            className={`${bgClass} ${textClass} rounded-full font-medium px-1 text-[8px]`}
-                          >
-                            {period}
-                          </span>
+                          <div className="flex items-baseline gap-1">
+                            <span className="font-bold text-lg text-brand-black">
+                              {amount}
+                            </span>
+                            <span
+                              className={`${bgClass} ${textClass} rounded-full font-medium px-1 text-[8px]`}
+                            >
+                              {period}
+                            </span>
+                          </div>
                         </div>
                       </div>
-                    </div>
-                  ),
-                )}
-              </div>
+                    ),
+                  )}
+                </div>
 
-              <div
-                className=" relative z-10 w-48 flex-shrink-0 rounded-xl bg-brand-white h-48 p-4 flex flex-col items-center justify-center text-center bg-no-repeat bg-cover bg-center"
-                style={{ backgroundImage: `url(${Confetti})` }}
-              >
-                <img
-                  src={CapConfetti}
-                  alt="Cap Confetti"
-                  className="w-14 h-14 object-contain mb-1"
-                />
-                <span className="font-bold text-sm text-brand-title">
-                  Congratulations
-                </span>
-                <span className="text-sm text-brand-label leading-tight mt-0.5">
-                  A lender is reviewing your application
-                </span>
-              </div>
+                <div
+                  className=" relative z-10 w-48 flex-shrink-0 rounded-xl bg-brand-white h-48 p-4 flex flex-col items-center justify-center text-center bg-no-repeat bg-cover bg-center"
+                  style={{ backgroundImage: `url(${Confetti})` }}
+                >
+                  <img
+                    src={CapConfetti}
+                    alt="Cap Confetti"
+                    className="w-14 h-14 object-contain mb-1"
+                  />
+                  <span className="font-bold text-sm text-brand-title">
+                    Congratulations
+                  </span>
+                  <span className="text-sm text-brand-label leading-tight mt-0.5">
+                    A lender is reviewing your application
+                  </span>
+                </div>
               </div>
             </div>
             <Logo className="absolute -bottom-22 -right-22 w-56 h-56 text-brand-primary opacity-20" />
