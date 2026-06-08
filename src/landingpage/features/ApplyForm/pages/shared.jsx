@@ -25,7 +25,11 @@ export const Field = ({ label, placeholder, icon: Icon, full, ...props }) => {
             setIsFocused(true);
             if (props.type === 'date') {
               e.target.type = 'date';
-              try { e.target.showPicker() } catch (err) {}
+              try {
+                e.target.showPicker()
+              } catch {
+                // Some browsers do not support programmatic date picker opening.
+              }
             }
             if (props.onFocus) props.onFocus(e);
           }}
