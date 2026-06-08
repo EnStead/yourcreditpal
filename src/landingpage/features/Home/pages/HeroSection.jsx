@@ -52,7 +52,7 @@ const HeroSection = () => {
             to="/apply"
             className="mt-8 inline-flex items-center justify-center rounded-xl bg-brand-primary px-7 py-3 font-heading text-sm font-semibold text-brand-white transition hover:opacity-90 md:px-10 md:text-base"
           >
-            See My Personl Loan Options
+            See My Personal Loan Options
           </NavLink>
         </div>
 

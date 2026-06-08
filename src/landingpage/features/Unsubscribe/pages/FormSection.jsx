@@ -83,7 +83,7 @@ const FormSection = ({ submitted, onSubmit }) => {
                 We Respect Your Preferences
               </h2>
               <p className="mt-4 max-w-xl sm:text-lg leading-8 text-brand-body/80">
-                CreditPal works to process unsubscribe requests as quickly as possible. Some third-party partner systems may take additional time to fully update communication preferences.
+                YourCreditPal works to process unsubscribe requests as quickly as possible. Some third-party partner systems may take additional time to fully update communication preferences.
               </p>
 
               <form onSubmit={handleSubmit} className="mt-10 max-w-xl">

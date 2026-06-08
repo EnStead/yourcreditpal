@@ -15,7 +15,7 @@ const HeaderSection = () => {
             Frequently Asked Questions
           </h2>
           <p className="text-lg max-w-xl text-brand-body">
-            Find answers about applications, lender matching, security, approvals, and the YourCreditpal process.
+            Find answers about applications, lender matching, security, approvals, and the YourCreditPal process.
           </p>
         </div>
 

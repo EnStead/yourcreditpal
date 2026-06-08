@@ -6,6 +6,7 @@ import Twitter from '../../../../assets/Twitter.svg?react'
 import Linkedin2 from '../../../../assets/LinkedinB.svg?react'
 import Whatsapp from '../../../../assets/Whatsapp.svg?react'
 import { fetchBlogPostBySlug, fetchBlogPosts } from '../api/blogQueries'
+import BlogLoadingState from './BlogLoadingState'
 
 const formatBlogDate = (value) =>
   new Intl.DateTimeFormat('en-US', {
@@ -177,11 +178,7 @@ const BlogPostSection = () => {
   }, [slug])
 
   const renderedBody = useMemo(() => post?.body || [], [post])
-  const shareUrl = useMemo(() => {
-    if (typeof window === 'undefined') return ''
-    return window.location.href
-  }, [post?.slug])
-
+  const shareUrl = typeof window === 'undefined' ? '' : window.location.href
   const shareTitle = post?.title || 'YourCreditPal blog post'
 
   const openShareWindow = (url) => {
@@ -219,7 +216,11 @@ const BlogPostSection = () => {
   if (!loading && !post) return <Navigate to="/blog" replace />
 
   if (loading) {
-    return <section className="px-5 py-20 sm:px-8 lg:px-20">Loading article...</section>
+    return (
+      <section className="px-5 py-20 sm:px-8 lg:px-20">
+        <BlogLoadingState title="Loading article" />
+      </section>
+    )
   }
 
   return (
@@ -348,7 +349,11 @@ const BlogPostSection = () => {
         <h3 className="text-3xl font-bold tracking-[-0.03em] text-brand-title">More Blogs like this</h3>
         <div className="mt-8 grid gap-x-6 gap-y-12 md:grid-cols-2 xl:grid-cols-3">
           {morePosts.map((relatedPost) => (
-            <article key={relatedPost._id} className="group flex flex-col">
+            <NavLink
+              key={relatedPost._id}
+              to={`/blog/${relatedPost.slug}`}
+              className="group flex flex-col focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-primary focus-visible:ring-offset-4"
+            >
               <div className="overflow-hidden rounded-[0.6rem] bg-brand-offwhite">
                 <img
                   src={relatedPost.thumbnailImage}
@@ -365,16 +370,13 @@ const BlogPostSection = () => {
                     <span className="mx-2">•</span>
                     {relatedPost.readTimeMinutes} Min read
                   </span>
-                  <NavLink
-                    to={`/blog/${relatedPost.slug}`}
-                    className="inline-flex items-center gap-1 font-semibold text-brand-primary transition hover:gap-2"
-                  >
+                  <span className="inline-flex items-center gap-1 font-semibold text-brand-primary transition group-hover:gap-2">
                     Read Article
                     <ArrowRight className="h-4 w-4" />
-                  </NavLink>
+                  </span>
                 </div>
               </div>
-            </article>
+            </NavLink>
           ))}
         </div>
       </div>
