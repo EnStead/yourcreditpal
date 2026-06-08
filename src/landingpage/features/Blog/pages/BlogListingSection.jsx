@@ -16,6 +16,7 @@ const BlogListingSection = () => {
   const [posts, setPosts] = useState([])
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState('')
+  const [visibleCount, setVisibleCount] = useState(12)
 
   useEffect(() => {
     let isMounted = true
@@ -55,13 +56,18 @@ const BlogListingSection = () => {
     return posts.filter((post) => post.category?.slug === activeCategory)
   }, [activeCategory, posts])
 
+  const listPosts = filteredPosts
+
   return (
     <section className="px-5 py-14 sm:px-8 lg:px-20">
       <div className="flex flex-wrap justify-center gap-3">
         {categories.map((category) => (
           <button
             key={category._id}
-            onClick={() => setActiveCategory(category.slug || 'all-blogs')}
+            onClick={() => {
+              setActiveCategory(category.slug || 'all-blogs')
+              setVisibleCount(12)
+            }}
             className={`rounded-full border px-4 py-2 text-sm font-medium transition ${
               activeCategory === (category.slug || 'all-blogs')
                 ? 'border-brand-primary bg-brand-primary text-brand-white'
@@ -90,50 +96,62 @@ const BlogListingSection = () => {
           ))}
         </div>
       ) : (
-        <div className="mt-10 grid gap-x-6 gap-y-12 md:grid-cols-2 xl:grid-cols-3">
-          {filteredPosts.map((post) => (
-            <article key={post._id} className="group flex flex-col h-full">
-              <div className="overflow-hidden rounded-[0.6rem] bg-brand-offwhite">
-                <img
-                  src={post.thumbnailImage}
-                  alt={post.thumbnailAlt || post.title}
-                  className="h-[18rem] w-full object-cover transition duration-500 group-hover:scale-[1.03]"
-                />
-              </div>
-
-              <div className="flex flex-1 flex-col pt-4">
-                <h3 className="text-xl font-bold tracking-[-0.03em] text-brand-title line-clamp-2">{post.title}</h3>
-                <p className="mb-6 mt-2 text-sm leading-6 text-brand-body line-clamp-2">{post.excerpt}</p>
-
-                <div className="mt-auto flex items-center justify-between gap-4 border-t border-brand-stroke pt-4 text-sm">
-                  <div className="text-brand-body">
-                    <span>{formatBlogDate(post.publishDate)}</span>
-                    <span className="mx-2">•</span>
-                    <span>{post.readTimeMinutes} Min read</span>
-                  </div>
-                  <NavLink
-                    to={`/blog/${post.slug}`}
-                    className="inline-flex items-center gap-1 font-semibold text-brand-primary transition hover:gap-2"
-                  >
-                    Read Article
-                    <ArrowRight className="h-4 w-4" />
-                  </NavLink>
+        <>
+          <div className="mt-10 grid gap-x-6 gap-y-12 md:grid-cols-2 xl:grid-cols-3">
+            {listPosts.slice(0, visibleCount).map((post) => (
+              <article key={post._id} className="group flex h-full flex-col">
+                <div className="relative overflow-hidden rounded-[0.6rem] bg-brand-offwhite">
+                  <img
+                    src={post.thumbnailImage}
+                    alt={post.thumbnailAlt || post.title}
+                    className="h-[18rem] w-full object-cover transition duration-500 group-hover:scale-[1.03]"
+                  />
+                  {post.featured ? (
+                    <span className="absolute right-3 top-3 rounded-full bg-brand-white px-3 py-1 text-xs font-semibold text-brand-primary shadow-soft">
+                      Featured
+                    </span>
+                  ) : null}
                 </div>
-              </div>
-            </article>
-          ))}
-        </div>
+
+                <div className="flex flex-1 flex-col pt-4">
+                  <h3 className="text-xl font-bold tracking-[-0.03em] text-brand-title line-clamp-2">{post.title}</h3>
+                  <p className="mb-6 mt-2 text-sm leading-6 text-brand-body line-clamp-2">{post.excerpt}</p>
+
+                  <div className="mt-auto flex items-center justify-between gap-4 border-t border-brand-stroke pt-4 text-sm">
+                    <div className="text-brand-body">
+                      <span>{formatBlogDate(post.publishDate)}</span>
+                      <span className="mx-2">•</span>
+                      <span>{post.readTimeMinutes} Min read</span>
+                    </div>
+                    <NavLink
+                      to={`/blog/${post.slug}`}
+                      className="inline-flex items-center gap-1 font-semibold text-brand-primary transition hover:gap-2"
+                    >
+                      Read Article
+                      <ArrowRight className="h-4 w-4" />
+                    </NavLink>
+                  </div>
+                </div>
+              </article>
+            ))}
+          </div>
+        </>
       )}
 
       {!loading && !error && filteredPosts.length === 0 ? (
         <p className="mt-10 text-center text-sm text-brand-body">No blog posts found for this category.</p>
       ) : null}
 
-      <div className="mt-12 flex justify-center">
-        <button className="rounded-xl border border-brand-stroke bg-white px-6 py-3 text-sm font-medium text-brand-title transition hover:border-brand-primary hover:text-brand-primary">
-          Load More
-        </button>
-      </div>
+      {!loading && !error && visibleCount < listPosts.length ? (
+        <div className="mt-12 flex justify-center">
+          <button
+            onClick={() => setVisibleCount((prev) => prev + 12)}
+            className="rounded-xl border border-brand-stroke bg-white px-6 py-3 text-sm font-medium text-brand-title transition hover:border-brand-primary hover:text-brand-primary"
+          >
+            Load More
+          </button>
+        </div>
+      ) : null}
     </section>
   )
 }

@@ -1,7 +1,15 @@
-import { ChevronLeft, ChevronRight, Lock, Mail, ShieldCheck } from 'lucide-react'
+import { useState } from 'react'
+import { Mail, Star } from 'lucide-react'
+import { Swiper, SwiperSlide } from 'swiper/react'
+import { Navigation, Autoplay } from 'swiper/modules'
 import 'swiper/css'
 import 'swiper/css/navigation'
 import Testimony from '../../../../assets/Testimony.jpg'
+import Left from '../../../../assets/Left.svg?react'
+import Right from '../../../../assets/Right.svg?react'
+import Infos from '../../../../assets/Infos.svg?react'
+import Heart from '../../../../assets/Heart.svg?react'
+import Gps from '../../../../assets/Gps.svg?react'
 
 const testimonials = [
   {
@@ -17,7 +25,7 @@ const testimonials = [
     image: Testimony,
   },
   {
-    text: 'YourCreditpal made it easier to explore my options without having to fill out multiple applications.',
+    text: 'CreditPal made it easier to explore my options without having to fill out multiple applications.',
     name: 'Jason M.',
     location: 'Tampa, FL',
     image: Testimony,
@@ -25,19 +33,19 @@ const testimonials = [
 ]
 
 const ApplyTestimonialsPanel = () => {
-  const activeIndex = 0
+  const [activeIndex, setActiveIndex] = useState(0)
 
   return (
-    <aside className="hidden bg-brand-lightblue px-5 py-5 sm:px-7 sm:py-7 lg:flex lg:flex-col lg:px-8 lg:py-8">
+    <aside className="hidden min-w-0 mr-3 my-3 rounded-2xl bg-brand-lightblue px-5 py-5 sm:px-7 sm:py-7 lg:flex lg:flex-col lg:px-8 lg:py-8">
       <div className="flex items-center justify-between text-sm text-brand-body">
         <span className="inline-flex items-center gap-2">
           <Mail className="h-4 w-4" />
           contact@yourcreditpal.com
         </span>
-        <span>© 2026 YourCreditpal.</span>
+        <span>© 2026 YourCreditPal.</span>
       </div>
  
-      {/* <div className="flex flex-1 items-center justify-center py-8">
+      <div className="flex w-full min-w-0 flex-1 flex-col items-center justify-center overflow-hidden py-2">
         <Swiper
           modules={[Navigation, Autoplay]}
           slidesPerView={1}
@@ -56,7 +64,7 @@ const ApplyTestimonialsPanel = () => {
                   ))}
                 </div>
 
-                <p className="max-w-lg text-2xl leading-[1.6] tracking-[-0.03em] text-brand-title lg:text-3xl">
+                <p className="max-w-lg text-2xl font-medium font-heading text-brand-title">
                   {item.text}
                 </p>
 
@@ -64,45 +72,43 @@ const ApplyTestimonialsPanel = () => {
                   <img src={item.image} alt={item.name} className="h-16 w-16 rounded-full object-cover" />
                   <div className="text-left">
                     <div className="text-xl font-semibold text-brand-title">{item.name}</div>
-                    <div className="text-sm text-brand-body">{item.location}</div>
+                    <div className="text-sm font-light text-brand-label">{item.location}</div>
                   </div>
                 </div>
               </div>
             </SwiperSlide>
           ))}
         </Swiper>
-      </div> */}
-
-      <div className="flex items-center justify-center gap-6">
-        <button type="button" className="apply-testimonial-prev text-2xl text-brand-title">
-          <ChevronLeft className="h-6 w-6" />
-        </button>
-        <div className="flex items-center gap-2">
-          {testimonials.map((_, dotIndex) => (
-            <span
-              key={dotIndex}
-              className={`block rounded-full transition-all ${activeIndex === dotIndex ? 'h-2 w-7 bg-brand-title' : 'h-2 w-2 bg-brand-stroke'}`}
-            />
-          ))}
+        <div className="mt-8 flex items-center justify-center gap-6">
+          <button type="button" className="apply-testimonial-prev text-2xl text-brand-title">
+            <Left className="h-4 w-4" />
+          </button>
+          <div className="flex items-center gap-2">
+            {testimonials.map((_, dotIndex) => (
+              <span
+                key={dotIndex}
+                className={`block rounded-full transition-all ${activeIndex === dotIndex ? 'h-2 w-7 bg-brand-title' : 'h-2 w-2 bg-brand-placeholder'}`}
+              />
+            ))}
+          </div>
+          <button type="button" className="apply-testimonial-next text-2xl text-brand-title">
+            <Right className="h-4 w-4" />
+          </button>
         </div>
-        <button type="button" className="apply-testimonial-next text-2xl text-brand-title">
-          <ChevronRight className="h-6 w-6" />
-        </button>
       </div>
 
-      <div className="mt-auto space-y-5 pt-8 pb-1 text-sm text-brand-title">
-        <div className="flex items-center gap-3 justify-center lg:justify-start">
-          <ShieldCheck className="h-5 w-5" />
+
+      <div className="mt-auto mx-auto text-center space-y-5 pt-8 pb-1 text-sm text-brand-title">
+        <div className="flex items-center gap-3 justify-center ">
+          <Infos className="h-5 w-5" />
           <span>Your information is safe</span>
         </div>
-        <div className="flex items-center gap-3 justify-center lg:justify-start">
-          <Lock className="h-5 w-5" />
+        <div className="flex items-center gap-3 justify-center ">
+          <Heart className="h-5 w-5" />
           <span>Secure and encrypted data handling</span>
         </div>
-        <div className="flex items-center gap-3 justify-center lg:justify-start">
-          <div className="flex h-5 w-5 items-center justify-center rounded-full bg-brand-title/10">
-            <div className="h-2.5 w-2.5 rounded-full bg-brand-title" />
-          </div>
+        <div className="flex items-center gap-3 justify-center ">
+          <Gps className="h-5 w-5" />
           <span>Your credit score is also not affected</span>
         </div>
       </div>

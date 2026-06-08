@@ -11,6 +11,7 @@ const blogFields = `
   _id,
   title,
   "slug": slug.current,
+  featured,
   category->{_id, title, "slug": slug.current},
   "thumbnailImage": thumbnailImage.asset->url,
   "thumbnailAlt": thumbnailImage.alt,
@@ -33,7 +34,7 @@ const blogFields = `
   infoBoxDescription
 `
 
-export const blogListQuery = `*[_type == "blogPost"] | order(publishDate desc) { ${blogFields} }`
+export const blogListQuery = `*[_type == "blogPost"] | order(featured desc, publishDate desc) { ${blogFields} }`
 
 export const blogPostQuery = `*[_type == "blogPost" && slug.current == $slug][0] { ${blogFields} }`
 

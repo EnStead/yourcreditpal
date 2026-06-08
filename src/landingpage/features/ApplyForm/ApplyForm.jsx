@@ -43,27 +43,58 @@ const employmentOptions = [
   "Unemployed",
 ];
 const housingOptions = ["Own Home", "Rent", "Living with Family", "Other"];
+const countPhoneDigits = (value) => value.replace(/\D/g, "").slice(0, 10).length;
 
 const ApplyForm = () => {
   const [step, setStep] = useState(1);
-  const [loanAmount, setLoanAmount] = useState(56000);
+  const [loanAmount, setLoanAmount] = useState(5000);
   const [purpose, setPurpose] = useState("");
   const [credit, setCredit] = useState("");
   const [employment, setEmployment] = useState("Employed Full-Time");
   const [housing, setHousing] = useState("Rent");
 
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
+  const [email, setEmail] = useState("");
+  const [phone, setPhone] = useState("");
+  const [dob, setDob] = useState("");
+  const [usState, setUsState] = useState("");
+
+  const [monthlyIncome, setMonthlyIncome] = useState("");
+  const [bankName, setBankName] = useState("");
+  const [accountType, setAccountType] = useState("");
+
+  const [streetAddress, setStreetAddress] = useState("");
+  const [city, setCity] = useState("");
+  const [zipCode, setZipCode] = useState("");
+
   const sliderPct = useMemo(() => {
     const min = 1000;
-    const max = 100000;
+    const max = 35000;
     return ((loanAmount - min) / (max - min)) * 100;
   }, [loanAmount]);
 
   const isLastStep = step === 4;
   const isStepOneValid = loanAmount > 0 && purpose !== "" && credit !== "";
+  const isStepTwoValid =
+    firstName !== "" &&
+    lastName !== "" &&
+    email !== "" &&
+    countPhoneDigits(phone) === 10 &&
+    dob !== "" &&
+    usState !== "";
+  const isStepThreeValid = employment !== "" && monthlyIncome !== "" && bankName !== "" && accountType !== "";
+  const isStepFourValid = housing !== "" && streetAddress !== "" && city !== "" && zipCode !== "";
+
+  const isCurrentStepValid = 
+    (step === 1 && isStepOneValid) ||
+    (step === 2 && isStepTwoValid) ||
+    (step === 3 && isStepThreeValid) ||
+    (step === 4 && isStepFourValid);
 
   const buttonText = isLastStep
     ? "Submit My Application"
-    : (step === 1 && isStepOneValid) || step === 2
+    : isCurrentStepValid
       ? "Continue"
       : "Next";
 
@@ -112,7 +143,9 @@ const ApplyForm = () => {
                     className={
                       active
                         ? "text-brand-title font-medium"
-                        : "text-brand-body/30 font-light"
+                        : completed
+                          ? "text-brand-title font-light"
+                          : "text-brand-body/30 font-light"
                     }
                   >
                     {item.label}
@@ -139,18 +172,43 @@ const ApplyForm = () => {
                 creditOptions={creditOptions}
               />
             ) : step === 2 ? (
-              <ApplyStepTwo />
+              <ApplyStepTwo
+                firstName={firstName}
+                setFirstName={setFirstName}
+                lastName={lastName}
+                setLastName={setLastName}
+                email={email}
+                setEmail={setEmail}
+                phone={phone}
+                setPhone={setPhone}
+                dob={dob}
+                setDob={setDob}
+                usState={usState}
+                setUsState={setUsState}
+              />
             ) : step === 3 ? (
               <ApplyStepThree
                 employment={employment}
                 setEmployment={setEmployment}
                 employmentOptions={employmentOptions}
+                monthlyIncome={monthlyIncome}
+                setMonthlyIncome={setMonthlyIncome}
+                bankName={bankName}
+                setBankName={setBankName}
+                accountType={accountType}
+                setAccountType={setAccountType}
               />
             ) : (
               <ApplyStepFour
                 housing={housing}
                 setHousing={setHousing}
                 housingOptions={housingOptions}
+                streetAddress={streetAddress}
+                setStreetAddress={setStreetAddress}
+                city={city}
+                setCity={setCity}
+                zipCode={zipCode}
+                setZipCode={setZipCode}
               />
             )}
 
@@ -171,12 +229,12 @@ const ApplyForm = () => {
 
               <button
                 type="button"
-                disabled={step === 1 && !isStepOneValid}
+                disabled={!isCurrentStepValid}
                 onClick={() => setStep((current) => Math.min(4, current + 1))}
                 className={`rounded-xl px-6 py-3 text-sm font-semibold text-brand-white transition-all duration-300 ${
                   buttonText === "Continue" ? "min-w-[15rem]" : "min-w-[10rem]"
                 } ${
-                  step === 1 && !isStepOneValid
+                  !isCurrentStepValid
                     ? "cursor-not-allowed bg-brand-secondary/50"
                     : isLastStep
                       ? "bg-brand-title hover:opacity-90"
