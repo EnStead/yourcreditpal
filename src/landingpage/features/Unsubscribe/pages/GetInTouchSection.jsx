@@ -1,3 +1,4 @@
+import { NavLink } from 'react-router-dom'
 import Star from "../../../../assets/Star.svg?react";
 
 const GetInTouchSection = () => {
@@ -20,9 +21,9 @@ const GetInTouchSection = () => {
           <a href="mailto:contact@yourcreditpal.com" className="inline-flex text-sm sm:text-base items-center justify-center font-semibold font-heading rounded-xl bg-brand-primary text-brand-white px-10 py-3 transition hover:opacity-90">
             Contact Support
           </a>
-          <button className="bg-brand-white border border-brand-placeholder text-brand-title px-10 py-3 transition hover:bg-brand-offwhite">
+          <NavLink to="/apply" className="bg-brand-white font-semibold font-heading rounded-xl border border-brand-placeholder text-brand-title px-10 py-3 transition hover:bg-brand-offwhite">
             Start Application
-          </button>
+          </NavLink>
         </div>
       </div>
     </section>

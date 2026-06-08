@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from 'react'
+import { useEffect, useMemo, useRef, useState } from 'react'
 import { ArrowRight } from 'lucide-react'
 import { NavLink, Navigate, useParams } from 'react-router-dom'
 import Share from '../../../../assets/Share.svg?react'
@@ -144,6 +144,8 @@ const BlogPostSection = () => {
   const [morePosts, setMorePosts] = useState([])
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState('')
+  const [toast, setToast] = useState(null)
+  const toastTimerRef = useRef(null)
 
   useEffect(() => {
     let isMounted = true
@@ -175,6 +177,44 @@ const BlogPostSection = () => {
   }, [slug])
 
   const renderedBody = useMemo(() => post?.body || [], [post])
+  const shareUrl = useMemo(() => {
+    if (typeof window === 'undefined') return ''
+    return window.location.href
+  }, [post?.slug])
+
+  const shareTitle = post?.title || 'YourCreditPal blog post'
+
+  const openShareWindow = (url) => {
+    window.open(url, '_blank', 'noopener,noreferrer')
+  }
+
+  const showToast = (message, type = 'success') => {
+    setToast({ message, type })
+    window.clearTimeout(toastTimerRef.current)
+    toastTimerRef.current = window.setTimeout(() => setToast(null), 2600)
+  }
+
+  const handleCopyLink = async () => {
+    try {
+      await navigator.clipboard.writeText(shareUrl)
+      showToast('Link copied to clipboard.')
+    } catch {
+      openShareWindow(shareUrl)
+      showToast('Clipboard unavailable. Opened the share link instead.', 'info')
+    }
+  }
+
+  const handleShareX = () => {
+    openShareWindow(`https://twitter.com/intent/tweet?url=${encodeURIComponent(shareUrl)}&text=${encodeURIComponent(shareTitle)}`)
+  }
+
+  const handleShareLinkedIn = () => {
+    openShareWindow(`https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(shareUrl)}`)
+  }
+
+  const handleShareWhatsApp = () => {
+    openShareWindow(`https://wa.me/?text=${encodeURIComponent(`${shareTitle} ${shareUrl}`)}`)
+  }
 
   if (!loading && !post) return <Navigate to="/blog" replace />
 
@@ -234,22 +274,73 @@ const BlogPostSection = () => {
           <div className="mt-6 flex flex-wrap items-center justify-between gap-4 border-t border-brand-stroke pt-5">
             <span className="text-sm text-brand-body">Share this post</span>
             <div className="flex items-center gap-5 text-brand-title">
-              <button aria-label="Copy link" className="transition hover:text-brand-primary">
+              <button
+                type="button"
+                onClick={handleCopyLink}
+                aria-label="Copy link"
+                className="transition hover:text-brand-primary"
+              >
                 <Share className="h-5 w-5" />
               </button>
-              <button aria-label="Share on X" className="transition hover:text-brand-primary">
+              <button
+                type="button"
+                onClick={handleShareX}
+                aria-label="Share on X"
+                className="transition hover:text-brand-primary"
+              >
                 <Twitter className="h-5 w-5" />
               </button>
-              <button aria-label="Share on LinkedIn" className="transition hover:text-brand-primary">
+              <button
+                type="button"
+                onClick={handleShareLinkedIn}
+                aria-label="Share on LinkedIn"
+                className="transition hover:text-brand-primary"
+              >
                 <Linkedin2 className="h-5 w-5" />
               </button>
-              <button aria-label="Share on WhatsApp" className="transition hover:text-brand-primary">
+              <button
+                type="button"
+                onClick={handleShareWhatsApp}
+                aria-label="Share on WhatsApp"
+                className="transition hover:text-brand-primary"
+              >
                 <Whatsapp className="h-5 w-5" />
               </button>
             </div>
           </div>
         </article>
       </div>
+
+      {toast ? (
+        <div className="pointer-events-none fixed bottom-5 right-5 z-50">
+          <div
+            className={`pointer-events-auto flex items-center gap-3 rounded-2xl border px-4 py-3 text-sm shadow-[0_18px_45px_rgba(0,0,0,0.16)] backdrop-blur-md transition-all duration-300 ${
+              toast.type === 'info'
+                ? 'border-brand-stroke bg-brand-white/95 text-brand-title'
+                : 'border-brand-primary/20 bg-brand-white/95 text-brand-title'
+            }`}
+          >
+            <span
+              className={`flex h-8 w-8 items-center justify-center rounded-full text-xs font-bold ${
+                toast.type === 'info'
+                  ? 'bg-brand-lightblue text-brand-title'
+                  : 'bg-brand-primary text-brand-white'
+              }`}
+            >
+              {toast.type === 'info' ? 'i' : '✓'}
+            </span>
+            <p className="max-w-[18rem]">{toast.message}</p>
+            <button
+              type="button"
+              onClick={() => setToast(null)}
+              className="ml-1 text-brand-label transition hover:text-brand-title"
+              aria-label="Dismiss notification"
+            >
+              ×
+            </button>
+          </div>
+        </div>
+      ) : null}
 
       <div className="mt-20 w-full border-t border-brand-stroke" />
 
