@@ -12,7 +12,7 @@ const HeaderSection = () => {
           Manage Your Communication Preferences
         </h1>
         <p className="mx-auto mt-5 max-w-3xl sm:text-lg leading-8 text-brand-body">
-          You can unsubscribe from promotional emails, SMS messages, and other marketing communications related to YourCreditpal and participating partners.
+          You can unsubscribe from promotional emails, SMS messages, and other marketing communications related to YourCreditPal and participating partners.
         </p>
       </div>
     </section>

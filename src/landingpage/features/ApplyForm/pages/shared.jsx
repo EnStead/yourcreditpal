@@ -1,6 +1,10 @@
 import { useState } from 'react'
+import { NavLink } from 'react-router-dom'
 import GreenTick from '../../../../assets/GreenTick.svg?react'
 import ShieldCheck from '../../../../assets/ShieldCheck.svg?react'
+
+const legalLinkClass =
+  'font-medium text-brand-primary no-underline transition hover:underline hover:underline-offset-4 focus-visible:underline focus-visible:underline-offset-4'
 
 export const Field = ({ label, placeholder, icon: Icon, full, forceActive = false, ...props }) => {
   const [isFocused, setIsFocused] = useState(false)
@@ -73,7 +77,15 @@ export const SecureNoticeCard = ({ title, text }) => (
 
 export const ConsentText = () => (
   <p className="mt-4 text-sm font-light text-brand-body">
-    By clicking &ldquo;Continue,&rdquo; you agree to receive <span className="text-brand-primary">communications</span> from CreditPal and our <span className="text-brand-primary">lending partners</span> regarding your request, including calls, emails, and text messages where permitted.
+    By clicking &ldquo;Continue,&rdquo; you agree to receive{' '}
+    <NavLink to="/legal/electronic-consent" className={legalLinkClass}>
+      communications
+    </NavLink>{' '}
+    from YourCreditPal and our{' '}
+    <NavLink to="/legal/marketing-partners" className={legalLinkClass}>
+      lending partners
+    </NavLink>{' '}
+    regarding your request, including calls, emails, and text messages where permitted.
   </p>
 )
 
@@ -83,9 +95,29 @@ export const ConsentList = () => (
       By submitting your request, you acknowledge and agree that:
     </p>
     <ul className="mt-3 list-disc space-y-3 pl-5 text-sm text-brand-body">
-      <li>CreditPal may securely share your information with <span className="text-brand-primary">lending partners</span> to help identify potential loan opportunities.</li>
+      <li>
+        YourCreditPal may securely share your information with{' '}
+        <NavLink to="/legal/marketing-partners" className={legalLinkClass}>
+          lending partners
+        </NavLink>{' '}
+        to help identify potential loan opportunities.
+      </li>
       <li>You may receive calls, emails, or text messages regarding your request, even if your number appears on a federal or state Do Not Call list. Message and data rates may apply.</li>
-      <li>Your information is processed in accordance with our <span className="text-brand-primary">Terms &amp; Conditions</span>, <span className="text-brand-primary">Privacy Policy</span>, and <span className="text-brand-primary">E-Consent Agreement</span>.</li>
+      <li>
+        Your information is processed in accordance with our{' '}
+        <NavLink to="/legal/terms" className={legalLinkClass}>
+          Terms &amp; Conditions
+        </NavLink>
+        ,{' '}
+        <NavLink to="/legal/privacy" className={legalLinkClass}>
+          Privacy Policy
+        </NavLink>
+        , and{' '}
+        <NavLink to="/legal/electronic-consent" className={legalLinkClass}>
+          E-Consent Agreement
+        </NavLink>
+        .
+      </li>
     </ul>
   </>
 )

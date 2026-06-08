@@ -2,6 +2,7 @@ import { useEffect, useMemo, useState } from 'react'
 import { ArrowRight } from 'lucide-react'
 import { NavLink } from 'react-router-dom'
 import { fetchBlogCategories, fetchBlogPosts } from '../api/blogQueries'
+import BlogLoadingState from './BlogLoadingState'
 
 const formatBlogDate = (value) =>
   new Intl.DateTimeFormat('en-US', {
@@ -86,20 +87,16 @@ const BlogListingSection = () => {
       ) : null}
 
       {loading ? (
-        <div className="mt-10 grid gap-x-6 gap-y-12 md:grid-cols-2 xl:grid-cols-3">
-          {Array.from({ length: 3 }).map((_, index) => (
-            <div key={index} className="space-y-4">
-              <div className="h-[18rem] rounded-[0.6rem] bg-brand-offwhite animate-pulse" />
-              <div className="h-6 w-3/4 rounded bg-brand-offwhite animate-pulse" />
-              <div className="h-12 rounded bg-brand-offwhite animate-pulse" />
-            </div>
-          ))}
-        </div>
+        <BlogLoadingState />
       ) : (
         <>
           <div className="mt-10 grid gap-x-6 gap-y-12 md:grid-cols-2 xl:grid-cols-3">
             {listPosts.slice(0, visibleCount).map((post) => (
-              <article key={post._id} className="group flex h-full flex-col">
+              <NavLink
+                key={post._id}
+                to={`/blog/${post.slug}`}
+                className="group flex h-full flex-col focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-primary focus-visible:ring-offset-4"
+              >
                 <div className="relative overflow-hidden rounded-[0.6rem] bg-brand-offwhite">
                   <img
                     src={post.thumbnailImage}
@@ -123,16 +120,13 @@ const BlogListingSection = () => {
                       <span className="mx-2">•</span>
                       <span>{post.readTimeMinutes} Min read</span>
                     </div>
-                    <NavLink
-                      to={`/blog/${post.slug}`}
-                      className="inline-flex items-center gap-1 font-semibold text-brand-primary transition hover:gap-2"
-                    >
+                    <span className="inline-flex items-center gap-1 font-semibold text-brand-primary transition group-hover:gap-2">
                       Read Article
                       <ArrowRight className="h-4 w-4" />
-                    </NavLink>
+                    </span>
                   </div>
                 </div>
-              </article>
+              </NavLink>
             ))}
           </div>
         </>

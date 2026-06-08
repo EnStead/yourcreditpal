@@ -25,7 +25,7 @@ const testimonials = [
     image: Testimony,
   },
   {
-    text: 'CreditPal made it easier to explore my options without having to fill out multiple applications.',
+    text: 'YourCreditPal made it easier to explore my options without having to fill out multiple applications.',
     name: 'Jason M.',
     location: 'Tampa, FL',
     image: Testimony,

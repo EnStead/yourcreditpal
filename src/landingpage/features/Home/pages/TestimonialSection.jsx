@@ -19,13 +19,13 @@ const data = [
     image: Testimony,
     name: "Sarah Jenkins",
     country: "Houston, TX",
-    text: "YourCreditpal made finding a loan incredibly easy. I was matched with a lender within minutes and the funds were deposited the next day.",
+    text: "YourCreditPal made finding a loan incredibly easy. I was matched with a lender within minutes and the funds were deposited the next day.",
   },
   {
     image: Testimony,
     name: "Michael Chen",
     country: "Atlanta, GA",
-    text: "I was worried about my credit history, but YourCreditpal found options that worked for me. Highly recommend their service!",
+    text: "I was worried about my credit history, but YourCreditPal found options that worked for me. Highly recommend their service!",
   },
   {
     image: Testimony,
@@ -43,7 +43,7 @@ const data = [
     image: Testimony,
     name: "Aisha Patel",
     country: "Charlotte, NC",
-    text: "I've used other loan matching services before, but YourCreditpal is by far the most reliable and user-friendly.",
+    text: "I've used other loan matching services before, but YourCreditPal is by far the most reliable and user-friendly.",
   },
 ]
 
@@ -120,10 +120,10 @@ const TestimonialSection = () => {
             <Star className="h-3 w-3 text-brand-accent2" />
           </div>
           <h2 className="font-bold text-3xl md:text-5xl text-brand-title my-7">
-            Applicants Continue to Trust YourCreditpal Every Day
+            Applicants Continue to Trust YourCreditPal Every Day
           </h2>
           <p className="text-brand-body font-sans text-lg font-normal">
-            YourCreditpal helps connect applicants with lending partners through a
+            YourCreditPal helps connect applicants with lending partners through a
             fast, secure, and simplified online experience.
           </p>
         </div>

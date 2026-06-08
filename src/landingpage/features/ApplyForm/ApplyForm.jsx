@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useRef, useState } from "react";
-import { ChevronRight } from "lucide-react";
+import { ChevronRight, X } from "lucide-react";
 import { NavLink } from 'react-router-dom'
 import {
   ApplyStepOne,
@@ -11,10 +11,10 @@ import {
 import Logo from "../../../assets/Logo.svg?react";
 
 const steps = [
-  { id: 1, label: "Loan" },
-  { id: 2, label: "Personal" },
-  { id: 3, label: "Financial" },
-  { id: 4, label: "Housing" },
+  { id: 1, label: "Loan", subtitle: "Choose your amount, purpose, and credit range." },
+  { id: 2, label: "Personal", subtitle: "Share your contact details, DOB, and state." },
+  { id: 3, label: "Financial", subtitle: "Add income, bank, and account information." },
+  { id: 4, label: "Housing", subtitle: "Confirm your housing and address details." },
 ];
 
 const purposeOptions = [
@@ -103,6 +103,8 @@ const TrustedForm = () => {
 const ApplyForm = () => {
   const formPanelRef = useRef(null);
   const [step, setStep] = useState(1);
+  const [highestStep, setHighestStep] = useState(1);
+  const [mobileStepsOpen, setMobileStepsOpen] = useState(false);
   const [loanAmount, setLoanAmount] = useState(5000);
   const [purpose, setPurpose] = useState("");
   const [credit, setCredit] = useState("");
@@ -161,14 +163,26 @@ const ApplyForm = () => {
     });
   };
 
-  const goToStep = (nextStep) => {
+  const goToStep = (nextStep, { markReached = false } = {}) => {
     setStep((current) => {
       const targetStep =
         typeof nextStep === "function" ? nextStep(current) : nextStep;
+      const nextClampedStep = Math.min(4, Math.max(1, targetStep));
 
-      return Math.min(4, Math.max(1, targetStep));
+      if (markReached) {
+        setHighestStep((highest) => Math.max(highest, nextClampedStep));
+      }
+
+      return nextClampedStep;
     });
     scrollFormToTop();
+  };
+
+  const goToReachedStep = (targetStep) => {
+    if (targetStep > highestStep) return;
+
+    goToStep(targetStep);
+    setMobileStepsOpen(false);
   };
 
   return (
@@ -194,17 +208,22 @@ const ApplyForm = () => {
               </NavLink>
             </div>
 
-            <div className="rounded-xl bg-brand-lightblue px-4 py-2 text-sm font-medium text-brand-body lg:hidden">
+            <button
+              type="button"
+              onClick={() => setMobileStepsOpen(true)}
+              className="rounded-xl bg-brand-lightblue px-4 py-2 text-sm font-medium text-brand-body transition hover:bg-brand-secondary/30 lg:hidden"
+            >
               Step {step}/4
-            </div>
+            </button>
           </div>
 
           <div className="mt-6 hidden items-center gap-3 text-sm text-brand-body sm:flex">
             {steps.map((item, index) => {
               const active = item.id === step;
               const completed = item.id < step;
-              return (
-                <div key={item.id} className="flex items-center gap-3">
+              const reachable = item.id <= highestStep;
+              const stepContent = (
+                <>
                   <div
                     className={`flex h-7 w-7 items-center justify-center rounded-full text-sm font-semibold ${
                       active || completed
@@ -225,6 +244,23 @@ const ApplyForm = () => {
                   >
                     {item.label}
                   </span>
+                </>
+              );
+
+              return (
+                <div key={item.id} className="flex items-center gap-3">
+                  {reachable ? (
+                    <button
+                      type="button"
+                      onClick={() => goToReachedStep(item.id)}
+                      disabled={active}
+                      className="flex items-center gap-3 rounded-full outline-none transition hover:opacity-80 focus-visible:ring-2 focus-visible:ring-brand-primary focus-visible:ring-offset-2 disabled:cursor-default disabled:hover:opacity-100"
+                    >
+                      {stepContent}
+                    </button>
+                  ) : (
+                    <div className="flex items-center gap-3">{stepContent}</div>
+                  )}
                   {index < steps.length - 1 ? (
                     <ChevronRight className="h-4 w-4 text-brand-label" />
                   ) : null}
@@ -307,7 +343,7 @@ const ApplyForm = () => {
               <button
                 type="button"
                 disabled={!isCurrentStepValid}
-                onClick={() => goToStep((current) => current + 1)}
+                onClick={() => goToStep((current) => current + 1, { markReached: true })}
                 className={`rounded-xl px-6 py-3 text-sm font-semibold text-brand-white transition-all duration-300 ${
                   buttonText === "Continue" ? "min-w-[15rem]" : "min-w-[10rem]"
                 } ${
@@ -326,6 +362,75 @@ const ApplyForm = () => {
 
         <ApplyTestimonialsPanel />
       </div>
+
+      {mobileStepsOpen ? (
+        <div className="fixed inset-0 z-50 lg:hidden">
+          <button
+            type="button"
+            aria-label="Close step navigation"
+            className="absolute inset-0 bg-brand-title/40"
+            onClick={() => setMobileStepsOpen(false)}
+          />
+          <div className="absolute inset-x-0 bottom-0 rounded-t-[1.5rem] bg-brand-white px-5 pb-6 pt-4 shadow-[0_-18px_45px_rgba(0,0,0,0.16)]">
+            <div className="mx-auto mb-4 h-1.5 w-12 rounded-full bg-brand-stroke" />
+            <div className="flex items-center justify-between gap-4">
+              <div className="flex items-center gap-3">
+                <Logo
+                  className="h-9 w-9 text-brand-primary"
+                  aria-hidden="true"
+                />
+                <h2 className="text-xl font-bold text-brand-title">Application process</h2>
+              </div>
+              <button
+                type="button"
+                onClick={() => setMobileStepsOpen(false)}
+                className="flex h-10 w-10 items-center justify-center rounded-full bg-brand-offwhite text-brand-title transition hover:bg-brand-lightblue"
+                aria-label="Close"
+              >
+                <X className="h-5 w-5" />
+              </button>
+            </div>
+
+            <div className="relative mt-8 space-y-10">
+              <div className="absolute left-[1.125rem] top-5 h-[calc(100%-2.5rem)] w-px bg-brand-stroke" />
+              {steps.map((item) => {
+                const active = item.id === step;
+                const reachable = item.id <= highestStep;
+
+                return (
+                  <button
+                    key={item.id}
+                    type="button"
+                    disabled={!reachable || active}
+                    onClick={() => goToReachedStep(item.id)}
+                    className={`relative flex w-full items-start gap-4 text-left transition ${
+                      active
+                        ? "cursor-default"
+                        : reachable
+                          ? "hover:translate-x-1"
+                          : "cursor-not-allowed"
+                    }`}
+                  >
+                    <span
+                      className={`relative z-10 flex h-9 w-9 shrink-0 items-center justify-center rounded-full text-sm font-bold ${
+                        active || reachable
+                          ? "bg-brand-darkBlue text-brand-lightblue"
+                          : "bg-brand-offwhite text-brand-label"
+                      }`}
+                    >
+                      {item.id}
+                    </span>
+                    <span className={`min-w-0 ${reachable ? "" : "opacity-45"}`}>
+                      <span className="block text-sm font-bold text-brand-title">{item.label}</span>
+                      <span className="mt-1 block text-xs font-light leading-5 text-brand-body">{item.subtitle}</span>
+                    </span>
+                  </button>
+                );
+              })}
+            </div>
+          </div>
+        </div>
+      ) : null}
     </main>
     </>
   );

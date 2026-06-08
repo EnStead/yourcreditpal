@@ -166,14 +166,23 @@
 
 .creditpal-datepicker .react-datepicker__month-select,
 .creditpal-datepicker .react-datepicker__year-select {
+  appearance: none !important;
   border: 1px solid #EDEDED !important;
   border-radius: 0.75rem !important;
-  background: #FFFFFF !important;
+  background-color: #FFFFFF !important;
+  background-image:
+    linear-gradient(45deg, transparent 50%, #151515 50%),
+    linear-gradient(135deg, #151515 50%, transparent 50%) !important;
+  background-position:
+    calc(100% - 1rem) 52%,
+    calc(100% - 0.72rem) 52% !important;
+  background-repeat: no-repeat !important;
+  background-size: 0.3rem 0.3rem, 0.3rem 0.3rem !important;
   color: #151515 !important;
   font-family: "DM Sans", sans-serif !important;
   font-size: 0.82rem !important;
   font-weight: 500 !important;
-  padding: 0.4rem 0.55rem !important;
+  padding: 0.4rem 2rem 0.4rem 0.75rem !important;
   outline: none !important;
 }
 
@@ -230,22 +239,28 @@
   color: #0157FE !important;
 }
 
-.creditpal-datepicker .react-datepicker__day--selected,
-.creditpal-datepicker .react-datepicker__day--keyboard-selected {
+.creditpal-datepicker .react-datepicker__day--selected {
   background: #0157FE !important;
   color: #FFFFFF !important;
   font-weight: 700 !important;
 }
 
 .creditpal-datepicker .react-datepicker__day--today {
-  box-shadow: inset 0 0 0 1px #0157FE;
-  color: #0157FE !important;
-  font-weight: 700 !important;
+  box-shadow: none !important;
+  color: #333333 !important;
+  font-weight: 500 !important;
 }
 
-.creditpal-datepicker .react-datepicker__day--today.react-datepicker__day--selected,
-.creditpal-datepicker .react-datepicker__day--today.react-datepicker__day--keyboard-selected {
+.creditpal-datepicker .react-datepicker__day--keyboard-selected:not(.react-datepicker__day--selected) {
+  background: transparent !important;
+  color: #333333 !important;
+  font-weight: 500 !important;
+}
+
+.creditpal-datepicker .react-datepicker__day--today.react-datepicker__day--selected {
+  background: #0157FE !important;
   color: #FFFFFF !important;
+  font-weight: 700 !important;
 }
 
 .creditpal-datepicker .react-datepicker__day--disabled,

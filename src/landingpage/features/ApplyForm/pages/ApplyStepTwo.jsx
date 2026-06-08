@@ -1,4 +1,4 @@
-import { forwardRef, useMemo, useState } from 'react'
+import { forwardRef, useRef, useMemo, useState } from 'react'
 import * as Select from '@radix-ui/react-select'
 import DatePicker from 'react-datepicker'
 import { format, parse, subYears } from 'date-fns'
@@ -37,6 +37,10 @@ const formatPhone = (value) => {
   return parts.join('').replace(/\s+/g, ' ')
 }
 
+const keepSearchFocus = (event) => {
+  event.stopPropagation()
+}
+
 const ApplyStepTwo = ({
   firstName,
   setFirstName,
@@ -51,6 +55,7 @@ const ApplyStepTwo = ({
   usState,
   setUsState,
 }) => {
+  const stateSearchRef = useRef(null)
   const [stateSearch, setStateSearch] = useState('')
   const selectedDate = dob ? parse(dob, 'MM/dd/yyyy', new Date()) : null
   const latestEligibleDob = subYears(new Date(), 18)
@@ -144,7 +149,15 @@ const ApplyStepTwo = ({
           <span className="mb-3 block text-base font-medium text-brand-label">
             State
           </span>
-          <Select.Root value={usState} onValueChange={setUsState}>
+          <Select.Root
+            value={usState}
+            onOpenChange={(open) => {
+              if (open) {
+                requestAnimationFrame(() => stateSearchRef.current?.focus())
+              }
+            }}
+            onValueChange={setUsState}
+          >
           <Select.Trigger className="flex w-full font-sans items-center justify-between font-normal rounded-none border-b border-brand-stroke py-2 text-left text-base text-brand-placeholder outline-none transition hover:border-brand-title">
               <Select.Value placeholder="Select state" />
               <Select.Icon>
@@ -161,10 +174,13 @@ const ApplyStepTwo = ({
                   <div className="flex items-center gap-2 rounded-xl border border-brand-stroke bg-brand-offwhite px-3 py-2">
                     <Search className="h-4 w-4 text-brand-placeholder" />
                     <input
+                      ref={stateSearchRef}
                       value={stateSearch}
                       onChange={(e) => setStateSearch(e.target.value)}
+                      onKeyDown={keepSearchFocus}
+                      onKeyUp={keepSearchFocus}
                       placeholder="Search states..."
-                    className="w-full font-sans bg-transparent text-sm text-brand-title outline-none placeholder:text-brand-placeholder"
+                      className="w-full font-sans bg-transparent text-sm text-brand-title outline-none placeholder:text-brand-placeholder"
                     />
                     {stateSearch ? (
                       <button

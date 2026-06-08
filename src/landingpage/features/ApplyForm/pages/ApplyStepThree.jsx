@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useRef, useState } from "react";
 import * as Select from "@radix-ui/react-select";
 import {
   BriefcaseBusiness,
@@ -16,6 +16,10 @@ const formatIncome = (value) => {
   const digits = String(value).replace(/\D/g, "");
   if (!digits) return "";
   return "$" + Number(digits).toLocaleString("en-US");
+};
+
+const keepSearchFocus = (event) => {
+  event.stopPropagation();
 };
 
 // Map each employment status to an icon.
@@ -134,6 +138,7 @@ const ApplyStepThree = ({
   accountType,
   setAccountType,
 }) => {
+  const bankSearchRef = useRef(null);
   const [isIncomeFocused, setIsIncomeFocused] = useState(false);
   const [bankSearch, setBankSearch] = useState("");
   const isIncomeActive = isIncomeFocused || (monthlyIncome && String(monthlyIncome).length > 0);
@@ -208,7 +213,15 @@ const ApplyStepThree = ({
           <span className={`mb-3 block font-sans text-base font-medium transition-colors ${isBankActive ? 'text-brand-title' : 'text-brand-label'}`}>
             Bank Name
           </span>
-          <Select.Root value={bankId} onValueChange={handleBankSelect}>
+          <Select.Root
+            value={bankId}
+            onOpenChange={(open) => {
+              if (open) {
+                requestAnimationFrame(() => bankSearchRef.current?.focus());
+              }
+            }}
+            onValueChange={handleBankSelect}
+          >
             <Select.Trigger className={`flex w-full bg-transparent font-sans items-center justify-between font-normal rounded-none border-b py-2 text-left text-base outline-none transition ${isBankActive ? 'border-brand-title text-brand-title' : 'border-brand-stroke text-brand-placeholder hover:border-brand-title'}`}>
               <Select.Value placeholder="Search or select bank">
                 {selectedBank?.name || bankName}
@@ -227,8 +240,11 @@ const ApplyStepThree = ({
                   <div className="flex items-center gap-2 rounded-xl border border-brand-stroke bg-brand-offwhite px-3 py-2">
                     <Search className="h-4 w-4 text-brand-placeholder" />
                     <input
+                      ref={bankSearchRef}
                       value={bankSearch}
                       onChange={(e) => setBankSearch(e.target.value)}
+                      onKeyDown={keepSearchFocus}
+                      onKeyUp={keepSearchFocus}
                       placeholder="Search banks..."
                       className="w-full font-sans bg-transparent text-sm text-brand-title outline-none placeholder:text-brand-placeholder"
                     />

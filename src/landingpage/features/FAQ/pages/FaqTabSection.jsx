@@ -37,8 +37,8 @@ const faqs = {
   applications: [
     {
       icon: SolarCase,
-      question: 'Is YourCreditpal a lender?',
-      answer: 'No. YourCreditpal is a loan matching platform that connects applicants with lending partners.',
+      question: 'Is YourCreditPal a lender?',
+      answer: 'No. YourCreditPal is a loan matching platform that connects applicants with lending partners.',
     },
     {
       icon: Info,
@@ -63,7 +63,7 @@ const faqs = {
     {
       icon: CreditCard,
       question: 'Does checking my options affect my credit score?',
-      answer: 'Checking available loan options through YourCreditpal typically does not impact your credit score.',
+      answer: 'Checking available loan options through YourCreditPal typically does not impact your credit score.',
     },
     {
       icon: Send,
@@ -73,14 +73,14 @@ const faqs = {
     {
       icon: Phone,
       question: 'Can I apply from my phone?',
-      answer: 'Yes. YourCreditpal is fully optimized for mobile devices.',
+      answer: 'Yes. YourCreditPal is fully optimized for mobile devices.',
     },
   ],
   'loan-process': [
     {
       icon: SolarCase,
-      question: 'How does YourCreditpal work?',
-      answer: 'YourCreditpal helps connect applicants with lending partners through a simplified online process.',
+      question: 'How does YourCreditPal work?',
+      answer: 'YourCreditPal helps connect applicants with lending partners through a simplified online process.',
     },
     {
       icon: Send,
