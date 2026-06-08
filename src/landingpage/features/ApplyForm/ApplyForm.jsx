@@ -1,4 +1,4 @@
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { ChevronRight } from "lucide-react";
 import { NavLink } from 'react-router-dom'
 import {
@@ -44,6 +44,36 @@ const employmentOptions = [
 ];
 const housingOptions = ["Own Home", "Rent", "Living with Family", "Other"];
 const countPhoneDigits = (value) => value.replace(/\D/g, "").slice(0, 10).length;
+
+const TrustedForm = () => {
+  useEffect(() => {
+    const existingScript = document.querySelector('script[data-trustedform="true"]');
+    if (existingScript) {
+      return undefined;
+    }
+
+    const script = document.createElement("script");
+    script.type = "text/javascript";
+    script.async = true;
+    script.dataset.trustedform = "true";
+    script.src =
+      `${window.location.protocol === "https:" ? "https" : "http"}://api.trustedform.com/trustedform.js?field=xxTrustedFormCertUrl&use_tagged_consent=true&l=` +
+      `${Date.now()}${Math.random()}`;
+
+    const firstScript = document.getElementsByTagName("script")[0];
+    firstScript?.parentNode?.insertBefore(script, firstScript);
+
+    return () => {
+      script.remove();
+    };
+  }, []);
+
+  return (
+    <noscript>
+      <img src="https://api.trustedform.com/ns.gif" alt="" aria-hidden="true" />
+    </noscript>
+  );
+};
 
 const ApplyForm = () => {
   const [step, setStep] = useState(1);
@@ -99,6 +129,8 @@ const ApplyForm = () => {
       : "Next";
 
   return (
+    <>
+      <TrustedForm />
     <main className="h-screen overflow-hidden">
       <div className="mx-auto grid h-full grid-cols-1 overflow-hidden bg-brand-white lg:grid-cols-[2.5fr_2fr]">
         <section className="flex h-full flex-col overflow-y-auto px-5 py-6 sm:px-8 lg:px-14 lg:py-10 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
@@ -250,6 +282,7 @@ const ApplyForm = () => {
         <ApplyTestimonialsPanel />
       </div>
     </main>
+    </>
   );
 };
 
