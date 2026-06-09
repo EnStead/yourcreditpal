@@ -44,6 +44,7 @@ const employmentOptions = [
 ];
 const housingOptions = ["Own Home", "Rent", "Living with Family", "Other"];
 const countPhoneDigits = (value) => value.replace(/\D/g, "").slice(0, 10).length;
+const INITIATE_CHECKOUT_PIXEL_ID = '1723525005474622';
 
 const isAtLeast18 = (value) => {
   const match = /^(\d{2})\/(\d{2})\/(\d{4})$/.exec(value);
@@ -102,6 +103,7 @@ const TrustedForm = () => {
 
 const ApplyForm = () => {
   const formPanelRef = useRef(null);
+  const initiateCheckoutFiredRef = useRef(false);
   const [step, setStep] = useState(1);
   const [highestStep, setHighestStep] = useState(1);
   const [mobileStepsOpen, setMobileStepsOpen] = useState(false);
@@ -168,6 +170,16 @@ const ApplyForm = () => {
       const targetStep =
         typeof nextStep === "function" ? nextStep(current) : nextStep;
       const nextClampedStep = Math.min(4, Math.max(1, targetStep));
+
+      if (
+        current === 2 &&
+        nextClampedStep === 3 &&
+        !initiateCheckoutFiredRef.current &&
+        typeof window !== 'undefined'
+      ) {
+        initiateCheckoutFiredRef.current = true;
+        window.fbq?.('trackSingle', INITIATE_CHECKOUT_PIXEL_ID, 'InitiateCheckout');
+      }
 
       if (markReached) {
         setHighestStep((highest) => Math.max(highest, nextClampedStep));
