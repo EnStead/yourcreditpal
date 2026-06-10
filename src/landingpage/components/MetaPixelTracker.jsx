@@ -5,9 +5,10 @@ const PAGEVIEW_PIXEL_ID = '1160272862878464'
 const VIEW_CONTENT_PIXEL_ID = '1689157452266597'
 const VIEW_CONTENT_DELAY_MS = 5000
 const VIEW_CONTENT_SCROLL_THRESHOLD = 0.35
+const META_PIXEL_IDS = Array.from(new Set([PAGEVIEW_PIXEL_ID, VIEW_CONTENT_PIXEL_ID].filter(Boolean)))
 
 const loadMetaPixel = () => {
-  if (!PAGEVIEW_PIXEL_ID || typeof window === 'undefined') return
+  if (!META_PIXEL_IDS.length || typeof window === 'undefined') return
   if (window.fbq) return
 
   !(function (f, b, e, v, n, t, s) {
@@ -27,7 +28,9 @@ const loadMetaPixel = () => {
     s.parentNode.insertBefore(t, s)
   })(window, document, 'script', 'https://connect.facebook.net/en_US/fbevents.js')
 
-  window.fbq('init', PAGEVIEW_PIXEL_ID)
+  META_PIXEL_IDS.forEach((pixelId) => {
+    window.fbq('init', pixelId)
+  })
 }
 
 const MetaPixelTracker = () => {
@@ -36,13 +39,20 @@ const MetaPixelTracker = () => {
   const viewContentFiredRef = useRef(false)
   const viewContentTimerRef = useRef(null)
   const viewContentScrollHandlerRef = useRef(null)
+  const viewContentTimePassedRef = useRef(false)
+  const viewContentScrollPassedRef = useRef(false)
 
-  const fireViewContent = () => {
+  const maybeFireViewContent = () => {
     if (viewContentFiredRef.current || typeof window === 'undefined') return
+    if (!viewContentTimePassedRef.current || !viewContentScrollPassedRef.current) return
+
     viewContentFiredRef.current = true
     window.removeEventListener('scroll', viewContentScrollHandlerRef.current)
     window.clearTimeout(viewContentTimerRef.current)
-    window.fbq?.('trackSingle', VIEW_CONTENT_PIXEL_ID, 'ViewContent')
+    window.fbq?.('trackSingle', VIEW_CONTENT_PIXEL_ID, 'ViewContent', {
+      content_name: 'YourCreditPal Landing Page',
+      content_category: 'Personal Loan Matching',
+    })
   }
 
   useEffect(() => {
@@ -57,6 +67,8 @@ const MetaPixelTracker = () => {
     window.fbq?.('track', 'PageView')
 
     viewContentFiredRef.current = false
+    viewContentTimePassedRef.current = false
+    viewContentScrollPassedRef.current = false
     window.clearTimeout(viewContentTimerRef.current)
     window.removeEventListener('scroll', viewContentScrollHandlerRef.current)
 
@@ -70,12 +82,14 @@ const MetaPixelTracker = () => {
 
     viewContentScrollHandlerRef.current = () => {
       if (getScrollProgress() >= VIEW_CONTENT_SCROLL_THRESHOLD) {
-        fireViewContent()
+        viewContentScrollPassedRef.current = true
+        maybeFireViewContent()
       }
     }
 
     viewContentTimerRef.current = window.setTimeout(() => {
-      fireViewContent()
+      viewContentTimePassedRef.current = true
+      maybeFireViewContent()
     }, VIEW_CONTENT_DELAY_MS)
 
     window.addEventListener('scroll', viewContentScrollHandlerRef.current, { passive: true })
