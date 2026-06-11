@@ -28,6 +28,87 @@ const resolveTocHref = (page, item) => {
   return `#${matchedSection ? resolveSectionId(matchedSection) : itemSlug}`
 }
 
+const emailPattern = /([A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,})/gi
+const isEmail = (value) => /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(value)
+
+const renderInlineText = (text) => {
+  if (!text || typeof text !== 'string') return text
+
+  const parts = text.split(emailPattern)
+
+  return parts.map((part, index) => {
+    if (isEmail(part)) {
+      return (
+        <a
+          key={`${part}-${index}`}
+          href={`mailto:${part}`}
+          className="break-words font-medium text-brand-primary underline underline-offset-4"
+        >
+          {part}
+        </a>
+      )
+    }
+
+    return (
+      <span key={`${part}-${index}`} className="break-words">
+        {part}
+      </span>
+    )
+  })
+}
+
+const renderParagraphText = (text) => {
+  const isSubSection = /^\d+\.\d+/.test(text) || /^[a-z]\./i.test(text)
+
+  return (
+    <span className={isSubSection ? 'break-words font-semibold text-lg text-brand-title' : 'break-words'}>
+      {renderInlineText(text)}
+    </span>
+  )
+}
+
+const renderTable = (table, key) => {
+  const headers = table.headers || []
+  const rows = table.rows || []
+
+  return (
+    <div key={key} className="mt-6 overflow-hidden rounded-2xl border border-brand-stroke/25 bg-brand-white">
+      <div className="overflow-x-auto w-full">
+        <table className="w-full min-w-[800px] lg:min-w-full table-auto border-collapse text-sm">
+          {headers.length ? (
+            <thead className="bg-brand-offwhite">
+              <tr>
+                {headers.map((header) => (
+                  <th
+                    key={header}
+                    className="border-b border-brand-stroke/20 px-4 py-3 text-left font-semibold text-brand-title break-words"
+                  >
+                    {header}
+                  </th>
+                ))}
+              </tr>
+            </thead>
+          ) : null}
+          <tbody>
+            {rows.map((row, rowIndex) => (
+              <tr key={`${key}-row-${rowIndex}`} className="align-top">
+                {row.map((cell, cellIndex) => (
+                  <td
+                    key={`${key}-cell-${rowIndex}-${cellIndex}`}
+                    className="border-t border-brand-stroke/10 px-4 py-3 break-words text-brand-body [overflow-wrap:anywhere]"
+                  >
+                    {renderInlineText(cell)}
+                  </td>
+                ))}
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  )
+}
+
 const LegalPage = ({ page }) => {
   const [activeSectionId, setActiveSectionId] = useState(
     page.sections[0] ? resolveSectionId(page.sections[0]) : '',
@@ -84,21 +165,23 @@ const LegalPage = ({ page }) => {
   return (
     <section className="px-5 py-12 sm:px-8 lg:px-20">
       <div className="grid gap-10 lg:grid-cols-[1fr_260px] lg:gap-14">
-        <div>
+        <div className="min-w-0">
           <div className="flex items-center gap-2">
             <span className="text-sm font-medium text-brand-accent2">{page.eyebrow}</span>
             <Star className="h-3 w-3 text-brand-accent2" />
           </div>
 
-          <h1 className="mt-6 max-w-4xl text-3xl font-bold tracking-[-0.04em] text-brand-title sm:text-5xl">
+          <h1 className="mt-6 max-w-4xl break-words text-3xl font-bold tracking-[-0.04em] text-brand-title sm:text-5xl">
             {page.title}
           </h1>
-          <p className="mt-4 max-w-2xl text-lg text-brand-body">{page.intro}</p>
+          <p className="mt-4 max-w-2xl break-words text-lg text-brand-body [overflow-wrap:anywhere]">{page.intro}</p>
 
           {page.calloutTitle ? (
             <div className="mt-8 border-l-4 border-brand-accent1 bg-brand-offwhite px-5 py-4">
               <h2 className="text-xl font-bold tracking-[-0.03em] text-brand-title">{page.calloutTitle}</h2>
-              <p className="mt-2 max-w-3xl text-base text-brand-body">{page.calloutBody}</p>
+              <p className="mt-2 max-w-3xl break-words text-base text-brand-body [overflow-wrap:anywhere]">
+                {page.calloutBody}
+              </p>
             </div>
           ) : null}
 
@@ -109,26 +192,32 @@ const LegalPage = ({ page }) => {
                 id={resolveSectionId(section)}
                 className="scroll-mt-28"
               >
-                <h2 className="text-xl sm:text-3xl font-bold tracking-[-0.03em] text-brand-title">{section.title}</h2>
+                <h2 className="text-xl sm:text-3xl break-words font-bold tracking-[-0.03em] text-brand-title">{section.title}</h2>
 
-                <div className="mt-4 space-y-4 text-base text-brand-body">
+                <div className="mt-4 space-y-4 break-words text-base text-brand-body [overflow-wrap:anywhere]">
                   {section.paragraphs?.map((paragraph) => (
-                    <p key={paragraph}>{paragraph}</p>
+                    <p key={paragraph} className="break-words [overflow-wrap:anywhere]">
+                      {renderParagraphText(paragraph)}
+                    </p>
                   ))}
                 </div>
 
                 {section.bullets?.length ? (
                   <ul className="mt-4 list-disc space-y-2 pl-5 text-base text-brand-body">
                     {section.bullets.map((bullet) => (
-                      <li key={bullet}>{bullet}</li>
+                      <li key={bullet} className="break-words [overflow-wrap:anywhere]">
+                        {bullet}
+                      </li>
                     ))}
                   </ul>
                 ) : null}
 
                 {section.subParagraphs?.length ? (
-                  <div className="mt-4 space-y-4 text-base text-brand-body">
+                  <div className="mt-4 space-y-4 break-words text-base text-brand-body [overflow-wrap:anywhere]">
                     {section.subParagraphs.map((paragraph) => (
-                      <p key={paragraph}>{paragraph}</p>
+                      <p key={paragraph} className="break-words [overflow-wrap:anywhere]">
+                        {renderParagraphText(paragraph)}
+                      </p>
                     ))}
                   </div>
                 ) : null}
@@ -136,15 +225,77 @@ const LegalPage = ({ page }) => {
                 {section.subBullets?.length ? (
                   <ul className="mt-4 list-disc space-y-2 pl-5 text-base text-brand-body">
                     {section.subBullets.map((bullet) => (
-                      <li key={bullet}>{bullet}</li>
+                      <li key={bullet} className="break-words [overflow-wrap:anywhere]">
+                        {bullet}
+                      </li>
                     ))}
                   </ul>
                 ) : null}
 
                 {section.paragraphsAfter?.length ? (
-                  <div className="mt-4 space-y-4 text-base text-brand-body">
+                  <div className="mt-4 space-y-4 break-words text-base text-brand-body [overflow-wrap:anywhere]">
                     {section.paragraphsAfter.map((paragraph) => (
-                      <p key={paragraph}>{paragraph}</p>
+                      <p key={paragraph} className="break-words [overflow-wrap:anywhere]">
+                        {renderParagraphText(paragraph)}
+                      </p>
+                    ))}
+                  </div>
+                ) : null}
+
+                {section.tables?.length ? (
+                  <div className="space-y-4">
+                    {section.tables.map((table, tableIndex) => renderTable(table, `${section.title}-table-${tableIndex}`))}
+                  </div>
+                ) : null}
+
+                {section.subsections?.length ? (
+                  <div className="mt-6 space-y-8">
+                    {section.subsections.map((subsection) => (
+                      <div key={subsection.title} className="space-y-4">
+                        <h3 className="text-lg font-semibold tracking-[-0.03em] text-brand-title">
+                          {subsection.title}
+                        </h3>
+
+                        {subsection.paragraphs?.length ? (
+                          <div className="space-y-4 break-words text-base text-brand-body [overflow-wrap:anywhere]">
+                            {subsection.paragraphs.map((paragraph) => (
+                              <p key={paragraph} className="break-words [overflow-wrap:anywhere]">
+                                {renderParagraphText(paragraph)}
+                              </p>
+                            ))}
+                          </div>
+                        ) : null}
+
+                        {subsection.bullets?.length ? (
+                          <ul className="list-disc space-y-2 pl-5 text-base text-brand-body">
+                            {subsection.bullets.map((bullet) => (
+                              <li key={bullet} className="break-words [overflow-wrap:anywhere]">
+                                {renderInlineText(bullet)}
+                              </li>
+                            ))}
+                          </ul>
+                        ) : null}
+
+                        {subsection.linkText ? (
+                          <p className="text-base text-brand-body">
+                            {subsection.linkPrefix ? renderInlineText(subsection.linkPrefix) : null}
+                            <a
+                              href={subsection.linkHref}
+                              className="break-words font-semibold text-brand-primary underline"
+                            >
+                              {subsection.linkText}
+                            </a>
+                          </p>
+                        ) : null}
+
+                        {subsection.tables?.length ? (
+                          <div className="space-y-4">
+                            {subsection.tables.map((table, tableIndex) =>
+                              renderTable(table, `${subsection.title}-table-${tableIndex}`),
+                            )}
+                          </div>
+                        ) : null}
+                      </div>
                     ))}
                   </div>
                 ) : null}
@@ -179,7 +330,9 @@ const LegalPage = ({ page }) => {
           {page.noteTitle ? (
             <div className="mt-10 border-l-4 border-brand-accent1 bg-brand-offwhite px-5 py-4">
               <h2 className="text-xl font-bold tracking-[-0.03em] text-brand-title">{page.noteTitle}</h2>
-              <p className="mt-2 max-w-3xl text-base text-brand-body">{page.noteBody}</p>
+              <p className="mt-2 max-w-3xl break-words text-base text-brand-body [overflow-wrap:anywhere]">
+                {page.noteBody}
+              </p>
               {page.noteBullets?.length ? (
                 <ul className="mt-3 space-y-2 text-base text-brand-body">
                   {page.noteBullets.map((bullet) => (

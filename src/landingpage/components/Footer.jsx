@@ -19,6 +19,7 @@ const legalLinks = [
   { label: 'Financial Disclosure', to: '/legal/financial-disclosures' },
   { label: 'E-Consent', to: '/legal/electronic-consent' },
   { label: 'Marketing Partners', to: '/legal/marketing-partners' },
+  { label: 'Vulnerability Disclosure', to: '/legal/vulnerability-disclosure' },
   { label: 'Do Not Sell My Info', to: '/legal/do-not-sell' },
 ]
 

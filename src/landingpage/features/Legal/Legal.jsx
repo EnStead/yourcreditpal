@@ -14,6 +14,7 @@ const Legal = () => {
     'electronic-consent': 'electronic-consent',
     'marketing-partners': 'marketing-partners',
     'do-not-sell': 'do-not-sell',
+    'vulnerability-disclosure': 'vulnerability-disclosure',
   }
 
   const page = legalPages[slugMap[slug]]
