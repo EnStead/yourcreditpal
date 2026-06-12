@@ -156,7 +156,7 @@ const ApplyForm = () => {
   const buttonText = isLastStep
     ? "Submit My Application"
     : isCurrentStepValid
-      ? "Continue"
+      ? (step === 2 ? "See My Loan Options" : "Continue")
       : "Next";
 
   const scrollFormToTop = () => {
@@ -357,7 +357,7 @@ const ApplyForm = () => {
                 disabled={!isCurrentStepValid}
                 onClick={() => goToStep((current) => current + 1, { markReached: true })}
                 className={`rounded-xl px-6 py-3 text-sm font-semibold text-brand-white transition-all duration-300 ${
-                  buttonText === "Continue" ? "min-w-[15rem]" : "min-w-[10rem]"
+                  buttonText === "Continue" || buttonText === "See My Loan Options" ? "min-w-[15rem]" : "min-w-[10rem]"
                 } ${
                   !isCurrentStepValid
                     ? "cursor-not-allowed bg-brand-secondary/50"

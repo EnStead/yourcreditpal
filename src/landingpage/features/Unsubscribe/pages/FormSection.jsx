@@ -194,13 +194,19 @@ const FormSection = ({ submitted, onSubmit }) => {
         </div>
 
         <div className="hidden lg:block lg:pt-8">
-          <div className="overflow-hidden rounded-[0.15rem]">
-            <img
-              src={submitted ? SubImage : SubImage}
-              alt={submitted ? 'Submission received' : 'Communication preference illustration'}
-              className="h-[42rem] w-full object-cover lg:h-[46rem]"
-            />
-          </div>
+          {submitted ? (
+            <div className="flex h-[42rem] items-center justify-center rounded-[0.15rem] bg-brand-offwhite lg:h-[46rem]">
+              <img src={Globe} alt="Submission received" className="h-48 w-48 object-contain" />
+            </div>
+          ) : (
+            <div className="overflow-hidden rounded-[0.15rem]">
+              <img
+                src={SubImage}
+                alt="Communication preference illustration"
+                className="h-[42rem] w-full object-cover lg:h-[46rem]"
+              />
+            </div>
+          )}
         </div>
       </div>
     </section>

@@ -61,7 +61,7 @@ export const ConfidenceBox = ({ items }) => (
   </div>
 )
 
-export const SecureNoticeCard = ({ title, text }) => (
+export const SecureNoticeCard = ({ title, children }) => (
   <div className="mt-10 rounded-2xl border-2 border-brand-stroke bg-brand-offwhite p-4">
     <div className="flex items-center gap-3">
       <div className="">
@@ -69,7 +69,7 @@ export const SecureNoticeCard = ({ title, text }) => (
       </div>
       <div>
         <h3 className="text-base font-bold text-brand-title">{title}</h3>
-        <p className="mt-1 text-sm text-brand-body">{text}</p>
+        <p className="mt-1 text-sm text-brand-body">{children}</p>
       </div>
     </div>
   </div>
@@ -77,47 +77,24 @@ export const SecureNoticeCard = ({ title, text }) => (
 
 export const ConsentText = () => (
   <p className="mt-4 text-sm font-light text-brand-body">
-    By clicking &ldquo;Continue,&rdquo; you agree to receive{' '}
-    <NavLink to="/legal/electronic-consent" className={legalLinkClass}>
-      communications
+    By clicking &ldquo;See My Loan Options,&rdquo; I confirm that I have read and agree to YourCreditPal&apos;s{' '}
+    <NavLink to="/legal/terms" className={legalLinkClass}>
+      Terms of Use
     </NavLink>{' '}
-    from YourCreditPal and our{' '}
+    and{' '}
+    <NavLink to="/legal/privacy" className={legalLinkClass}>
+      Privacy Policy
+    </NavLink>
+    , and I provide my express written consent to be contacted by YourCreditPal and its network of{' '}
     <NavLink to="/legal/marketing-partners" className={legalLinkClass}>
       lending partners
     </NavLink>{' '}
-    regarding your request, including calls, emails, and text messages where permitted.
+    regarding personal loan products. I consent to be contacted by telephone, auto-dialer, pre-recorded message, and text message at the phone number I provided above, and by email at the address I provided above. I understand that consent is not required as a condition of obtaining any product or service, and that I may revoke my consent at any time by replying STOP to any text message or clicking Unsubscribe in any email. Message and data rates may apply.
   </p>
 )
 
-export const ConsentList = () => (
-  <>
-    <p className="mt-5 text-sm leading-6 text-brand-body">
-      By submitting your request, you acknowledge and agree that:
-    </p>
-    <ul className="mt-3 list-disc space-y-3 pl-5 text-sm text-brand-body">
-      <li>
-        YourCreditPal may securely share your information with{' '}
-        <NavLink to="/legal/marketing-partners" className={legalLinkClass}>
-          lending partners
-        </NavLink>{' '}
-        to help identify potential loan opportunities.
-      </li>
-      <li>You may receive calls, emails, or text messages regarding your request, even if your number appears on a federal or state Do Not Call list. Message and data rates may apply.</li>
-      <li>
-        Your information is processed in accordance with our{' '}
-        <NavLink to="/legal/terms" className={legalLinkClass}>
-          Terms &amp; Conditions
-        </NavLink>
-        ,{' '}
-        <NavLink to="/legal/privacy" className={legalLinkClass}>
-          Privacy Policy
-        </NavLink>
-        , and{' '}
-        <NavLink to="/legal/electronic-consent" className={legalLinkClass}>
-          E-Consent Agreement
-        </NavLink>
-        .
-      </li>
-    </ul>
-  </>
+export const ConsentConfirmation = () => (
+  <p className="mt-5 text-sm leading-6 text-brand-body">
+    By submitting this form, I confirm that the information provided is accurate and complete, and I reaffirm my consent to be contacted as described above. I understand that YourCreditPal is a loan matching service, not a lender, and that we do not make credit decisions or guarantee loan approval. Loan offers, rates, and terms are determined by individual lenders based on your application.
+  </p>
 )

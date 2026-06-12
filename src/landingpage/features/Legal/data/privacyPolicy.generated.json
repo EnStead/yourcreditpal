@@ -1,41 +1,42 @@
 {
-  "eyebrow": "YourCreditPal Company Limited",
+  "eyebrow": "Privacy & Security",
   "title": "Privacy Policy",
   "intro": "Lead Generation & Loan Referral Platform",
   "updatedAt": "June 2026",
   "calloutTitle": "IMPORTANT NOTICE - PLEASE READ CAREFULLY",
-  "calloutBody": "",
+  "calloutBody": "This Privacy Policy governs how YourCreditPal collects, uses, shares, sells, and retains your personal information in connection with our loan referral and lead generation services. By using yourcreditpal.com or submitting any personal information through our platform, you acknowledge that you have read, understood, and agreed to this Privacy Policy and our Terms of Use. Your use of our services constitutes your express written consent to the collection, sale, and sharing of your personal information as described herein, including consent under the Telephone Consumer Protection Act (TCPA) for automated communications.",
   "toc": [
-    "IMPORTANT INFORMATION AND WHO WE ARE",
-    "DEFINITIONS",
-    "TYPES OF PERSONAL DATA WE COLLECT",
-    "HOW YOUR PERSONAL DATA IS COLLECTED",
-    "HOW WE USE YOUR PERSONAL DATA",
-    "TCPA CONSENT, AUTOMATED CALLS AND TEXT MESSAGING",
-    "DISCLOSURES OF YOUR PERSONAL DATA",
-    "SALE AND SHARING OF PERSONAL DATA",
-    "INTERNATIONAL TRANSFERS",
-    "DATA SECURITY",
-    "DATA RETENTION",
-    "YOUR LEGAL RIGHTS",
-    "CHILDREN AND MINORS",
-    "THIRD-PARTY LINKS",
-    "COOKIES AND TRACKING TECHNOLOGIES",
-    "CHANGES TO THIS PRIVACY POLICY",
-    "CALIFORNIA RESIDENTS",
-    "DELAWARE RESIDENTS",
-    "CONTACT DETAILS AND COMPLAINTS"
+    "Important Information and Who We Are",
+    "Definitions",
+    "Types of Personal Data We Collect",
+    "How Your Personal Data Is Collected",
+    "How We Use Your Personal Data",
+    "TCPA Consent, Automated Calls and Text Messaging",
+    "Disclosures of Your Personal Data",
+    "Sale and Sharing of Personal Data",
+    "International Transfers",
+    "Data Security",
+    "Data Retention",
+    "Your Legal Rights",
+    "Children and Minors",
+    "Third-Party Links",
+    "Cookies and Tracking Technologies",
+    "Changes to This Privacy Policy",
+    "California Residents",
+    "Delaware Residents",
+    "Residents of Other US States",
+    "Contact Details and Complaints"
   ],
   "sections": [
     {
-      "title": "IMPORTANT INFORMATION AND WHO WE ARE",
+      "title": "1. Important Information and Who We Are",
       "paragraphs": [],
       "bullets": [],
       "subsections": [
         {
-          "title": "About YourCreditPal Company Limited",
+          "title": "About YourCreditPal",
           "paragraphs": [
-            "YourCreditPal Company Limited (collectively “YourCreditPal”, “we”, “us”, or “our”) operates as a loan referral and lead generation platform. Our primary business is to assist consumers in identifying and connecting with qualified third-party lenders and financial service providers (“Lending Partners”) within our network. By collecting personal and financial information voluntarily submitted by you through our platform at yourcreditpal.com, we facilitate a matching process that allows you to select and provide express consent to be contacted by specific Lending Partners regarding loan products, credit offers, and related financial services.",
+            "ENSTEAD, LLC (collectively “ENSTEAD”, “we”, “us”, or “our”) operates as a loan referral and lead generation platform. Our primary business is to assist consumers in identifying and connecting with qualified third-party lenders and financial service providers (“Lending Partners”) within our network. By collecting personal and financial information voluntarily submitted by you through our platform at yourcreditpal.com, we facilitate a matching process that allows you to select and provide express consent to be contacted by specific Lending Partners regarding loan products, credit offers, and related financial services.",
             "YourCreditPal is not a lender. We do not make lending decisions, issue credit, determine eligibility for any loan product, or bear responsibility for any lending terms offered by Lending Partners. We provide digital infrastructure and lead generation services to connect your request for financial products with the specific providers you choose to engage with."
           ],
           "bullets": [],
@@ -52,14 +53,16 @@
         {
           "title": "1.2 Scope of This Privacy Policy",
           "paragraphs": [
-            "This Privacy Policy describes how we collect, use, share, sell, retain, and protect your personal data through your use of this site, our mobile website, any associated applications, and any other means by which you interact with us (collectively, “Services”). It applies to all personal data collected:",
-            "This website and our Services are not intended for children under the age of 18. We do not knowingly collect data from children."
+            "This Privacy Policy describes how we collect, use, share, sell, retain, and protect your personal data through your use of this site, our mobile website, any associated applications, and any other means by which you interact with us (collectively, “Services”). It applies to all personal data collected:"
           ],
           "bullets": [
             "Directly from you when you use our website or submit a lead generation form;",
             "Automatically through your use of our website and digital technologies;",
             "From third-party data sources as described in this Policy;",
             "Through offline interactions with us, including by telephone."
+          ],
+          "paragraphsAfter": [
+            "This website and our Services are not intended for children under the age of 18. We do not knowingly collect data from children."
           ],
           "tables": []
         },
@@ -75,7 +78,7 @@
       "tables": []
     },
     {
-      "title": "DEFINITIONS",
+      "title": "2. Definitions",
       "paragraphs": [
         "As used in this Privacy Policy, the following terms are defined as follows:"
       ],
@@ -101,10 +104,9 @@
       "tables": []
     },
     {
-      "title": "TYPES OF PERSONAL DATA WE COLLECT",
+      "title": "3. Types of Personal Data We Collect",
       "paragraphs": [
-        "We may collect, use, store, and transfer different categories of personal data about you. The table below sets out the categories we collect, their nature and type, the purposes for collection, whether they are sold or shared, the categories of third parties to whom they are disclosed, and our retention periods.",
-        "We also collect, use, and share aggregated data such as statistical or demographic data that does not directly identify any individual Consumer. This is not personal data and may be used for analytics, business development, and improving our Services."
+        "We may collect, use, store, and transfer different categories of personal data about you. The table below sets out the categories we collect, their nature and type, the purposes for collection, whether they are sold or shared, the categories of third parties to whom they are disclosed, and our retention periods."
       ],
       "bullets": [],
       "subsections": [],
@@ -121,66 +123,170 @@
           "rows": [
             [
               "Identity Data",
-              "First and last nameUsername or aliasDate of birthMarital status / titleGovernment-issued ID (last 4 digits only, where required for verification)",
-              "Qualify Consumer for loan productsFulfill Consumer RequestsMatch Consumer with Lending PartnersFraud prevention",
+              [
+                "First and last name",
+                "Username or alias",
+                "Date of birth",
+                "Marital status / title",
+                "Government-issued ID (last 4 digits only, where required for verification)"
+              ],
+              [
+                "Qualify Consumer for loan products",
+                "Fulfill Consumer Requests",
+                "Match Consumer with Lending Partners",
+                "Fraud prevention"
+              ],
               "Both. Sold to Lending Partners and shared with Service Providers",
-              "Lending Partners selected by ConsumerLead aggregators / resellersVerification / fraud prevention vendorsLegal / regulatory authorities",
+              [
+                "Lending Partners selected by Consumer",
+                "Lead aggregators / resellers",
+                "Verification / fraud prevention vendors",
+                "Legal / regulatory authorities"
+              ],
               "6 years from submission or last use of Services, unless longer retention is required by law"
             ],
             [
               "Contact Data",
-              "Email addressMobile and landline telephone numbersBilling and mailing addressState / ZIP code",
-              "Facilitate lender contactSend TCPA-compliant communicationsEmail and SMS marketing (with consent)Customer service",
+              [
+                "Email address",
+                "Mobile and landline telephone numbers",
+                "Billing and mailing address",
+                "State / ZIP code"
+              ],
+              [
+                "Facilitate lender contact",
+                "Send TCPA-compliant communications",
+                "Email and SMS marketing (with consent)",
+                "Customer service"
+              ],
               "Both",
-              "Lending Partners selected by ConsumerEmail / SMS marketing vendorsLead resellersLegal / regulatory authorities",
+              [
+                "Lending Partners selected by Consumer",
+                "Email / SMS marketing vendors",
+                "Lead resellers",
+                "Legal / regulatory authorities"
+              ],
               "6 years from submission or last use of Services"
             ],
             [
               "Financial Data",
-              "Income and employment statusEmployment historyExisting debt obligationsLoan amount soughtCredit score range (self-reported)Bank account / routing numbers (only where required by lender matching)",
-              "Assess eligibility for loan productsMatch Consumer with suitable Lending PartnersFraud and risk management",
+              [
+                "Income and employment status",
+                "Employment history",
+                "Existing debt obligations",
+                "Loan amount sought",
+                "Credit score range (self-reported)",
+                "Bank account / routing numbers (only where required by lender matching)"
+              ],
+              [
+                "Assess eligibility for loan products",
+                "Match Consumer with suitable Lending Partners",
+                "Fraud and risk management"
+              ],
               "Both. Financial data is a core component of Leads sold to Lending Partners.",
-              "Lending Partners selected by ConsumerCredit verification providersFraud prevention vendors",
+              [
+                "Lending Partners selected by Consumer",
+                "Credit verification providers",
+                "Fraud prevention vendors"
+              ],
               "6 years from submission or last use of Services"
             ],
             [
               "Technical Data",
-              "IP addressBrowser type and versionDevice type and IDOperating systemLogin dataTime zone / locationCookie and tracking data",
-              "Website security and fraud preventionService improvement and analyticsInterest-based advertising",
+              [
+                "IP address",
+                "Browser type and version",
+                "Device type and ID",
+                "Operating system",
+                "Login data",
+                "Time zone / location",
+                "Cookie and tracking data"
+              ],
+              [
+                "Website security and fraud prevention",
+                "Service improvement and analytics",
+                "Interest-based advertising"
+              ],
               "Shared with Service Providers; may be sold to advertising networks",
-              "Analytics providers (e.g., Google Analytics)Advertising networksFraud / lead verification vendors.",
+              [
+                "Analytics providers (e.g., Google Analytics)",
+                "Advertising networks",
+                "Fraud / lead verification vendors"
+              ],
               "3 years from collection"
             ],
             [
               "Profile Data",
-              "Username and passwordLoan preferencesInterest and preference inferencesSurvey responsesInteraction history with YourCreditPal",
-              "Personalize experienceMarketing and targeted advertisingService improvement",
+              [
+                "Username and password",
+                "Loan preferences",
+                "Interest and preference inferences",
+                "Survey responses",
+                "Interaction history with YourCreditPal"
+              ],
+              [
+                "Personalize experience",
+                "Marketing and targeted advertising",
+                "Service improvement"
+              ],
               "Both",
-              "Advertising networksAnalytics vendorsLending Partners (in aggregate/inferred form)",
+              [
+                "Advertising networks",
+                "Analytics vendors",
+                "Lending Partners (in aggregate/inferred form)"
+              ],
               "6 years from last interaction"
             ],
             [
               "Usage Data",
-              "Pages visitedLinks clickedSession durationBrowsing and search history on yourcreditpal.comInteraction with advertisements",
-              "Improve website and ServicesMeasure advertising effectivenessInterest-based advertising",
+              [
+                "Pages visited",
+                "Links clicked",
+                "Session duration",
+                "Browsing and search history on yourcreditpal.com",
+                "Interaction with advertisements"
+              ],
+              [
+                "Improve website and Services",
+                "Measure advertising effectiveness",
+                "Interest-based advertising"
+              ],
               "Shared with analytics and advertising vendors",
-              "Analytics providersAdvertising networks",
+              [
+                "Analytics providers",
+                "Advertising networks"
+              ],
               "3 years from collection"
             ],
             [
               "Marketing & Communications Data",
-              "Marketing preferencesOpt-in / opt-out recordsCommunication historyTCPA consent records (including timestamps, IP, and lead IDs)",
-              "Manage marketing communicationsComply with TCPA and opt-out obligationsRegulatory compliance",
+              [
+                "Marketing preferences",
+                "Opt-in / opt-out records",
+                "Communication history",
+                "TCPA consent records (including timestamps, IP, and lead IDs)"
+              ],
+              [
+                "Manage marketing communications",
+                "Comply with TCPA and opt-out obligations",
+                "Regulatory compliance"
+              ],
               "Retained internally; consent records shared with Lending Partners as required",
-              "Lending Partners (TCPA consent records)Legal / regulatory authorities",
+              [
+                "Lending Partners (TCPA consent records)",
+                "Legal / regulatory authorities"
+              ],
               "Consent records retained for minimum 5 years for TCPA compliance, or the specific minimum required State Law period; marketing preferences retained 6 years."
             ]
           ]
         }
+      ],
+      "paragraphsAfter": [
+        "We also collect, use, and share aggregated data such as statistical or demographic data that does not directly identify any individual Consumer. This is not personal data and may be used for analytics, business development, and improving our Services."
       ]
     },
     {
-      "title": "HOW YOUR PERSONAL DATA IS COLLECTED",
+      "title": "4. How Your Personal Data Is Collected",
       "paragraphs": [
         "We use different methods to collect data from and about you, including through:"
       ],
@@ -220,7 +326,7 @@
             "Advertising networks and data brokers;",
             "Search information providers;",
             "Credit referencing and identity verification services;",
-            "Other lead generation companies that sell or transfer Consumer Requests to YourCreditPal where the Consumer's personal data was originally collected by that third party from the Consumer on the third party's website."
+            "Other lead generation companies that sell or transfer Consumer Requests to ENSTEAD where the Consumer's personal data was originally collected by that third party from the Consumer on the third party's website."
           ],
           "tables": []
         },
@@ -244,7 +350,7 @@
       "tables": []
     },
     {
-      "title": "HOW WE USE YOUR PERSONAL DATA",
+      "title": "5. How We Use Your Personal Data",
       "paragraphs": [],
       "bullets": [],
       "subsections": [
@@ -278,56 +384,80 @@
               "rows": [
                 [
                   "To qualify you for loan products: To assess your eligibility and match you with suitable Lending Partners.",
-                  "IdentityContactFinancialProfile",
-                  "Performance of a contract (providing the referral service you requested).Legitimate interests (ensuring we send qualified leads to partners).",
+                  ["Identity", "Contact", "Financial", "Profile"],
+                  [
+                    "Performance of a contract (providing the referral service you requested)",
+                    "Legitimate interests (ensuring we send qualified leads to partners)"
+                  ],
                   "6 years from submission if no loan is secured."
                 ],
                 [
                   "To facilitate referrals to Lending Partners: Selling and transferring your Lead profile to Lending Partners you select to obtain quotes on your behalf.",
-                  "IdentityContactFinancialTransaction",
-                  "Consent: by selecting specific Lending Partners from our panel and clicking Submit, you provide one-to-one express written consent for each selected Lending Partner to contact you via the contact methods you provided, including via automated dialing systems or SMS, for the purpose of fulfilling your loan request. Performance of a contract, necessary to fulfil the referral service.",
+                  ["Identity", "Contact", "Financial", "Transaction"],
+                  [
+                    "Consent: by selecting specific Lending Partners from our panel and clicking Submit, you provide one-to-one express written consent for each selected Lending Partner to contact you via the contact methods you provided, including via automated dialing systems or SMS, for the purpose of fulfilling your loan request.",
+                    "Performance of a contract, necessary to fulfil the referral service."
+                  ],
                   "Minimum 6 years. TCPA consent records: minimum 5 years."
                 ],
                 [
                   "To manage our relationship with you: Including notifying you about changes to our terms or Privacy Policy, dealing with requests, complaints, and queries.",
-                  "IdentityContactProfileMarketing & Comms",
-                  "Performance of a contract.Legal obligation.",
+                  ["Identity", "Contact", "Profile", "Marketing & Comms"],
+                  [
+                    "Performance of a contract",
+                    "Legal obligation"
+                  ],
                   "6 years."
                 ],
                 [
                   "To administer and protect our business and website: Including troubleshooting, data analysis, system maintenance, security, and hosting.",
-                  "IdentityContactTechnical",
-                  "Legitimate interests (running our business, IT administration, network security, fraud prevention). Legal obligation.",
+                  ["Identity", "Contact", "Technical"],
+                  [
+                    "Legitimate interests (running our business, IT administration, network security, fraud prevention)",
+                    "Legal obligation"
+                  ],
                   "6 years."
                 ],
                 [
                   "To deliver relevant website content and online advertising: To measure or understand the effectiveness of advertising we serve.",
-                  "IdentityContactProfileUsageMarketing & CommsTechnical",
-                  "Legitimate interests (to study how customers use our services, growing our business, informing our marketing strategy).",
+                  ["Identity", "Contact", "Profile", "Usage", "Marketing & Comms", "Technical"],
+                  [
+                    "Legitimate interests (to study how customers use our services, growing our business, informing our marketing strategy)"
+                  ],
                   "6 years."
                 ],
                 [
                   "To use data analytics to improve our website, products, and services.",
-                  "TechnicalUsage",
-                  "Legitimate interests (keeping our website relevant, developing our business).",
+                  ["Technical", "Usage"],
+                  [
+                    "Legitimate interests (keeping our website relevant, developing our business)"
+                  ],
                   "3 years."
                 ],
                 [
                   "To send you marketing communications and make personalized recommendations about financial and other products.",
-                  "IdentityContactTechnicalUsageProfileMarketing & Comms",
-                  "Consent (for direct marketing by email, SMS, or automated call).Legitimate interests (direct marketing of similar services).",
+                  ["Identity", "Contact", "Technical", "Usage", "Profile", "Marketing & Comms"],
+                  [
+                    "Consent (for direct marketing by email, SMS, or automated call)",
+                    "Legitimate interests (direct marketing of similar services)"
+                  ],
                   "6 years from consent, or until opt-out."
                 ],
                 [
                   "To carry out market research through voluntary participation in surveys.",
-                  "Any voluntarily provided",
-                  "Legitimate interests (improving products and services).",
+                  ["Any voluntarily provided"],
+                  [
+                    "Legitimate interests (improving products and services)"
+                  ],
                   "6 years."
                 ],
                 [
                   "To record and evidence TCPA consent: Capturing lead session data, IP address, timestamp, form environment, and consent language for each Consumer Request.",
-                  "IdentityContactTechnicalMarketing & Comms",
-                  "Legal obligation (TCPA compliance). Legitimate interests (defending against regulatory claims).",
+                  ["Identity", "Contact", "Technical", "Marketing & Comms"],
+                  [
+                    "Legal obligation (TCPA compliance)",
+                    "Legitimate interests (defending against regulatory claims)"
+                  ],
                   "Minimum 5 years, or subject to specific state required period."
                 ]
               ]
@@ -353,7 +483,7 @@
         {
           "title": "5.5 Opting Out of Marketing",
           "paragraphs": [
-            "You can ask us to stop sending you marketing communications at any time by following the opt-out links in any marketing email or SMS, by replying STOP to any text message, or by contacting us via the details in Section 19. Even if you opt out of marketing, you will continue to receive service-related communications that are essential for administrative or customer service purposes, including updates to our Terms of Use and this Privacy Policy."
+            "You can ask us to stop sending you marketing communications at any time by following the opt-out links in any marketing email or SMS, by replying STOP to any text message, or by contacting us via the details in Section 20. Even if you opt out of marketing, you will continue to receive service-related communications that are essential for administrative or customer service purposes, including updates to our Terms of Use and this Privacy Policy."
           ],
           "bullets": [],
           "tables": []
@@ -362,7 +492,7 @@
       "tables": []
     },
     {
-      "title": "TCPA CONSENT, AUTOMATED CALLS AND TEXT MESSAGING",
+      "title": "6. TCPA Consent, Automated Calls and Text Messaging",
       "paragraphs": [],
       "bullets": [],
       "subsections": [
@@ -390,8 +520,7 @@
         {
           "title": "6.3 What You Are Consenting To",
           "paragraphs": [
-            "By submitting a Consumer Request and selecting one or more Lending Partners on our platform, you provide your prior express written consent under the TCPA for each selected Lending Partner (and their agents or representatives) to contact you at the telephone number(s) you provided via:",
-            "This consent applies even if your telephone number is listed on a Federal or State Do Not Call Registry or Do Not Contact list. You understand and agree that providing this consent is not a condition of purchasing any product or service."
+            "By submitting a Consumer Request and selecting one or more Lending Partners on our platform, you provide your prior express written consent under the TCPA for each selected Lending Partner (and their agents or representatives) to contact you at the telephone number(s) you provided via:"
           ],
           "bullets": [
             "Live telephone calls;",
@@ -399,25 +528,30 @@
             "SMS and MMS text messages;",
             "Email communications."
           ],
+          "paragraphsAfter": [
+            "This consent applies even if your telephone number is listed on a Federal or State Do Not Call Registry or Do Not Contact list. You understand and agree that providing this consent is not a condition of purchasing any product or service."
+          ],
           "tables": []
         },
         {
           "title": "6.4 Revocation of TCPA Consent",
           "paragraphs": [
-            "You may revoke your TCPA consent at any time. Revocation is effective with respect to future contacts and does not affect the lawfulness of contacts made prior to revocation. To revoke consent:",
-            "Please note that Revocation of consent to YourCreditPal does not automatically revoke consent previously given directly to Lending Partners. You must contact each Lending Partner separately to revoke consent with them."
+            "You may revoke your TCPA consent at any time. Revocation is effective with respect to future contacts and does not affect the lawfulness of contacts made prior to revocation. To revoke consent:"
           ],
           "bullets": [
             "To opt out of SMS/text messages: Reply STOP to any text message you receive from us or from a Lending Partner. You may receive a single confirmatory text acknowledging your opt-out.",
-            "To opt out of automated telephone calls from us, please contact us as provided in Section 19.",
+            "To opt out of automated telephone calls from us, please contact us as provided in Section 20.",
             "To opt out of automated telephone calls or texts from Lending Partners: Contact the relevant Lending Partner directly, as YourCreditPal does not control the communications practices of independent Lending Partners once your Lead has been transferred."
+          ],
+          "paragraphsAfter": [
+            "Please note that Revocation of consent to YourCreditPal does not automatically revoke consent previously given directly to Lending Partners. You must contact each Lending Partner separately to revoke consent with them."
           ],
           "tables": []
         },
         {
           "title": "6.5 Do Not Call Registry",
           "paragraphs": [
-            "YourCreditPal maintains internal Do Not Call lists. If you wish to be placed on our internal Do Not Call list, contact our Privacy Team as provided in Section 19. Requests will be processed within ten (10) days."
+            "YourCreditPal maintains internal Do Not Call lists. If you wish to be placed on our internal Do Not Call list, contact our Privacy Team as provided in Section 20. Requests will be processed within ten (10) days."
           ],
           "bullets": [],
           "tables": []
@@ -426,7 +560,7 @@
       "tables": []
     },
     {
-      "title": "DISCLOSURES OF YOUR PERSONAL DATA",
+      "title": "7. Disclosures of Your Personal Data",
       "paragraphs": [
         "We may share your personal data where necessary with the parties described below for the purposes set out in Section 5. We require all third parties to respect the security of your personal data and to treat it in accordance with applicable law."
       ],
@@ -451,8 +585,7 @@
         {
           "title": "7.3 Service Providers and Contractors",
           "paragraphs": [
-            "We engage Service Providers and Contractors that process personal data on our behalf, including:",
-            "We require all Service Providers and Contractors to only process personal data for specified, lawful purposes and in accordance with our instructions."
+            "We engage Service Providers and Contractors that process personal data on our behalf, including:"
           ],
           "bullets": [
             "Lead verification and fraud prevention vendors;",
@@ -461,6 +594,9 @@
             "Email and SMS communication platforms;",
             "Customer relationship management systems;",
             "Professional advisers including lawyers, auditors, and insurers."
+          ],
+          "paragraphsAfter": [
+            "We require all Service Providers and Contractors to only process personal data for specified, lawful purposes and in accordance with our instructions."
           ],
           "tables": []
         },
@@ -492,7 +628,7 @@
       "tables": []
     },
     {
-      "title": "SALE AND SHARING OF PERSONAL DATA",
+      "title": "8. Sale and Sharing of Personal Data",
       "paragraphs": [
         "YourCreditPal's core business model involves the sale and transfer of Consumer Leads, including personal and financial information to Lending Partners. By submitting a Consumer Request, you understand and agree that:"
       ],
@@ -506,14 +642,16 @@
         {
           "title": "8.1 Opt-Out of Sale / Sharing",
           "paragraphs": [
-            "You may opt out of the sale or sharing of your personal data at any time by:",
-            "We will act upon opt-out requests within fifteen (15) business days of receipt. Please note that opting out of future sales does not affect Leads already transferred to Lending Partners prior to your opt-out, as those Lending Partners will have already received and may retain your data pursuant to their own privacy policies and our contractual arrangements."
+            "You may opt out of the sale or sharing of your personal data at any time by:"
           ],
           "bullets": [
-            "Submitting an opt-out request by email to: (Insert email);",
-            "Calling our telephone number: (Insert Number);",
-            "Submitting a request through our online Privacy Rights Portal at: (Insert Link);",
-            "For California residents: clicking the Do Not Sell or Share My Personal Information link on our website."
+            "Submitting an opt-out request by email to: contact@yourcreditpal.com;",
+            "Calling our telephone number: (786) 706 4517;",
+            "Submitting a Privacy request via Google Form: [Opt-Out Form Link](https://docs.google.com/forms/d/e/1FAIpQLSelUHgUe3kpNQEip5u5ugU1qCQNljanTpYIaS5TkHbAEHq3gQ/viewform)",
+            "For California residents: clicking the [Do Not Sell or Share My Personal Information](/legal/do-not-sell) link on our website."
+          ],
+          "paragraphsAfter":[
+            "We will act upon opt-out requests within fifteen (15) business days of receipt. Please note that opting out of future sales does not affect Leads already transferred to Lending Partners prior to your opt-out, as those Lending Partners will have already received and may retain your data pursuant to their own privacy policies and our contractual arrangements."
           ],
           "tables": []
         }
@@ -521,7 +659,7 @@
       "tables": []
     },
     {
-      "title": "INTERNATIONAL TRANSFERS",
+      "title": "9. International Transfers",
       "paragraphs": [
         "We do not intentionally transfer your personal data outside of the United States. All personal data collected through yourcreditpal.com is stored and processed on servers located in the United States. If any processing does occur outside the US, we will ensure appropriate safeguards are in place in accordance with applicable law."
       ],
@@ -530,10 +668,9 @@
       "tables": []
     },
     {
-      "title": "DATA SECURITY",
+      "title": "10. Data Security",
       "paragraphs": [
-        "We have implemented and maintain reasonable and appropriate administrative, technical, personnel, and physical security measures to protect your personal data against unauthorized access, destruction, use, modification, or disclosure. These measures include:",
-        "Despite these measures, no method of electronic transmission or storage is 100% secure. While we strive to use commercially reasonable means to protect your personal data, we cannot guarantee absolute security or protection against every risk of unauthorized access, interception, or misuse."
+        "We have implemented and maintain reasonable and appropriate administrative, technical, personnel, and physical security measures to protect your personal data against unauthorized access, destruction, use, modification, or disclosure. These measures include:"
       ],
       "bullets": [
         "Encryption of personal and financial data in transit using TLS 1.2 or higher and at rest using AES-256 encryption;",
@@ -542,6 +679,9 @@
         "Employee training on data privacy and security obligations;",
         "Third-party security audits and penetration testing conducted at least annually;",
         "Incident response and data breach notification procedures."
+      ],
+      "paragraphsAfter":[
+        "Despite these measures, no method of electronic transmission or storage is 100% secure. While we strive to use commercially reasonable means to protect your personal data, we cannot guarantee absolute security or protection against every risk of unauthorized access, interception, or misuse."
       ],
       "subsections": [
         {
@@ -556,11 +696,10 @@
       "tables": []
     },
     {
-      "title": "DATA RETENTION",
+      "title": "11. Data Retention",
       "paragraphs": [
         "We retain your personal data only for as long as is necessary to fulfil the purposes for which it was collected, including for the purposes of satisfying any legal, accounting, regulatory, or reporting requirements. The specific retention periods for each category of personal data are set out in the table in Section 3 and the table in Section 5.",
-        "As a general rule:",
-        "When personal data is no longer required, it will be securely deleted or anonymized so that it can no longer be associated with you."
+        "As a general rule:"
       ],
       "bullets": [
         "Consumer Request data (identity, contact, financial): 6 years from the date of submission or last use of Services;",
@@ -569,11 +708,14 @@
         "Marketing preferences and opt-out records: 6 years, or until updated;",
         "We may retain data beyond the above periods where required by applicable law, court order, or regulatory investigation."
       ],
+      "paragraphsAfter":[
+        "When personal data is no longer required, it will be securely deleted or anonymized so that it can no longer be associated with you."
+      ],
       "subsections": [],
       "tables": []
     },
     {
-      "title": "YOUR LEGAL RIGHTS",
+      "title": "12. Your Legal Rights",
       "paragraphs": [
         "You have a number of rights in relation to your personal data. The specific rights available to you may depend on your state of residence. Please see Section 17 (California Residents) and Section 18 (Delaware Residents) for additional state-specific rights. The following rights apply generally to all consumers:"
       ],
@@ -652,21 +794,23 @@
           "tables": []
         },
         {
-          "title": "How to Submit a Privacy Rights Request",
           "paragraphs": [
-            "To exercise any of the rights described above, please contact our Privacy Team by:",
-            "We will confirm receipt of your request within ten (10) business days and respond substantively within forty-five (45) calendar days of receipt. If we require additional time, we will notify you of the extension and the reasons for it. We do not charge a fee to process privacy rights requests unless they are manifestly unfounded or excessive, in which case we may charge a reasonable fee or decline to act."
+            "How to Submit a Privacy Rights Request",
+            "To exercise any of the rights described above, please contact our Privacy Team by:"
           ],
           "bullets": [
-            "Email: (Insert email)",
-            "Telephone Call: (Insert number)",
-            "Online Privacy Rights Portal: (Insert Link)"
+            "Email: contact@yourcreditpal.com",
+            "Telephone Call: (786) 706 4517",
+            "Online Privacy Rights Portal: [Privacy Request Form](https://docs.google.com/forms/d/e/1FAIpQLSelUHgUe3kpNQEip5u5ugU1qCQNljanTpYIaS5TkHbAEHq3gQ/viewform)"
+          ],
+          "paragraphsAfter": [
+            "We will confirm receipt of your request within ten (10) business days and respond substantively within forty-five (45) calendar days of receipt. If we require additional time, we will notify you of the extension and the reasons for it. We do not charge a fee to process privacy rights requests unless they are manifestly unfounded or excessive, in which case we may charge a reasonable fee or decline to act."
           ],
           "tables": []
         },
         {
-          "title": "Verification of Identity",
           "paragraphs": [
+            "Verification of Identity",
             "We may need to verify your identity before processing your request to ensure that personal data is not disclosed to an unauthorized person. We will use commercially reasonable methods to verify your identity, which may include requesting information we already hold about you. We may also permit authorized agents to submit requests on your behalf with appropriate proof of authorization."
           ],
           "bullets": [],
@@ -676,10 +820,10 @@
       "tables": []
     },
     {
-      "title": "CHILDREN AND MINORS",
+      "title": "13. Children and Minors",
       "paragraphs": [
         "yourcreditpal.com and our Services are not directed to, designed for, or intended for use by individuals under the age of 18 (Minors). We do not knowingly collect, process, sell, or share personal data from Minors. If you are under 18 years of age, do not use our website or Services or submit any personal information to us.",
-        "If we obtain actual knowledge that we have collected personal data from a Minor, we will promptly delete that information. If you believe we may have inadvertently collected personal data from a Minor, please contact our Privacy Team at (Insert email).",
+        "If we obtain actual knowledge that we have collected personal data from a Minor, we will promptly delete that information. If you believe we may have inadvertently collected personal data from a Minor, please contact our Privacy Team at contact@yourcreditpal.com.",
         "In accordance with the Children's Online Privacy Protection Act (COPPA), we do not knowingly collect personal information from children under the age of 13."
       ],
       "bullets": [],
@@ -687,7 +831,7 @@
       "tables": []
     },
     {
-      "title": "THIRD-PARTY LINKS",
+      "title": "14. Third-Party Links",
       "paragraphs": [
         "Our website may include links to third-party websites, plug-ins, applications, and advertisements, including those of Lending Partners and other financial service providers. Clicking on those links or enabling those connections may allow third parties to collect or share data about you. We do not control these third-party websites or services and are not responsible for their privacy policies, terms of use, or data practices.",
         "When you click on a link to a Lending Partner’s website or otherwise leave our site, the Lending Partner’s own privacy policy and terms of use will govern the collection, use, and sharing of your personal data from that point. We encourage you to read the privacy policy of every website you visit.",
@@ -698,7 +842,7 @@
       "tables": []
     },
     {
-      "title": "COOKIES AND TRACKING TECHNOLOGIES",
+      "title": "15. Cookies and Tracking Technologies",
       "paragraphs": [],
       "bullets": [],
       "subsections": [
@@ -725,15 +869,15 @@
         {
           "title": "15.3 Your Cookie Choices",
           "paragraphs": [
-            "Most web browsers automatically accept cookies. You can modify your browser settings to decline cookies; however, certain features of the site may not function properly if you do so. You may also:",
-            "Clearing your Activity Log;",
-            "Turning off location tracking;"
+            "Most web browsers automatically accept cookies. You can modify your browser settings to decline cookies; however, certain features of the site may not function properly if you do so. You may also:"
           ],
           "bullets": [
-            "Opt out of interest-based advertising by multiple companies at www.aboutads.info/choices",
-            "Install the Google Analytics Opt-out Browser Add-on from tools.google.com/dlpage/gaoptout;",
+            "Opt out of interest-based advertising by multiple companies at [www.aboutads.info/choices](https://www.aboutads.info/choices)",
+            "Install the Google Analytics Opt-out Browser Add-on from [tools.google.com/dlpage/gaoptout](https://tools.google.com/dlpage/gaoptout);",
             "Adjust advertising identifier settings on your mobile device through your device's settings menu;",
             "Opt out of Meta Pixel tracking through the Settings & Privacy menu on your Facebook/Meta profile;",
+            "Clearing your Activity Log;",
+            "Turning off location tracking;",
             "Use browser privacy extensions to block tracking technologies."
           ],
           "tables": []
@@ -750,7 +894,7 @@
       "tables": []
     },
     {
-      "title": "CHANGES TO THIS PRIVACY POLICY",
+      "title": "16. Changes to This Privacy Policy",
       "paragraphs": [
         "We reserve the right to update or change this Privacy Policy at any time. Any changes will be posted on the site with the last updated date. We recommend that you review this Privacy Policy periodically. Your continued use of yourcreditpal.com and our Services following the posting of changes will constitute your acceptance of those changes.",
         "Where a change to this Privacy Policy materially affects your rights with respect to your personal data, the change will not take effect until thirty (30) days after notice of the change is posted, during which time you may notify us that you do not accept the change. If you do not accept such a change, you must immediately discontinue use of our Services. If we make material changes that affect personal data already collected from you, we will make reasonable efforts to notify you and provide an opportunity to opt out."
@@ -760,7 +904,7 @@
       "tables": []
     },
     {
-      "title": "CALIFORNIA RESIDENTS",
+      "title": "17. California Residents",
       "paragraphs": [
         "This section supplements this Privacy Policy and applies solely to eligible residents of California. It is provided in compliance with the California Consumer Privacy Act of 2018 (CCPA) as amended by the California Privacy Rights Act of 2020 (CPRA) and associated regulations (collectively, the “California Privacy Act”). Any capitalized terms not defined in this section have the meanings given in Section 2."
       ],
@@ -802,10 +946,10 @@
             "California residents have the right to direct us not to sell or share their personal information to third parties. YourCreditPal sells and shares Consumer Leads. California residents may exercise this right by:"
           ],
           "bullets": [
-            "Clicking the Do Not Sell or Share My Personal Information link on yourcreditpal.com;",
-            "Submitting a request at: (Insert address);",
-            "Emailing: (Insert email);",
-            "Calling: (Insert number)."
+            "Clicking the [Do Not Sell or Share My Personal Information](/legal/do-not-sell) link on yourcreditpal.com;",
+            "Submitting a request at: 390 Northeast 191st Street, Miami, FL 33179 US;",
+            "Emailing: contact@yourcreditpal.com;",
+            "Calling: (786) 706 4517."
           ],
           "tables": []
         },
@@ -828,7 +972,7 @@
         {
           "title": "g. Right to File a Complaint",
           "paragraphs": [
-            "California residents have the right to file a complaint with the California Privacy Protection Agency (CPPA) if they believe their privacy rights under the California Privacy Act have been violated. Complaints may be submitted through the CPPA’s website at https://cppa.ca.gov or by contacting the Office of the California Attorney General at https://oag.ca.gov."
+            "California residents have the right to file a complaint with the California Privacy Protection Agency (CPPA) if they believe their privacy rights under the California Privacy Act have been violated. Complaints may be submitted through the CPPA’s website at [https://cppa.ca.gov](https://cppa.ca.gov) or by contacting the Office of the California Attorney General at [https://oag.ca.gov](https://oag.ca.gov)."
           ],
           "bullets": [],
           "tables": []
@@ -836,13 +980,15 @@
         {
           "title": "17.2 Submission of California Privacy Rights Requests",
           "paragraphs": [
-            "To exercise your Right to Know, Right to Delete, or Right to Correct, submit a verifiable consumer request to our Privacy Team:",
-            "We will confirm receipt within ten (10) business days and respond substantively within forty-five (45) calendar days. We will verify your identity using commercially reasonable methods. Authorized agents may submit requests with proper documentation."
+            "To exercise your Right to Know, Right to Delete, or Right to Correct, submit a verifiable consumer request to our Privacy Team:"
           ],
           "bullets": [
-            "Email: (Insert email)",
-            "Telephone: (Insert number)",
-            "Online Portal: (Insert link)"
+            "Email: contact@yourcreditpal.com",
+            "Telephone: (786) 706 4517",
+            "Online Portal: [Privacy Request Form](https://docs.google.com/forms/d/e/1FAIpQLSelUHgUe3kpNQEip5u5ugU1qCQNljanTpYIaS5TkHbAEHq3gQ/viewform)"
+          ],
+          "paragraphsAfter":[
+            "We will confirm receipt within ten (10) business days and respond substantively within forty-five (45) calendar days. We will verify your identity using commercially reasonable methods. Authorized agents may submit requests with proper documentation."
           ],
           "tables": []
         },
@@ -874,7 +1020,7 @@
       "tables": []
     },
     {
-      "title": "DELAWARE RESIDENTS",
+      "title": "18. Delaware Residents",
       "paragraphs": [
         "This section supplements this Privacy Policy and applies to eligible residents of Delaware pursuant to the Delaware Personal Data Privacy Act (DPDPA), effective January 1, 2025."
       ],
@@ -900,7 +1046,7 @@
         {
           "title": "18.2 Submitting a Delaware Privacy Rights Request",
           "paragraphs": [
-            "To exercise any of the rights described above, contact our Privacy Team using the details in Section 19. We will acknowledge receipt of your request within ten (10) business days and respond substantively within forty-five (45) days, with a possible extension where reasonably necessary, which would be duly communicated."
+            "To exercise any of the rights described above, contact our Privacy Team using the details in Section 20. We will acknowledge receipt of your request within ten (10) business days and respond substantively within forty-five (45) days, with a possible extension where reasonably necessary, which would be duly communicated."
           ],
           "bullets": [],
           "tables": []
@@ -916,17 +1062,7 @@
         {
           "title": "18.4 Right to File a Complaint",
           "paragraphs": [
-            "If we deny your appeal of a privacy rights request, we will inform you of your right to contact the Delaware Department of Justice to submit a complaint. Delaware residents may file a complaint with the Delaware Attorney General by emailing privacy@delaware.gov or by visiting https://attorneygeneral.delaware.gov."
-          ],
-          "bullets": [],
-          "tables": []
-        },
-        {
-          "title": "RESIDENTS OF OTHER US STATES",
-          "paragraphs": [
-            "In addition to the state-specific provisions set out in Sections 17 and 18, residents of other US states that have enacted comprehensive consumer privacy legislation (including, without limitation, Virginia, Colorado, Connecticut, Utah, Montana, Oregon, Texas, Indiana, Iowa, and Tennessee) may have similar rights with respect to their personal data, including rights to access, correct, delete, and obtain a portable copy of their personal data, and to opt out of the sale of personal data, targeted advertising, and certain profiling activities.",
-            "To exercise any rights available to you under your state's applicable privacy law, please contact our Privacy Team using the details in Section 19. We will process your request in accordance with the requirements of the applicable state law, including any verification, response, and appeal procedures required by that law.",
-            "We will not discriminate against you for exercising your privacy rights under any applicable state law."
+            "If we deny your appeal of a privacy rights request, we will inform you of your right to contact the Delaware Department of Justice to submit a complaint. Delaware residents may file a complaint with the Delaware Attorney General by emailing privacy@delaware.gov or by visiting [https://attorneygeneral.delaware.gov](https://attorneygeneral.delaware.gov)."
           ],
           "bullets": [],
           "tables": []
@@ -935,7 +1071,17 @@
       "tables": []
     },
     {
-      "title": "CONTACT DETAILS AND COMPLAINTS",
+          "title": "19. Residents of Other US States",
+          "paragraphs": [
+            "In addition to the state-specific provisions set out in Sections 17 and 18, residents of other US states that have enacted comprehensive consumer privacy legislation (including, without limitation, Virginia, Colorado, Connecticut, Utah, Montana, Oregon, Texas, Indiana, Iowa, and Tennessee) may have similar rights with respect to their personal data, including rights to access, correct, delete, and obtain a portable copy of their personal data, and to opt out of the sale of personal data, targeted advertising, and certain profiling activities.",
+            "To exercise any rights available to you under your state's applicable privacy law, please contact our Privacy Team using the details in Section 20. We will process your request in accordance with the requirements of the applicable state law, including any verification, response, and appeal procedures required by that law.",
+            "We will not discriminate against you for exercising your privacy rights under any applicable state law."
+          ],
+          "bullets": [],
+          "tables": []
+        },
+    {
+      "title": "20. Contact Details and Complaints",
       "paragraphs": [],
       "bullets": [],
       "subsections": [
@@ -944,8 +1090,12 @@
           "paragraphs": [
             "If you have any questions about this Privacy Policy, how we handle your personal data, or to exercise any of your privacy rights, please contact our Privacy Team:"
           ],
-          "linkText": "contact@yourcreditpal.com",
-          "linkHref": "mailto:contact@yourcreditpal.com"
+          "bullets": [
+            "Email: contact@yourcreditpal.com",
+            "Telephone: (786) 706 4517",
+            "Postal Address: 390 Northeast 191st Street, Miami, FL 33179 US"
+          ],
+          "tables": []
         },
         {
           "title": "20.2 Complaints",

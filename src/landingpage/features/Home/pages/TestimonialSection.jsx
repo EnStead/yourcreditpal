@@ -7,40 +7,44 @@ import 'swiper/css'
 import 'swiper/css/navigation'
 import Star from '../../../../assets/Star.svg?react'
 import { Star as LucideStar } from 'lucide-react'
-import Testimony from '../../../../assets/Testimony.jpg'
 import Live from '../../../../assets/Live.svg?react'
 import Left from '../../../../assets/Left.svg?react'
 import Right from '../../../../assets/Right.svg?react'
+import Jenkins from '../../../../assets/jenkins.webp'
+import Chen from '../../../../assets/chen.webp'
+import Thompson from '../../../../assets/thompson.webp'
+import Rodri from '../../../../assets/rodri.webp'
+import Patel from '../../../../assets/patel.webp'
 
 gsap.registerPlugin(ScrollTrigger)
 
 const data = [
   {
-    image: Testimony,
+    image: Jenkins,
     name: "Sarah Jenkins",
     country: "Houston, TX",
     text: "YourCreditPal made finding a loan incredibly easy. I was matched with a lender within minutes and the funds were deposited the next day.",
   },
   {
-    image: Testimony,
+    image: Chen,
     name: "Michael Chen",
     country: "Atlanta, GA",
     text: "I was worried about my credit history, but YourCreditPal found options that worked for me. Highly recommend their service!",
   },
   {
-    image: Testimony,
+    image: Thompson,
     name: "Emma Thompson",
     country: "Phoenix, AZ",
     text: "The transparency and speed of the entire process were outstanding. No hidden fees and straight to the point.",
   },
   {
-    image: Testimony,
+    image: Rodri,
     name: "David Rodriguez",
     country: "Tampa, FL",
     text: "Excellent service! The platform is very intuitive and it saved me hours of researching different lenders manually.",
   },
   {
-    image: Testimony,
+    image: Patel,
     name: "Aisha Patel",
     country: "Charlotte, NC",
     text: "I've used other loan matching services before, but YourCreditPal is by far the most reliable and user-friendly.",

@@ -1,4 +1,5 @@
 import { useEffect, useMemo, useState } from 'react'
+import { Link, useLocation } from 'react-router-dom'
 import Star from '../../../../assets/Star.svg?react'
 import Seal from '../../../../assets/Seal.svg?react'
 import Repay from '../../../../assets/Repay.svg?react'
@@ -30,17 +31,17 @@ const resolveTocHref = (page, item) => {
 
 const emailPattern = /([A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,})/gi
 const isEmail = (value) => /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(value)
+const linkPattern = /\[([^\]]+)\]\(((?:\/|https?:\/\/)[^)]+)\)/g
+const boldPattern = /\*\*([^*]+)\*\*/g
 
-const renderInlineText = (text) => {
-  if (!text || typeof text !== 'string') return text
-
+const renderTextWithEmails = (text, keyPrefix) => {
   const parts = text.split(emailPattern)
 
   return parts.map((part, index) => {
     if (isEmail(part)) {
       return (
         <a
-          key={`${part}-${index}`}
+          key={`${keyPrefix}-${part}-${index}`}
           href={`mailto:${part}`}
           className="break-words font-medium text-brand-primary underline underline-offset-4"
         >
@@ -50,18 +51,108 @@ const renderInlineText = (text) => {
     }
 
     return (
-      <span key={`${part}-${index}`} className="break-words">
+      <span key={`${keyPrefix}-${part}-${index}`} className="break-words">
         {part}
       </span>
     )
   })
 }
 
+const renderTextWithFormatting = (text, keyPrefix) => {
+  const parts = []
+  let lastIndex = 0
+  let match
+
+  boldPattern.lastIndex = 0
+  while ((match = boldPattern.exec(text)) !== null) {
+    if (match.index > lastIndex) {
+      parts.push({ type: 'text', value: text.slice(lastIndex, match.index) })
+    }
+
+    parts.push({ type: 'bold', value: match[1] })
+    lastIndex = match.index + match[0].length
+  }
+
+  if (lastIndex < text.length) {
+    parts.push({ type: 'text', value: text.slice(lastIndex) })
+  }
+
+  return parts.map((part, index) => {
+    if (part.type === 'bold') {
+      return (
+        <strong key={`${keyPrefix}-bold-${index}`} className="font-semibold text-brand-title">
+          {part.value}
+        </strong>
+      )
+    }
+
+    return renderTextWithEmails(part.value, `${keyPrefix}-${index}`)
+  })
+}
+
+const renderInlineText = (text) => {
+  if (!text || typeof text !== 'string') return text
+
+  const segments = []
+  let lastIndex = 0
+  let match
+
+  linkPattern.lastIndex = 0
+  while ((match = linkPattern.exec(text)) !== null) {
+    if (match.index > lastIndex) {
+      segments.push({ type: 'text', value: text.slice(lastIndex, match.index) })
+    }
+
+    segments.push({ type: 'link', label: match[1], href: match[2] })
+    lastIndex = match.index + match[0].length
+  }
+
+  if (lastIndex < text.length) {
+    segments.push({ type: 'text', value: text.slice(lastIndex) })
+  }
+
+  return segments.map((segment, index) => {
+    if (segment.type === 'link') {
+      if (/^https?:\/\//i.test(segment.href)) {
+        return (
+          <a
+            key={`link-${index}`}
+            href={segment.href}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="break-words font-medium text-brand-primary hover:underline"
+          >
+            {segment.label}
+          </a>
+        )
+      }
+
+      return (
+        <Link
+          key={`link-${index}`}
+          to={segment.href}
+          className="break-words font-medium text-brand-primary hover:underline"
+        >
+          {segment.label}
+        </Link>
+      )
+    }
+
+    return renderTextWithFormatting(segment.value, `text-${index}`)
+  })
+}
+
 const renderParagraphText = (text) => {
   const isSubSection = /^\d+\.\d+/.test(text) || /^[a-z]\./i.test(text)
+  const isImportantNotice = text === 'THIS SECTION IS IMPORTANT. PLEASE READ IT CAREFULLY.'
+  const isImportantLegal = text === 'PLEASE READ THIS SECTION CAREFULLY. IT AFFECTS YOUR LEGAL RIGHTS.'
+  const isPrivacyRequest = text === 'How to Submit a Privacy Rights Request'
+  const isPrivacyVerify = text === 'Verification of Identity'
+  const isVulnerabilityProhibited = text === 'The following voids the safe harbor in Section 3:'
+
 
   return (
-    <span className={isSubSection ? 'break-words font-semibold text-lg text-brand-title' : 'break-words'}>
+    <span className={isSubSection || isImportantNotice || isImportantLegal || isPrivacyRequest || isPrivacyVerify || isVulnerabilityProhibited ? 'break-words font-semibold text-lg text-brand-title' : 'break-words'}>
       {renderInlineText(text)}
     </span>
   )
@@ -91,13 +182,34 @@ const renderTable = (table, key) => {
           ) : null}
           <tbody>
             {rows.map((row, rowIndex) => (
-              <tr key={`${key}-row-${rowIndex}`} className="align-top">
+              <tr
+                key={`${key}-row-${rowIndex}`}
+                className={`align-top ${rowIndex % 2 === 0 ? 'bg-brand-white' : 'bg-brand-offwhite/60'}`}
+              >
                 {row.map((cell, cellIndex) => (
                   <td
                     key={`${key}-cell-${rowIndex}-${cellIndex}`}
                     className="border-t border-brand-stroke/10 px-4 py-3 break-words text-brand-body [overflow-wrap:anywhere]"
                   >
-                    {renderInlineText(cell)}
+                    {Array.isArray(cell) ? (
+                      <ul className="list-disc space-y-1 pl-4">
+                        {cell.map((item, itemIndex) => (
+                          <li key={`${key}-cell-${rowIndex}-${cellIndex}-${itemIndex}`} className="break-words [overflow-wrap:anywhere]">
+                            {renderInlineText(item)}
+                          </li>
+                        ))}
+                      </ul>
+                    ) : cell && typeof cell === 'object' && Array.isArray(cell.lines) ? (
+                      <div className="space-y-1">
+                        {cell.lines.map((item, itemIndex) => (
+                          <p key={`${key}-cell-${rowIndex}-${cellIndex}-${itemIndex}`} className="whitespace-nowrap">
+                            {renderInlineText(item)}
+                          </p>
+                        ))}
+                      </div>
+                    ) : (
+                      renderInlineText(cell)
+                    )}
                   </td>
                 ))}
               </tr>
@@ -110,9 +222,21 @@ const renderTable = (table, key) => {
 }
 
 const LegalPage = ({ page }) => {
+  const { hash } = useLocation()
   const [activeSectionId, setActiveSectionId] = useState(
     page.sections[0] ? resolveSectionId(page.sections[0]) : '',
   )
+
+  useEffect(() => {
+    if (hash) {
+      setTimeout(() => {
+        const element = document.getElementById(hash.replace('#', ''))
+        if (element) {
+          element.scrollIntoView({ behavior: 'smooth' })
+        }
+      }, 100)
+    }
+  }, [hash])
 
   const sectionIdMap = useMemo(() => {
     const map = new Map()
@@ -206,10 +330,38 @@ const LegalPage = ({ page }) => {
                   <ul className="mt-4 list-disc space-y-2 pl-5 text-base text-brand-body">
                     {section.bullets.map((bullet) => (
                       <li key={bullet} className="break-words [overflow-wrap:anywhere]">
-                        {bullet}
+                        {renderInlineText(bullet)}
                       </li>
                     ))}
                   </ul>
+                ) : null}
+
+                {section.extraBlocks?.length ? (
+                  <div className="mt-8 space-y-6">
+                    {section.extraBlocks.map((block, blockIndex) => (
+                      <div key={`${section.title}-extra-${blockIndex}`}>
+                        {block.paragraphs?.length ? (
+                          <div className="space-y-4 break-words text-base text-brand-body [overflow-wrap:anywhere]">
+                            {block.paragraphs.map((paragraph) => (
+                              <p key={paragraph} className="break-words [overflow-wrap:anywhere]">
+                                {renderParagraphText(paragraph)}
+                              </p>
+                            ))}
+                          </div>
+                        ) : null}
+
+                        {block.bullets?.length ? (
+                          <ul className="mt-4 list-disc space-y-2 pl-5 text-base text-brand-body">
+                            {block.bullets.map((bullet) => (
+                              <li key={bullet} className="break-words [overflow-wrap:anywhere]">
+                                {renderInlineText(bullet)}
+                              </li>
+                            ))}
+                          </ul>
+                        ) : null}
+                      </div>
+                    ))}
+                  </div>
                 ) : null}
 
                 {section.subParagraphs?.length ? (
@@ -274,6 +426,16 @@ const LegalPage = ({ page }) => {
                               </li>
                             ))}
                           </ul>
+                        ) : null}
+
+                        {subsection.paragraphsAfter?.length ? (
+                          <div className="space-y-4 break-words text-base text-brand-body [overflow-wrap:anywhere]">
+                            {subsection.paragraphsAfter.map((paragraph) => (
+                              <p key={paragraph} className="break-words [overflow-wrap:anywhere]">
+                                {renderParagraphText(paragraph)}
+                              </p>
+                            ))}
+                          </div>
                         ) : null}
 
                         {subsection.linkText ? (

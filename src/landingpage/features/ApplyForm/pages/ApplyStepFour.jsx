@@ -1,9 +1,13 @@
 import { House } from 'lucide-react'
+import { NavLink } from 'react-router-dom'
 import Home from "../../../../assets/Homes.svg?react";
 import Rent from "../../../../assets/Rent.svg?react";
 import Family from "../../../../assets/Family.svg?react";
 import Other from "../../../../assets/Other.svg?react";
-import { ConsentList, SecureNoticeCard, Field } from './shared'
+import { ConsentConfirmation, SecureNoticeCard, Field } from './shared'
+
+const legalLinkClass =
+  'font-medium text-brand-primary no-underline transition hover:underline hover:underline-offset-4 focus-visible:underline focus-visible:underline-offset-4'
 
 const iconMap = {
   "Own Home": Home,
@@ -68,11 +72,14 @@ const ApplyStepFour = ({ housing, setHousing, housingOptions, streetAddress, set
         </div>
       </div>
 
-      <SecureNoticeCard
-        title="Your Information Is Secure"
-        text="We use encrypted connections and verification systems to help protect your information throughout the application process."
-      />
-      <ConsentList />
+      <SecureNoticeCard title="Your Information Is Secure">
+        We take your privacy seriously. Your information is shared only with licensed lending partners who may be able to help you. We do not sell your data to marketing companies or data brokers. You can{' '}
+        <NavLink to="/unsubscribe" className={legalLinkClass}>
+          opt out of all contact
+        </NavLink>{' '}
+        at any time.
+      </SecureNoticeCard>
+      <ConsentConfirmation />
     </>
   )
 }

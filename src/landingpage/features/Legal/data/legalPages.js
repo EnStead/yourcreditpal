@@ -16,6 +16,7 @@ export const legalPages = {
       "Coordinated Disclosure Timeline",
       "What You Can Expect from YourCreditPal",
       "Policy Governance",
+      "Vulnerability Reporting Form",
     ],
     sections: [
       {
@@ -30,7 +31,7 @@ export const legalPages = {
           {
             title: "2.1 In Scope",
             bullets: [
-              "YourCreditPal.com (main website, all pages, subdomains, and interactive forms);",
+              "yourcreditpal.com (main website, all pages, subdomains, and interactive forms);",
               "Lead submission and consumer loan inquiry forms;",
               "Consumer account portal and authenticated areas;",
               "YourCreditPal API endpoints used for lead transmission and Lending Partner integrations;",
@@ -101,25 +102,25 @@ export const legalPages = {
             rows: [
               [
                 "CRITICAL",
-                "Ack: 24 h, Triage: 48 h, Fix: 14 days",
+                { lines: ["Ack: 24 h", "Triage: 48 h", "Fix: 14 days"] },
                 "Unauthenticated RCE; SQL injection on consumer DB; auth bypass; mass data exfiltration; consent record tampering.",
                 "CVSS 9.0-10.0. Immediate escalation to CISO.",
               ],
               [
                 "HIGH",
-                "Ack: 24 h, Triage: 72 h, Fix: 30 days",
+                { lines: ["Ack: 24 h", "Triage: 72 h", "Fix: 30 days"] },
                 "Authenticated RCE; IDOR exposing consumer records; stored XSS in lead forms; sensitive data in API responses.",
                 "CVSS 7.0-8.9. Fortnightly status updates.",
               ],
               [
                 "MEDIUM",
-                "Ack: 3 days, Triage: 5 days, Fix: 60 days",
+                { lines: ["Ack: 3 days", "Triage: 5 days", "Fix: 60 days"] },
                 "Reflected XSS; misconfigured SPF/DKIM/DMARC; weak session management; sensitive data in error messages.",
                 "CVSS 4.0-6.9. Monthly status updates.",
               ],
               [
                 "LOW",
-                "Ack: 5 days, Triage: 10 days, Fix: 90 days",
+                { lines: ["Ack: 5 days", "Triage: 10 days", "Fix: 90 days"] },
                 "Missing security headers; verbose server banners; clickjacking on low-sensitivity pages; best-practice deviations.",
                 "CVSS 0.0-3.9. Best-efforts remediation.",
               ],
@@ -130,13 +131,9 @@ export const legalPages = {
       {
         title: "6. How to Submit a Vulnerability Report",
         paragraphs: [
-          "Send your report through our secure submission form or by email to contact@yourcreditpal.com with the subject line: VULNERABILITY DISCOVERED and a brief description.",
+          "Send your report through our [secure submission form](https://docs.google.com/forms/d/e/1FAIpQLSfmtO8gBnpimqb0pa5PIBUlv8OfkDKp6pkiVDXEib5-IJL13A/viewform?usp=publish-editor) or by email to contact@yourcreditpal.com with the subject line: VULNERABILITY DISCOVERED and a brief description.",
           "Please include in your report:",
         ],
-        linkPrefix: " ",
-        linkText: "Vulnerability Disclosure Form",
-        linkHref:
-          "https://docs.google.com/forms/d/e/1FAIpQLSfmtO8gBnpimqb0pa5PIBUlv8OfkDKp6pkiVDXEib5-IJL13A/viewform?usp=publish-editor",
         bullets: [
           "A clear summary of the vulnerability and its potential impact;",
           "Date and time of discovery; affected URLs, endpoints, or IP addresses;",
@@ -177,7 +174,27 @@ export const legalPages = {
         title: "9. Policy Governance",
         paragraphs: [
           "This Policy is owned by the YourCreditPal Security Team, and reviewed annually or following any significant security incident, change in applicable law, or material change to YourCreditPal's technology infrastructure.",
-          "Submit via: (insert secure form URL) or (insert email)",
+        ],
+      },
+      {
+        title: "10. Vulnerability Reporting Form",
+        paragraphs: [
+          "When submitting a report via our [Vulnerability Disclosure Form](https://docs.google.com/forms/d/e/1FAIpQLSfmtO8gBnpimqb0pa5PIBUlv8OfkDKp6pkiVDXEib5-IJL13A/viewform?usp=publish-editor) or by email to contact@yourcreditpal.com, please include the following information:",
+        ],
+        bullets: [
+          "**Summary of Vulnerability**: One or two sentence description of the issue.",
+          "**Date and Time Discovered**: Date, time, and time zone.",
+          "**How the Vulnerability Was Discovered**: Method, tools, and steps that led to discovery.",
+          "**Affected Systems / URLs / Endpoints / IPs**: List all affected systems and URLs.",
+          "**Reproduction Steps**: Step-by-step instructions; include HTTP requests/payloads where relevant.",
+          "**Impact Assessment**: What data or actions are exposed? Who is affected and how severely?",
+          "**Severity and CVSS Score**: Critical/High/Medium/Low; CVSS v3.1 score and vector if known.",
+          "**CVE ID (if assigned)**: CVE identifier, or state if you intend to request one.",
+          "**Supporting Evidence**: Attach screenshots, HTTP logs, or PoC code. Do not include real consumer data.",
+          "**Known Mitigation or Remediation**: Describe any fix or workaround you are aware of.",
+          "**Public Disclosure Intentions**: Do you intend to publish? If so, on what timeline and format?",
+          "**Consumer Data Contact**: Did you encounter real consumer data? If yes, describe what you observed and confirm deletion.",
+          "**Researcher Details**: Name/handle, organization, email, phone number.",
         ],
       },
     ],
@@ -246,7 +263,7 @@ export const legalPages = {
           "platform optimization",
         ],
         paragraphsAfter: [
-          "Additional information is available in our Privacy Policy.",
+          "Additional information is available in our [Privacy Policy](/legal/privacy).",
         ],
       },
       {
@@ -336,7 +353,6 @@ export const legalPages = {
       "Service Providers",
       "Data Sharing Practices",
       "Communication Preferences",
-      "Opt-Out Rights",
       "Third-Party Policies",
       "Contact Information",
     ],
@@ -423,7 +439,7 @@ export const legalPages = {
           "reduce fraudulent activity",
         ],
         paragraphsAfter: [
-          "Information sharing practices are further described in our Privacy Policy.",
+          "Information sharing practices are further described in our [Privacy Policy](/legal/privacy).",
         ],
       },
       {
@@ -758,7 +774,7 @@ export const legalPages = {
     eyebrow: "Legal",
     title: "Terms of Use",
     intro:
-      "Welcome to yourcreditpal.com, operated by YourCreditPal Company Limited. These Terms of Use govern your access to and use of the Site and all related services.",
+      "Welcome to yourcreditpal.com, operated by ENSTEAD, LLC. These Terms of Use govern your access to and use of the Site and all related services. Please read them carefully before using the Site.",
     updatedAt: "June 2026",
     toc: [
       "Who We Are and How to Contact Us",
@@ -791,35 +807,117 @@ export const legalPages = {
       {
         title: "1. Who We Are and How to Contact Us",
         paragraphs: [
-          "yourcreditpal.com is operated by YourCreditPal Company Limited, a digital marketing agency and loan referral platform incorporated in Delaware with its principal place of business in the United States.",
-          "To contact us, please email: contact@yourcreditpal.com",
-          "For legal and compliance inquiries, please contact us at contact@yourcreditpal.com",
+          "yourcreditpal.com is operated by ENSTEAD, LLC, a digital marketing agency and loan referral platform incorporated in Delaware with its principal place of business in the United States.",
+          "To contact us, please email: contact@yourcreditpal.com.",
+          "For legal and compliance inquiries, please contact us at contact@yourcreditpal.com.",
         ],
       },
       {
         title: "2. Acceptance of Terms",
         paragraphs: [
           "By accessing or using the Site, submitting any form, or providing any information through the Site, you acknowledge that you have read, understood, and agree to be bound by these Terms, our Privacy Policy, our Cookie Policy, and our TCPA Consent Policy, all of which are incorporated herein by reference.",
-          "You represent and warrant that you are at least 18 years of age and have the legal capacity to enter into a binding agreement. If you do not meet these requirements, you must not use the Site.",
+          "YOU REPRESENT AND WARRANT THAT YOU ARE AT LEAST 18 YEARS OF AGE AND HAVE THE LEGAL CAPACITY TO ENTER INTO A BINDING AGREEMENT. If you do not meet these requirements, you must not use the Site.",
         ],
       },
       {
         title: "3. Nature of Our Services",
         paragraphs: [
           "yourcreditpal.com is a lead generation and loan referral platform. We are not a lender, broker, financial advisor, or credit provider.",
-          "Our services consist of collecting consumer information, matching users with Lending Partners, transmitting or sharing lead data for loan inquiries, and facilitating communication between consumers and Lending Partners via automated and non-automated means.",
-          "By submitting a form on this Site, you understand and agree that your information will be shared with one or more Lending Partners and affiliated third parties, submission of a form does not guarantee you will receive a loan offer or any financial product, the terms, rates, and conditions of any loan product are determined solely by the Lending Partner, and we are not responsible for the decisions, actions, or omissions of any Lending Partner.",
+          "Our services consist of:",
+        ],
+        bullets: [
+          "Collecting consumer information submitted through web forms on the Site",
+          "Matching consumer information with one or more Lending Partners who may offer loan products",
+          "Transmitting, selling, or sharing consumer lead data with Lending Partners and affiliated third parties for the purpose of facilitating loan inquiries",
+          "Facilitating communication between consumers and Lending Partners via automated and non-automated means",
+        ],
+        extraBlocks: [
+          {
+            paragraphs: [
+              "By submitting a form on this Site, you understand and agree that:",
+            ],
+            bullets: [
+              "Your information will be shared with one or more Lending Partners and affiliated third parties",
+              "Submission of a form does not guarantee you will receive a loan offer or any financial product",
+              "The terms, rates, and conditions of any loan product are determined solely by the Lending Partner",
+              "We are not responsible for the decisions, actions, or omissions of any Lending Partner",
+            ],
+          },
         ],
       },
       {
         title: "4. TCPA Consent",
         paragraphs: [
-          "This section is important. Please read it carefully.",
-          "The Telephone Consumer Protection Act (TCPA), 47 U.S.C. 227, and its implementing regulations govern how businesses may contact consumers by phone and text message. By submitting any form on this Site, you provide the express written consent described below.",
-          "4.1 Express Written Consent to Contact",
-          "By submitting your information through any web form on this Site, you expressly consent, in writing, to receive calls, text messages (SMS/MMS), pre-recorded messages, and artificial voice messages from YourCreditPal Company Limited (yourcreditpal.com) and its affiliates, Lending Partners and other financial service providers in our network, and third-party marketing partners and their agents or representatives.",
-          "Such contact may be made using autodialers, pre-recorded or artificial voice messages, SMS and MMS text messaging including recurring messages, and email communications.",
-          "Contact may be made at the telephone number(s) and email address(es) you provide. The purpose of such contact may include loan offers, financial product promotions, account servicing, follow-up on your inquiry, appointment scheduling, and other marketing related communications.",
+          "THIS SECTION IS IMPORTANT. PLEASE READ IT CAREFULLY.",
+          "The Telephone Consumer Protection Act (TCPA), 47 U.S.C. 227, and its implementing regulations govern how businesses may contact consumers by phone and text message.",
+          "By submitting any form on this Site, you provide the express written consent described below.",
+        ],
+        subsections: [
+          {
+            title: "4.1 Express Written Consent to Contact",
+            paragraphs: [
+              "By submitting your information through any web form on this Site, you expressly consent, in writing, to receive calls, text messages (SMS/MMS), pre-recorded messages, and artificial voice messages from:",
+            ],
+            bullets: [
+              "ENSTEAD, LLC (yourcreditpal.com) and its affiliates",
+              "Lending Partners and other financial service providers in our network",
+              "Third-party marketing partners and their agents or representatives",
+            ],
+          },
+          {
+            paragraphs: [
+              "Such contact may be made using:",
+            ],
+            bullets: [
+              "Automated telephone dialing systems (autodialers)",
+              "Pre-recorded or artificial voice message",
+              "SMS and MMS text messaging including recurring messages",
+              "Email communications."],
+            paragraphsAfter: [
+              "Contact may be made at the telephone number(s) and email address(es) you provide.",
+              "THE PURPOSE OF SUCH CONTACT MAY INCLUDE: loan offers, financial product promotions, account servicing, follow-up on your inquiry, appointment scheduling, and other marketing related communications.",
+            ],
+          },
+          {
+            title: "4.2 Consent Is Not a Condition of Purchase",
+            paragraphs: [
+              "YOUR CONSENT TO RECEIVE AUTODIALED OR PRE-RECORDED CALLS AND TEXT MESSAGES IS NOT A CONDITION OF PURCHASING ANY PRODUCT OR SERVICE. You may choose to receive loan referral services without consenting to receiving marketing communications via autodialer or pre-recorded message; however, doing so may limit our ability to connect you with Lending Partners who rely on such communication methods.",
+            ],
+          },
+          {
+            title: "4.3 Right to Opt Out / Revocation of Consent",
+            paragraphs: [
+              "You may revoke your consent to receive automated marketing calls or text messages at any time by:",
+            ],
+            bullets: [
+              "Replying STOP, QUIT, END, REVOKE, OPT OUT, CANCEL, or UNSUBSCRIBE to any SMS or MMS message you receive from us",
+              "Contacting us by email at contact@yourcreditpal.com",
+              "Calling our feedback line at (786) 706 4517",
+              "Submitting a written opt-out request to our registered address",
+            ],
+            paragraphsAfter: [
+              "Please Note: Revoking consent with yourcreditpal.com does not automatically revoke consent you may have provided directly to a Lending Partner or other third party. To stop communications from those parties, you must contact them directly.",
+              "Once you opt out, we will process your request within a reasonable time, not to exceed 10 business days. You may continue to receive messages during that processing window. We may send you a single post-revocation clarification message within five minutes of your opt-out request to confirm whether you wish to stop all communications or only certain types; this message will not contain marketing or promotional content.",
+            ],
+          },
+          {
+            title: "4.4 Identity of Callers and Texters",
+            paragraphs: [
+              "In accordance with the TCPA and FCC regulations, any automated call or text initiated by or on behalf of YourCreditPal will identify the name of the entity on whose behalf the communication is being made. If you receive a call or text and are unsure of the sender's identity, you may contact us for clarification.",
+            ],
+          },
+          {
+            title: "4.5 Multiple Lending Partners",
+            paragraphs: [
+              "By submitting your information, you acknowledge that your data may be shared with and you may be contacted by multiple Lending Partners or third parties simultaneously or at different times. Each contact represents a separate communication from a distinct entity. We are not responsible for the content or frequency of communications initiated by third parties after your data has been transmitted.",
+            ],
+          },
+          {
+            title: "4.6 Call Recording",
+            paragraphs: [
+              "You acknowledge and agree that we may monitor and/or record telephone calls between you and ourselves for quality assurance, training, and compliance purposes. By continuing any telephone call with us after a recording disclosure is provided, you consent to the recording of that call.",
+            ],
+          },
         ],
       },
       {
@@ -839,53 +937,86 @@ export const legalPages = {
       {
         title: "6. Privacy Policy and Data Practices",
         paragraphs: [
-          "Our Privacy Policy, available here, describes how we collect, use, share, and protect your personal information, including information submitted through lead generation forms. By using this Site, you consent to our data practices as described therein.",
-          "If you are a California resident, you may exercise your right to opt out of the sale or sharing of your personal information by visiting our Do Not Sell or Share My Personal Information page, accessible from the Site.",
-          "Key points regarding data sharing include that your personal information will be shared with Lending Partners and affiliated third parties, we may sell consumer lead data as part of our business model, you have rights under applicable state privacy laws, and we implement reasonable security measures but cannot guarantee absolute security.",
+          "Our [Privacy Policy](/legal/privacy) describes how we collect, use, share, and protect your personal information, including information submitted through lead generation forms. By using this Site, you consent to our data practices as described therein.",
+          "If you are a California resident, you may exercise your right to opt out of the sale or sharing of your personal information by visiting our [Do Not Sell or Share My Personal Information](/legal/do-not-sell) page.",
+          "Key points regarding data sharing:",
+        ],
+        bullets: [
+          "Your personal information, including name, contact details, financial information, and loan inquiry details, will be shared with Lending Partners and affiliated third parties",
+          "We may sell consumer lead data as part of our business model",
+          "You have rights under applicable state privacy laws, including the CCPA/CPRA for California residents, to access, correct, or request deletion of your data",
+          "We implement reasonable security measures to protect your information but cannot guarantee absolute security",
         ],
       },
       {
         title: "7. Cookie Policy",
         paragraphs: [
-          "Our Cookie Policy, available here, sets out information about the cookies and tracking technologies used on this Site, including their purposes and how you may manage your preferences.",
+          "Our [Cookie Policy](/legal/privacy#cookies-and-tracking-technologies) sets out information about the cookies and tracking technologies used on this Site, including their purposes and how you may manage your preferences.",
         ],
       },
       {
         title: "8. User Eligibility and Account Responsibility",
         paragraphs: [
-          "Use of this Site is limited to individuals who are at least 18 years of age, reside in the United States, have the legal capacity to enter into binding contracts, and are not prohibited by law from receiving loan referral services.",
+          "Use of this Site is limited to individuals who:"
+          ],
+          bullets: [ 
+            "Are at least 18 years of age",
+            "Reside in the United States",
+            "Have the legal capacity to enter into binding contracts",
+            "And are not prohibited by law from receiving loan referral services."
+          ],
+          paragraphsAfter: [
           "If you are provided with a user account, identification code, or password, you are responsible for maintaining the confidentiality of such credentials and for all activities that occur under your account. Notify us immediately if you suspect unauthorized access to your account.",
         ],
       },
       {
         title: "9. Accuracy of Information",
         paragraphs: [
-          "You represent and warrant that all information you submit through this Site is accurate, current, complete, and truthful.",
-          "You understand that providing false, misleading, or incomplete information may result in suspension or termination of your access to the Site, constitute fraud or misrepresentation, and expose you to legal liability.",
+          "You represent and warrant that all information you submit through this Site is accurate, current, complete, and truthful. You understand that providing false, misleading, or incomplete information may:"
+        ],
+        bullets: [
+          "Result in suspension or termination of your access to the Site",
+          "Constitute fraud or misrepresentation",
+          "Expose you to legal liability."
+        ],
+        paragraphsAfter: [
           "You agree to promptly update your information if it changes, including your contact details.",
         ],
       },
       {
         title: "10. Intellectual Property",
         paragraphs: [
-          "All content on this Site, including text, graphics, logos, images, data compilations, and software, is the property of YourCreditPal Company Limited or its licensors and is protected by US and international copyright, trademark, and other intellectual property laws.",
-          "You may view and download content for personal, non-commercial use only and print a single copy of any page for personal reference. You may not modify, reproduce, republish, or distribute any content without our express written consent, use our trademarks, logos, or brand identifiers without prior authorization, or use any content for commercial purposes without a license from us.",
+          "All content on this Site, including text, graphics, logos, images, data compilations, and software, is the property of YourCreditPal or its licensors and is protected by US and international copyright, trademark, and other intellectual property laws.",
+          "You may:"
+        ], 
+          bullets: [
+            "View and download content for personal, non-commercial use only",
+            "print a single copy of any page for personal reference."
         ],
+        extraBlocks: [{
+          paragraphs:[
+            "You may not:"
+          ],
+          bullets: [
+          "Modify, reproduce, republish, or distribute any content without our express written consent",
+          "Use our trademarks, logos, or brand identifiers without prior authorization",
+          "Use any content for commercial purposes without a license from us",
+        ],}]
       },
       {
         title: "11. Prohibited Conduct and Prohibited Uses",
         paragraphs: ["You agree not to use the Site to:"],
         bullets: [
-          "submit false, misleading, or fraudulent information",
-          "impersonate any person or entity",
-          "violate any federal, state, or local law, including consumer protection, anti-spam (CAN-SPAM Act), and telemarketing laws",
-          "harvest, scrape, or collect data from the Site using automated means (bots, spiders, crawlers, scripts, or similar tools)",
-          "reverse-engineer, decompile, or attempt to extract source code from any software used in the Site",
-          "attempt to gain unauthorized access to any system, server, or database",
-          "introduce malware, viruses, or harmful code",
-          "conduct denial-of-service attacks or interfere with the Site's operation",
-          "engage in any activity that violates the Telephone Consumer Protection Act or other applicable telemarketing regulations",
-          "use the Site for any unlawful, abusive, or fraudulent purpose",
+          "Submit false, misleading, or fraudulent information",
+          "Impersonate any person or entity",
+          "Violate any federal, state, or local law, including consumer protection, anti-spam (CAN-SPAM Act), and telemarketing laws",
+          "Harvest, scrape, or collect data from the Site using automated means (bots, spiders, crawlers, scripts, or similar tools)",
+          "Reverse-engineer, decompile, or attempt to extract source code from any software used in the Site",
+          "Attempt to gain unauthorized access to any system, server, or database",
+          "Introduce malware, viruses, or harmful code",
+          "Conduct denial-of-service attacks or interfere with the Site's operation",
+          "Engage in any activity that violates the Telephone Consumer Protection Act or other applicable telemarketing regulations",
+          "Use the Site for any unlawful, abusive, or fraudulent purpose",
         ],
         paragraphsAfter: [
           "Violations may result in immediate termination of your access and may subject you to civil and/or criminal liability.",
@@ -901,45 +1032,68 @@ export const legalPages = {
       {
         title: "13. Third-Party Lending Partners and Affiliated Sites",
         paragraphs: [
-          "YourCreditPal is a lead generation and loan referral platform. We do not provide loans, credit, or financial products directly.",
-          "When your information is transmitted to a Lending Partner, you may be directed to the Lending Partner's own website or contacted directly by the Lending Partner. Any loan products, terms, rates, and conditions are solely those of the Lending Partner. Your relationship with any Lending Partner is governed by that Lending Partner's own terms and policies.",
-          "YourCreditPal makes no guarantees, representations, or warranties regarding any Lending Partner's products, services, or conduct. You agree to independently verify the credentials, licensing, and terms of any Lending Partner before entering into any financial agreement. YourCreditPal is not responsible for and disclaims any liability for the acts or omissions of any Lending Partner.",
+          "YourCreditPal is a loan referral platform. We do not provide loans, credit, or financial products directly.",
+          "When your information is transmitted to a Lending Partner:",
+        ],
+        bullets: [
+          "You may be directed to the Lending Partner's own website or contacted directly by the Lending Partner",
+          "Any loan products, terms, rates, and conditions are solely those of the Lending Partner",
+          "Your relationship with any Lending Partner is governed by that Lending Partner's own terms and policies",
+          "YourCreditPal makes no guarantees, representations, or warranties regarding any Lending Partner's products, services, or conduct",
+        ],
+        paragraphsAfter: [
+          "You agree to independently verify the credentials, licensing, and terms of any Lending Partner before entering into any financial agreement. YourCreditPal is not responsible for and disclaims any liability for the acts or omissions of any Lending Partner.",
           "Our Site may contain links to third-party websites for informational purposes. We do not endorse, control, or assume responsibility for the content or practices of any linked third-party website.",
         ],
       },
       {
         title: "14. Disclaimer of Warranties",
         paragraphs: [
-          "The Site, services, and all content are provided on an as is and as available basis without warranties of any kind, express or implied, including but not limited to warranties of merchantability, fitness for a particular purpose, non-infringement, or uninterrupted or error-free operation.",
-          "We do not warrant that the Site will meet your requirements, the Site will be available at all times or free from errors, bugs, or interruptions, any Lending Partner will make you an offer of credit or financial product, or any information on the Site is accurate, complete, or current.",
+          "THE SITE, SERVICES, AND ALL CONTENT ARE PROVIDED ON AN “AS IS” AND “AS AVAILABLE” BASIS WITHOUT WARRANTIES OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE, NON-INFRINGEMENT, OR UNINTERRUPTED OR ERROR-FREE OPERATION.",
+          "WE DO NOT WARRANT THAT:",
+        ],
+        bullets: [
+          "The Site will meet your requirements",
+          "The Site will be available at all times or free from errors, bugs, or interruptions",
+          "Any Lending Partner will make you an offer of credit or financial product",
+          "Any information on the Site is accurate, complete, or current",
         ],
       },
       {
         title: "15. Limitation of Liability",
         paragraphs: [
-          "To the maximum extent permitted by applicable law, we shall not be liable for any indirect, incidental, special, consequential, punitive, or exemplary damages arising out of or related to your use of the Site or services, including loss of profits, data, goodwill, or other intangible losses, even if advised of the possibility of such damages.",
-          "Our total aggregate liability to you for any claim arising out of or related to these Terms or the Site shall not exceed One Hundred US dollars (USD $100). Some jurisdictions do not allow the exclusion or limitation of certain warranties or liabilities. In such jurisdictions, our liability is limited to the fullest extent permitted by law.",
+          "TO THE MAXIMUM EXTENT PERMITTED BY APPLICABLE LAW, WE SHALL NOT BE LIABLE FOR ANY INDIRECT, INCIDENTAL, SPECIAL, CONSEQUENTIAL, PUNITIVE, OR EXEMPLARY DAMAGES ARISING OUT OF OR RELATED TO YOUR USE OF THE SITE OR SERVICES, INCLUDING LOSS OF PROFITS, DATA, GOODWILL, OR OTHER INTANGIBLE LOSSES, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGES.",
+          "Our total aggregate liability to you for any claim arising out of or related to these Terms or the Site shall not exceed One Hundred US dollars (USD $100).",
+          "SOME JURISDICTIONS DO NOT ALLOW THE EXCLUSION OR LIMITATION OF CERTAIN WARRANTIES OR LIABILITIES. IN SUCH JURISDICTIONS, OUR LIABILITY IS LIMITED TO THE FULLEST EXTENT PERMITTED BY LAW."
         ],
       },
       {
         title: "16. Indemnification",
         paragraphs: [
-          "You agree to indemnify, defend, and hold us harmless from and against any and all claims, damages, losses, liabilities, costs, and expenses (including reasonable attorneys' fees) arising from your use of the Site or submission of any information, your violation of these Terms, your violation of any applicable law, including the TCPA, CAN-SPAM Act, or any state consumer protection law, any inaccurate, false, or misleading information you provide, or your infringement of any third-party intellectual property or other rights.",
+          "You agree to indemnify, defend, and hold us harmless from and against any and all claims, damages, losses, liabilities, costs, and expenses (including reasonable attorneys' fees) arising from:",
+        ],
+        bullets: [
+          "Your use of the Site or submission of any information",
+          "Your violation of these Terms",
+          "Your violation of any applicable law, including the TCPA, CAN-SPAM Act, or any state consumer protection law",
+          "Any inaccurate, false, or misleading information you provide",
+          "Your infringement of any third-party intellectual property or other rights",
         ],
       },
       {
         title: "17. Dispute Resolution and Binding Arbitration",
         paragraphs: [
-          "Please read this section carefully. It affects your legal rights.",
-          "Most concerns can be resolved by contacting us at (Insert email). In the unlikely event we cannot resolve your concern informally, we each agree to resolve disputes as set out below.",
+          "PLEASE READ THIS SECTION CAREFULLY. IT AFFECTS YOUR LEGAL RIGHTS.",
+          "Most concerns can be resolved by contacting us at contact@yourcreditpal.com. In the unlikely event we cannot resolve your concern informally, we each agree to resolve disputes as set out below.",
           "17.1 Agreement to Arbitrate",
           "Except as otherwise provided herein, all disputes, claims, and controversies arising out of or relating to these Terms, the Site, your use of the Site, our data and privacy practices, or the TCPA consent you provided shall be resolved through binding arbitration administered by the American Arbitration Association (AAA) under its Consumer Arbitration Rules, rather than in court. This arbitration agreement applies to the fullest extent permitted by law.",
           "17.2 Class Action Waiver",
-          "You hereby agree that any dispute resolution proceedings between you and us will be conducted only on an individual basis and not in a class, consolidated, or representative action. If this class action waiver is found unenforceable as to a particular claim or request for relief, the parties agree that such claim or request for relief shall be severed and proceeded with in a court of competent jurisdiction, while all remaining claims shall continue in arbitration on an individual basis.",
+          "YOU HEREBY AGREE THAT ANY DISPUTE RESOLUTION PROCEEDINGS BETWEEN YOU AND US WILL BE CONDUCTED ONLY ON AN INDIVIDUAL BASIS AND NOT IN A CLASS, CONSOLIDATED, OR REPRESENTATIVE ACTION. If this class action waiver is found unenforceable as to a particular claim or request for relief, the parties agree that such claim or request for relief shall be severed and proceeded with in a court of competent jurisdiction, while all remaining claims shall continue in arbitration on an individual basis.",
           "17.3 Small Claims Exception",
           "Either party may bring an individual action in small claims court as an alternative to arbitration, provided the claim qualifies under the applicable small claims court rules.",
           "17.4 Pre-Arbitration Dispute Notice",
-          "Before commencing arbitration, the initiating party must send a written Notice of Dispute to the other party describing the nature of the claim and the relief sought. YourCreditPal's address for Dispute Notices is: YourCreditPal Company Limited Attn: Legal & Compliance Department contact@yourcreditpal.com. Alternatively, you could send the Notice to our email address: contact@yourcreditpal.com. The parties agree to attempt to resolve the dispute informally for 30 days following receipt of the Notice. If unresolved, either party may commence arbitration.",
+          "Before commencing arbitration, the initiating party must send a written Notice of Dispute to the other party describing the nature of the claim and the relief sought. ENSTEAD's address for Dispute Notices is: ENSTEAD, LLC, Attn: Legal & Compliance Department, 390 Northeast 191st Street, Miami, FL 33179 US.", 
+          "Alternatively, you may send the Notice to contact@yourcreditpal.com. The parties agree to attempt to resolve the dispute informally for 30 days following receipt of the Notice. If unresolved, either party may commence arbitration.",
           "17.5 Governing Law",
           "These Terms and any dispute arising hereunder shall be governed by the laws of the State of Delaware, without regard to its conflict of law principles, except that the Federal Arbitration Act governs the arbitration provision.",
         ],
@@ -947,7 +1101,7 @@ export const legalPages = {
       {
         title: "18. Changes to These Terms",
         paragraphs: [
-          "We reserve the right to amend these Terms at any time in our sole discretion. Updated Terms will be posted on this page with a revised Last Updated date. Your continued use of the Site after any amendment constitutes your acceptance of the revised Terms. We encourage you to review these Terms periodically.",
+          "We reserve the right to amend these Terms at any time in our sole discretion. Updated Terms will be posted on this page with a revised “Last Updated” date. Your continued use of the Site after any amendment constitutes your acceptance of the revised Terms. We encourage you to review these Terms periodically.",
         ],
       },
       {
@@ -983,18 +1137,22 @@ export const legalPages = {
       {
         title: "24. Copyright",
         paragraphs: [
-          "All content on this Site is: Copyright 2026 YourCreditPal Company Limited. All Rights Reserved. Unauthorized reproduction or distribution is prohibited.",
+          "All content on this Site is: Copyright 2026 ENSTEAD, LLC. All Rights Reserved. Unauthorized reproduction or distribution is prohibited.",
         ],
       },
       {
         title: "25. Contacting Us",
-        paragraphs: ["If you have questions, please contact:"],
-        linkText: "contact@yourcreditpal.com",
-        linkHref: "mailto:contact@yourcreditpal.com",
+        paragraphs: [
+          "If you have any questions or concerns about these Terms, our privacy practices, TCPA consent, or wish to exercise any of your rights, please contact us:",
+          "ENSTEAD, LLC",
+          "Address: 390 Northeast 191st Street, Miami, FL 33179 US",
+          "Email: info@enstead.co",
+          "Phone: (561) 569 8679",
+        ],
       },
     ],
     noteTitle: "Copyright",
     noteBody:
-      "Copyright 2026 YourCreditPal Company Limited. All Rights Reserved. Unauthorized reproduction or distribution is prohibited.",
+      "By using this Site, you acknowledge that you have read, understood, and agree to be bound by these Terms of Use.",
   },
 };

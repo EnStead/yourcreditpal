@@ -4,31 +4,33 @@ import { Swiper, SwiperSlide } from 'swiper/react'
 import { Navigation, Autoplay } from 'swiper/modules'
 import 'swiper/css'
 import 'swiper/css/navigation'
-import Testimony from '../../../../assets/Testimony.jpg'
 import Left from '../../../../assets/Left.svg?react'
 import Right from '../../../../assets/Right.svg?react'
 import Infos from '../../../../assets/Infos.svg?react'
 import Heart from '../../../../assets/Heart.svg?react'
 import Gps from '../../../../assets/Gps.svg?react'
+import Eric from '../../../../assets/eric.webp'
+import Daniella from '../../../../assets/daniella.webp'
+import Jason from '../../../../assets/jason.webp'
 
 const testimonials = [
   {
     text: 'I appreciated the clean experience and the clear communication throughout the application process.',
     name: 'Eric W.',
     location: 'Houston, Tx',
-    image: Testimony,
+    image: Eric,
   },
   {
     text: 'I completed my application from my phone in just a few minutes. The experience felt secure and professional.',
     name: 'Danielle K.',
     location: 'Phoenix, AZ',
-    image: Testimony,
+    image: Daniella,
   },
   {
     text: 'YourCreditPal made it easier to explore my options without having to fill out multiple applications.',
     name: 'Jason M.',
     location: 'Tampa, FL',
-    image: Testimony,
+    image: Jason,
   },
 ]
 
