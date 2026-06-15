@@ -1,3 +1,5 @@
+import { useRef } from "react";
+import { useWebHaptics } from "web-haptics/react";
 import MoneyBag from "../../../../assets/MoneyBag.svg?react";
 import Emergency from "../../../../assets/Emergency.svg?react";
 import HomeIcon from "../../../../assets/Home.svg?react";
@@ -26,7 +28,29 @@ const ApplyStepOne = ({
   setCredit,
   creditOptions,
 }) => {
+  const { trigger } = useWebHaptics();
+  const lastHapticValueRef = useRef(loanAmount);
   const sliderPct = Math.max(0, Math.min(100, ((loanAmount - 1000) / 34000) * 100));
+  const tickValues = [10000, 20000, 30000];
+
+  const handleLoanAmountChange = (event) => {
+    const nextValue = Number(event.target.value);
+    const previousValue = lastHapticValueRef.current;
+
+    setLoanAmount(nextValue);
+
+    const crossedTick = tickValues.some(
+      (tick) =>
+        (previousValue < tick && nextValue >= tick) ||
+        (previousValue > tick && nextValue <= tick),
+    );
+
+    if (crossedTick) {
+      trigger([35], { intensity: 0.75 }).catch(() => {});
+    }
+
+    lastHapticValueRef.current = nextValue;
+  };
 
   return (
     <>
@@ -52,14 +76,14 @@ const ApplyStepOne = ({
             max="35000"
             step="500"
             value={loanAmount}
-            onChange={(e) => setLoanAmount(Number(e.target.value))}
+            onChange={handleLoanAmountChange}
             className="loan-slider h-2 w-full appearance-none rounded-full bg-brand-stroke/25 [&::-webkit-slider-thumb]:appearance-none [&::-webkit-slider-thumb]:h-8 [&::-webkit-slider-thumb]:w-10 [&::-webkit-slider-thumb]:rounded-full [&::-webkit-slider-thumb]:bg-brand-white/80 [&::-webkit-slider-thumb]:backdrop-blur-md [&::-webkit-slider-thumb]:shadow-lg [&::-webkit-slider-thumb]:drop-shadow-md [&::-moz-range-thumb]:appearance-none [&::-moz-range-thumb]:h-8 [&::-moz-range-thumb]:w-10 [&::-moz-range-thumb]:rounded-full [&::-moz-range-thumb]:border-0 [&::-moz-range-thumb]:bg-white/80 [&::-moz-range-thumb]:backdrop-blur-md [&::-moz-range-thumb]:shadow-lg [&::-moz-range-thumb]:drop-shadow-md cursor-pointer"
             style={{
               background: `linear-gradient(to right, #FE2A01 0%, #FE2A01 ${sliderPct}%, #e5e7eb ${sliderPct}%, #e5e7eb 100%)`,
             }}
           />
           <div className="pointer-events-none absolute top-1 inset-0">
-            {[10000, 20000, 30000].map((val) => {
+            {tickValues.map((val) => {
               const fraction = (val - 1000) / 34000;
               return val > loanAmount ? (
                 <span
