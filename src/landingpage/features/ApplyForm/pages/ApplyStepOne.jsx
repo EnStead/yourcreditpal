@@ -30,6 +30,7 @@ const ApplyStepOne = ({
 }) => {
   const { trigger } = useWebHaptics();
   const lastHapticValueRef = useRef(loanAmount);
+  const endHapticFiredRef = useRef(false);
   const sliderPct = Math.max(0, Math.min(100, ((loanAmount - 1000) / 34000) * 100));
   const tickValues = [10000, 20000, 30000];
 
@@ -47,6 +48,15 @@ const ApplyStepOne = ({
 
     if (crossedTick) {
       trigger([35], { intensity: 0.75 }).catch(() => {});
+    }
+
+    if (nextValue >= 35000 && !endHapticFiredRef.current) {
+      trigger([{ duration: 1000 }], { intensity: 1 }).catch(() => {});
+      endHapticFiredRef.current = true;
+    }
+
+    if (nextValue < 35000) {
+      endHapticFiredRef.current = false;
     }
 
     lastHapticValueRef.current = nextValue;
@@ -93,6 +103,10 @@ const ApplyStepOne = ({
                 />
               ) : null;
             })}
+            <span
+              className="absolute top-1/2 h-1 w-1 -translate-x-1/2 -translate-y-1/2 rounded-full bg-brand-wite shadow-sm"
+              style={{ left: '100%' }}
+            />
           </div>
         </div>
         <div className="mt-2 flex justify-between text-sm text-brand-label">
