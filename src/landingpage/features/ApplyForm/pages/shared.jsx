@@ -6,7 +6,7 @@ import ShieldCheck from '../../../../assets/ShieldCheck.svg?react'
 const legalLinkClass =
   'font-medium text-brand-primary no-underline transition hover:underline hover:underline-offset-4 focus-visible:underline focus-visible:underline-offset-4'
 
-export const Field = ({ label, placeholder, icon: Icon, full, forceActive = false, ...props }) => {
+export const Field = ({ label, placeholder, icon: Icon, full, forceActive = false, inputRef, ...props }) => {
   const [isFocused, setIsFocused] = useState(false)
   const [hasValue, setHasValue] = useState(false)
 
@@ -22,6 +22,7 @@ export const Field = ({ label, placeholder, icon: Icon, full, forceActive = fals
       <div className={`relative flex items-center border-b py-2 transition-colors ${isActive ? 'border-brand-title' : 'border-brand-stroke'}`}>
         <input
           {...props}
+          ref={inputRef}
           type={inputType}
           className={`w-full bg-transparent text-base text-brand-title outline-none placeholder:text-brand-placeholder ${props.type === 'date' ? '[&::-webkit-calendar-picker-indicator]:absolute [&::-webkit-calendar-picker-indicator]:inset-0 [&::-webkit-calendar-picker-indicator]:h-full [&::-webkit-calendar-picker-indicator]:w-full [&::-webkit-calendar-picker-indicator]:cursor-pointer [&::-webkit-calendar-picker-indicator]:opacity-0' : ''}`}
           placeholder={placeholder}

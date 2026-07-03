@@ -1,12 +1,12 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 import * as Select from "@radix-ui/react-select";
-import { BriefcaseBusiness, Search, ChevronDown } from "lucide-react";
+import { BriefcaseBusiness, Search, ChevronDown, Check, Loader2 } from "lucide-react";
 import MoneyBag from "../../../../assets/MoneyBag.svg?react";
 import Self from "../../../../assets/Self.svg?react";
 import Retired from "../../../../assets/Retired.svg?react";
 import Benefits from "../../../../assets/Benefits.svg?react";
 import Unemployed from "../../../../assets/Unemployed.svg?react";
-import { ConfidenceBox, Field } from "./shared";
+import { ConfidenceBox } from "./shared";
 
 const API_BASE_URL =
   import.meta.env.VITE_APPLY_API_BASE_URL ||
@@ -37,6 +37,78 @@ const accountTypeOptions = [
   { value: "savings", label: "Savings" },
 ];
 
+// Use a server-side proxy to avoid CORS when contacting bankrouting.io
+const BANKROUTING_PROXY_ENDPOINT = "/api/validate-aba";
+
+const normalizeBankToken = (token) => {
+  const normalized = token.replace(/[^A-Z0-9]/g, "");
+  const aliases = {
+    BBT: "TRUIST",
+    BBANDT: "TRUIST",
+    BBANDT: "TRUIST",
+    SUNTRUST: "TRUIST",
+    TRUIST: "TRUIST",
+    BOA: "BANKOFAMERICA",
+    BOFA: "BANKOFAMERICA",
+    BANKOFAMERICA: "BANKOFAMERICA",
+    CITI: "CITI",
+    CITIBANK: "CITI",
+    WELLS: "WELLS",
+  };
+  return aliases[normalized] || normalized;
+};
+
+const normalizeBankName = (name) => {
+  if (!name) return [];
+  let raw = String(name).toUpperCase();
+
+  raw = raw
+    .replace(/BB&T|BB AND T|BBANDT|BBT/gi, "TRUIST")
+    .replace(/BRANCH BANKING & TRUST COMPANY|BRANCH BANKING & TRUST|BRANCH BANKING/gi, "TRUIST")
+    .replace(/SUN TRUST|SUNTRUST/gi, "TRUIST")
+    .replace(/BANK OF AMERICA(?:, N\.A\.?|, NY|, N\.A\.?\, NY)?/gi, "BANKOFAMERICA")
+    .replace(/&/g, " ");
+
+  raw = raw
+    .replace(/\b(N\.?A\.?|COMPANY|CO\.?|CORP\.?|LLC|NATIONAL|SAVINGS|ASSOCIATION|THE|AND)\b/g, " ")
+    .replace(/[^A-Z0-9\s]/g, " ")
+    .replace(/\s+/g, " ")
+    .trim();
+
+  if (!raw) return [];
+  return raw.split(" ").filter(Boolean).map(normalizeBankToken);
+};
+
+const bankNamesLooselyMatch = (selectedName, lookedUpName) => {
+  const aTokens = normalizeBankName(selectedName);
+  const bTokens = normalizeBankName(lookedUpName);
+  if (!aTokens.length || !bTokens.length) return false;
+
+  const aSet = new Set(aTokens);
+  const bSet = new Set(bTokens);
+  let intersection = 0;
+  for (const t of aSet) if (bSet.has(t)) intersection++;
+
+  if (aSet.size === 0 || bSet.size === 0) return false;
+
+  const exactMatch = aSet.size === bSet.size && intersection === aSet.size && intersection === bSet.size;
+  if (exactMatch) return true;
+
+  if (aSet.size === 1 && bSet.size === 1 && intersection === 1) {
+    return aTokens[0] === bTokens[0];
+  }
+
+  // Whitelist superset fallback: accept when one name's token set is a strict subset
+  // of the other and a canonical token for the bank appears (reduces false positives).
+  const WHITELIST = new Set(["TRUIST", "BANKOFAMERICA", "CITI", "JPMORGAN", "CHASE", "WELLS"]);
+  const aIsSubsetOfB = [...aSet].every((t) => bSet.has(t));
+  const bIsSubsetOfA = [...bSet].every((t) => aSet.has(t));
+  const hasWhitelistToken = [...aSet, ...bSet].some((t) => WHITELIST.has(t));
+  if ((aIsSubsetOfB || bIsSubsetOfA) && hasWhitelistToken) return true;
+
+  return false;
+};
+
 const ApplyStepThree = ({
   employment,
   setEmployment,
@@ -49,6 +121,11 @@ const ApplyStepThree = ({
   setBankName,
   accountType,
   setAccountType,
+  routingNumber,
+  setRoutingNumber,
+  accountNumber,
+  setAccountNumber,
+  setIsRoutingVerified,
 }) => {
   const bankSearchRef = useRef(null);
   const [isIncomeFocused, setIsIncomeFocused] = useState(false);
@@ -56,21 +133,20 @@ const ApplyStepThree = ({
   const [bankResults, setBankResults] = useState([]);
   const [bankLoading, setBankLoading] = useState(false);
   const [bankError, setBankError] = useState("");
+  const [isAccountNumberFocused, setIsAccountNumberFocused] = useState(false);
+  const [isRoutingFocused, setIsRoutingFocused] = useState(false);
+  const [routingStatus, setRoutingStatus] = useState("idle");
+  const [routingError, setRoutingError] = useState("");
+  const [routingMessage, setRoutingMessage] = useState("");
+  const [showRoutingIcon, setShowRoutingIcon] = useState(false);
 
   const isIncomeActive = isIncomeFocused || (monthlyIncome && String(monthlyIncome).length > 0);
   const isBankActive = Boolean(bankId || bankName || bankQuery);
 
   useEffect(() => {
-    setBankQuery(bankName || "");
-  }, [bankName]);
-
-  useEffect(() => {
     const query = bankQuery.trim();
 
     if (query.length < 2) {
-      setBankResults([]);
-      setBankError("");
-      setBankLoading(false);
       return undefined;
     }
 
@@ -113,6 +189,99 @@ const ApplyStepThree = ({
     };
   }, [bankQuery]);
 
+  const resetRoutingVerification = () => {
+    setRoutingStatus("idle");
+    setRoutingError("");
+    setRoutingMessage("");
+    setShowRoutingIcon(false);
+    setIsRoutingVerified(false);
+  };
+
+  const isAccountNumberActive =
+    isAccountNumberFocused || (accountNumber && String(accountNumber).length > 0);
+  const isRoutingActive = isRoutingFocused || (routingNumber && String(routingNumber).length > 0);
+
+  const verifyRoutingNumber = async (routing = routingNumber, selectedBankName = bankName) => {
+    const normalizedRouting = routing.trim();
+    if (!/^\d{9}$/.test(normalizedRouting)) {
+      if (normalizedRouting && normalizedRouting.length < 9) {
+        setRoutingStatus("invalid");
+        setRoutingError("Routing number must be 9 digits.");
+        setShowRoutingIcon(true);
+        setIsRoutingVerified(false);
+      }
+      return;
+    }
+
+    setRoutingStatus("checking");
+    setRoutingError("");
+    setShowRoutingIcon(true);
+
+    try {
+      const resp = await fetch(`${BANKROUTING_PROXY_ENDPOINT}?routing=${normalizedRouting}`);
+      if (!resp.ok) throw new Error("bankrouting proxy unavailable");
+      const data = await resp.json();
+
+      const validateData = data?.validate;
+      const validateStatus = data?.validateStatus;
+      const lookupData = data?.lookup;
+
+      if (validateStatus === 404) {
+        setRoutingStatus("invalid");
+        setRoutingError("Couldn't verify bank. Use another bank.");
+        setIsRoutingVerified(false);
+        setRoutingMessage("");
+        setShowRoutingIcon(true);
+        return;
+      }
+
+      if (!validateData?.data?.valid) {
+        setRoutingStatus("invalid");
+        setRoutingError("We couldn't verify this routing number. Please try again.");
+        setIsRoutingVerified(false);
+        setRoutingMessage("");
+        setShowRoutingIcon(true);
+        return;
+      }
+
+      const lookedUpBankName =
+        lookupData?.data?.bank_name ||
+        lookupData?.bank_name ||
+        lookupData?.data?.bankName ||
+        lookupData?.bankName ||
+        "";
+
+      if (!bankNamesLooselyMatch(selectedBankName, lookedUpBankName)) {
+        if (!lookedUpBankName) {
+          setRoutingStatus("valid");
+          setRoutingMessage("Routing number checked.");
+          setIsRoutingVerified(true);
+          setShowRoutingIcon(true);
+          setTimeout(() => setShowRoutingIcon(false), 2000);
+          return;
+        }
+
+        setRoutingStatus("invalid");
+        setRoutingError("Routing number doesn't match your bank. Please try again.");
+        setRoutingMessage("");
+        setIsRoutingVerified(false);
+        setShowRoutingIcon(true);
+        return;
+      }
+
+      setRoutingStatus("valid");
+      setRoutingMessage("Routing number verified.");
+      setIsRoutingVerified(true);
+      setShowRoutingIcon(true);
+      setTimeout(() => setShowRoutingIcon(false), 2000);
+    } catch (err) {
+      setRoutingStatus("invalid");
+      setRoutingError("We couldn't verify this routing number. Please try again.");
+      setIsRoutingVerified(false);
+      setShowRoutingIcon(true);
+    }
+  };
+
   const selectedBankLabel = useMemo(() => {
     if (bankName) return bankName;
     return "";
@@ -123,17 +292,40 @@ const ApplyStepThree = ({
   }, [accountType]);
 
   const handleBankSelect = (institution) => {
+    const selectedName = institution.display_name || institution.canonical_name || institution.name || "";
     setBankId(institution.id);
-    setBankName(institution.display_name || institution.canonical_name || institution.name || "");
-    setBankQuery(institution.display_name || institution.canonical_name || institution.name || "");
+    setBankName(selectedName);
+    setBankQuery(selectedName);
     setBankResults([]);
+    resetRoutingVerification();
+    if (/^\d{9}$/.test(routingNumber)) {
+      verifyRoutingNumber(routingNumber, selectedName);
+    }
   };
+
+  useEffect(() => {
+    if (!bankId || !/^\d{9}$/.test(routingNumber)) return;
+    verifyRoutingNumber();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [bankId]);
 
   const handleBankInputChange = (event) => {
     const value = event.target.value;
     setBankId("");
     setBankName(value);
     setBankQuery(value);
+    resetRoutingVerification();
+
+    if (value.trim().length < 2) {
+      setBankResults([]);
+      setBankError("");
+      setBankLoading(false);
+    }
+  };
+
+  const handleRoutingNumberChange = (event) => {
+    setRoutingNumber(event.target.value.replace(/\D/g, "").slice(0, 9));
+    resetRoutingVerification();
   };
 
   return (
@@ -220,9 +412,13 @@ const ApplyStepThree = ({
                   : "border-brand-stroke text-brand-placeholder"
               }`}
             >
-              <Select.Value placeholder="Search or type bank name">
-                {selectedBankLabel}
-              </Select.Value>
+              {bankName ? (
+                <span className="text-brand-title">{bankName}</span>
+              ) : (
+                <Select.Value placeholder="Search or type bank name">
+                  {selectedBankLabel}
+                </Select.Value>
+              )}
               <Select.Icon>
                 <ChevronDown
                   className={`h-4 w-4 text-brand-placeholder transition-colors ${
@@ -342,6 +538,74 @@ const ApplyStepThree = ({
               </Select.Content>
             </Select.Portal>
           </Select.Root>
+        </div>
+      </div>
+
+      <div className="mt-8 grid gap-6 sm:grid-cols-2">
+        <div className="block">
+          <label
+            className={`mb-3 block font-sans text-base font-medium transition-colors ${
+              isRoutingActive ? "text-brand-title" : "text-brand-label"
+            }`}
+          >
+            Routing Number
+          </label>
+          <div className="relative">
+            <input
+              inputMode="numeric"
+              maxLength={9}
+              className={`w-full border-0 border-b bg-transparent px-0 py-3 pr-10 font-sans text-base text-brand-title outline-none placeholder:text-brand-placeholder transition-colors ${
+                routingStatus === "invalid"
+                  ? "border-red-500"
+                  : isRoutingActive
+                    ? "border-brand-title"
+                    : "border-brand-stroke"
+              }`}
+              placeholder="9-digit routing number"
+              value={routingNumber}
+              onFocus={() => setIsRoutingFocused(true)}
+              onChange={handleRoutingNumberChange}
+              onBlur={() => {
+                setIsRoutingFocused(false);
+                verifyRoutingNumber();
+              }}
+            />
+            {showRoutingIcon && routingStatus === "checking" ? (
+              <Loader2 className="absolute right-0 top-1/2 h-5 w-5 -translate-y-1/2 text-brand-placeholder animate-spin" />
+            ) : showRoutingIcon && routingStatus === "valid" ? (
+              <Check className="absolute right-0 top-1/2 h-5 w-5 -translate-y-1/2 text-brand-body" />
+            ) : null}
+          </div>
+          {routingStatus === "invalid" ? (
+            <p className="mt-2 text-sm text-red-500">{routingError}</p>
+          ) : routingStatus === "valid" ? (
+            <p className="mt-2 text-sm text-brand-body">{routingMessage}</p>
+          ) : null}
+        </div>
+
+        <div className="block">
+          <label
+            className={`mb-3 block font-sans text-base font-medium transition-colors ${
+              isAccountNumberActive ? "text-brand-title" : "text-brand-label"
+            }`}
+          >
+            Account Number
+          </label>
+          <input
+            inputMode="numeric"
+            maxLength={17}
+            className={`w-full border-0 border-b bg-transparent px-0 py-3 font-sans text-base text-brand-title outline-none placeholder:text-brand-placeholder transition-colors ${
+              isAccountNumberActive ? "border-brand-title" : "border-brand-stroke"
+            }`}
+            placeholder="Account number"
+            value={accountNumber}
+            onFocus={() => setIsAccountNumberFocused(true)}
+            onChange={(e) => setAccountNumber(e.target.value.replace(/\D/g, "").slice(0, 17))}
+            onBlur={() => setIsAccountNumberFocused(false)}
+          />
+          {accountNumber && !/^\d{4,17}$/.test(accountNumber) ? (
+            <p className="mt-2 text-sm text-red-500">Enter a valid account number.</p>
+          ) : null}
         </div>
       </div>
 

@@ -310,6 +310,9 @@ const ApplyForm = () => {
   const [bankId, setBankId] = useState("");
   const [bankName, setBankName] = useState("");
   const [accountType, setAccountType] = useState("");
+  const [routingNumber, setRoutingNumber] = useState("");
+  const [accountNumber, setAccountNumber] = useState("");
+  const [isRoutingVerified, setIsRoutingVerified] = useState(false);
 
   const [streetAddress, setStreetAddress] = useState("");
   const [city, setCity] = useState("");
@@ -368,11 +371,14 @@ const ApplyForm = () => {
     countPhoneDigits(phone) === 10 &&
     isAtLeast18(dob) &&
     usState !== "";
+  const isAccountNumberValid = /^\d{4,17}$/.test(accountNumber);
   const isStepThreeValid =
     employment !== "" &&
     monthlyIncome !== "" &&
     bankName !== "" &&
-    accountType !== "";
+    accountType !== "" &&
+    isRoutingVerified &&
+    isAccountNumberValid;
   const isStepFourValid =
     housing !== "" && streetAddress !== "" && city !== "" && zipCode !== "";
 
@@ -682,6 +688,11 @@ const ApplyForm = () => {
                         setBankName={setBankName}
                         accountType={accountType}
                         setAccountType={setAccountType}
+                        routingNumber={routingNumber}
+                        setRoutingNumber={setRoutingNumber}
+                        accountNumber={accountNumber}
+                        setAccountNumber={setAccountNumber}
+                        setIsRoutingVerified={setIsRoutingVerified}
                       />
                     ) : (
                       <ApplyStepFour
@@ -719,8 +730,8 @@ const ApplyForm = () => {
                         className={`rounded-xl px-6 py-3 text-sm font-semibold text-brand-white transition-all duration-300 ${
                           buttonText === "Continue" ||
                           buttonText === "See My Loan Options"
-                            ? "min-w-[15rem]"
-                            : "min-w-[10rem]"
+                            ? "sm:min-w-[15rem] min-w-0 w-full sm:w-auto"
+                            : "sm:min-w-[10rem] min-w-0 w-full sm:w-auto"
                         } ${
                           !isCurrentStepValid
                             ? "cursor-not-allowed bg-brand-secondary/50"

@@ -56,6 +56,8 @@ const ApplyStepTwo = ({
   setUsState,
 }) => {
   const stateSearchRef = useRef(null)
+  const firstNameRef = useRef(null)
+  const lastNameRef = useRef(null)
   const [stateSearch, setStateSearch] = useState('')
   const selectedDate = dob ? parse(dob, 'MM/dd/yyyy', new Date()) : null
   const latestEligibleDob = subYears(new Date(), 18)
@@ -84,12 +86,24 @@ const ApplyStepTwo = ({
           placeholder="Enter your first name"
           value={firstName}
           onChange={(e) => setFirstName(e.target.value)}
+          inputRef={firstNameRef}
+          onKeyDown={(e) => {
+            if (e.key === ' ' || e.code === 'Space') {
+              // only move focus if there's something typed
+              if (String(firstName).trim().length > 0) {
+                e.preventDefault()
+                lastNameRef.current?.focus()
+              }
+            }
+            if (e.onKeyDown) e.onKeyDown(e)
+          }}
         />
         <Field
           label="Last Name"
           placeholder="Enter your last name"
           value={lastName}
           onChange={(e) => setLastName(e.target.value)}
+          inputRef={lastNameRef}
         />
         <div className="sm:col-span-2">
           <Field
