@@ -28,5 +28,48 @@ export default defineConfig({
         },
       },
     }),
+    // Dev-time API proxy: handle /api/validate-aba locally to avoid CORS issues
+    {
+      name: 'dev-api-validate-aba',
+      configureServer(server) {
+        server.middlewares.use(async (req, res, next) => {
+          try {
+            if (!req.url) return next()
+            const url = req.url.split('?')[0]
+            if (url !== '/api/validate-aba') return next()
+
+            const params = new URL(req.url, 'http://localhost')
+            const routing = params.searchParams.get('routing') || ''
+            if (!/^\d{9}$/.test(routing)) {
+              res.statusCode = 400
+              res.setHeader('Content-Type', 'application/json')
+              res.end(JSON.stringify({ success: false, message: 'Missing or invalid routing parameter' }))
+              return
+            }
+
+            const validateUrl = `https://bankrouting.io/api/v1/aba/${routing}/validate`
+            const lookupUrl = `https://bankrouting.io/api/v1/aba/${routing}`
+
+            const [validateRes, lookupRes] = await Promise.all([
+              fetch(validateUrl),
+              fetch(lookupUrl),
+            ])
+
+            const validateJson = await validateRes.json().catch(() => null)
+            const lookupJson = await lookupRes.json().catch(() => null)
+
+            res.setHeader('Content-Type', 'application/json')
+            res.end(JSON.stringify({ success: true, validate: validateJson, lookup: lookupJson }))
+            return
+          } catch (err) {
+            console.error('dev proxy error', err)
+            res.statusCode = 500
+            res.setHeader('Content-Type', 'application/json')
+            res.end(JSON.stringify({ success: false, message: 'Proxy error' }))
+            return
+          }
+        })
+      },
+    },
   ],
 })
