@@ -1,10 +1,10 @@
-import { House } from 'lucide-react'
+import { Check, House } from 'lucide-react'
 import { NavLink } from 'react-router-dom'
 import Home from "../../../../assets/Homes.svg?react";
 import Rent from "../../../../assets/Rent.svg?react";
 import Family from "../../../../assets/Family.svg?react";
 import Other from "../../../../assets/Other.svg?react";
-import { ConsentConfirmation, SecureNoticeCard, Field } from './shared'
+import { SecureNoticeCard, Field } from './shared'
 
 const legalLinkClass =
   'font-medium text-brand-primary no-underline transition hover:underline hover:underline-offset-4 focus-visible:underline focus-visible:underline-offset-4'
@@ -16,7 +16,19 @@ const iconMap = {
   "Other": Other,
 };
 
-const ApplyStepFour = ({ housing, setHousing, housingOptions, streetAddress, setStreetAddress, city, setCity, zipCode, setZipCode }) => {
+const ApplyStepFour = ({
+  housing,
+  setHousing,
+  housingOptions,
+  streetAddress,
+  setStreetAddress,
+  city,
+  setCity,
+  zipCode,
+  setZipCode,
+  hasConsent,
+  setHasConsent,
+}) => {
   return (
     <>
       <h1 className="text-2xl font-bold text-brand-title">
@@ -79,7 +91,32 @@ const ApplyStepFour = ({ housing, setHousing, housingOptions, streetAddress, set
         </NavLink>{' '}
         at any time.
       </SecureNoticeCard>
-      <ConsentConfirmation />
+      <label className="mt-5 flex items-start gap-3 text-sm leading-6 text-brand-body">
+        <input
+          type="checkbox"
+          checked={hasConsent}
+          onChange={(event) => setHasConsent(event.target.checked)}
+          className="peer sr-only"
+        />
+        <span className="mt-1 flex h-4 w-4 shrink-0 items-center justify-center rounded border-2 border-brand-title/50 bg-brand-white transition peer-checked:border-brand-primary peer-checked:bg-brand-primary">
+          {hasConsent ? <Check className="h-3 w-3 text-brand-white" strokeWidth={3} /> : null}
+        </span>
+        <span>
+          By checking this box and clicking Submit My Application, I provide my express written consent to be contacted by YourCreditPal and its{' '}
+          <NavLink to="/legal/marketing-partners" className={legalLinkClass}>
+            current lending partners listed here
+          </NavLink>{' '}
+          via automated calls, prerecorded messages, or texts at the number provided. I understand that consent is not a condition of purchase. I also certify that I am 18 years of age or older and agree to YourCreditPal&apos;s{' '}
+          <NavLink to="/legal/terms-conditions" className={legalLinkClass}>
+            Terms of Use
+          </NavLink>{' '}
+          and{' '}
+          <NavLink to="/legal/privacy-policy" className={legalLinkClass}>
+            Privacy Policy
+          </NavLink>
+          .
+        </span>
+      </label>
     </>
   )
 }

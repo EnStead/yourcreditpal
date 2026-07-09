@@ -317,6 +317,7 @@ const ApplyForm = () => {
   const [streetAddress, setStreetAddress] = useState("");
   const [city, setCity] = useState("");
   const [zipCode, setZipCode] = useState("");
+  const [hasConsent, setHasConsent] = useState(false);
 
   const hasUnsavedChanges = useMemo(() => {
     if (postSubmitState) return false;
@@ -337,12 +338,13 @@ const ApplyForm = () => {
       accountType !== "" ||
       streetAddress !== "" ||
       city !== "" ||
-      zipCode !== ""
+      zipCode !== "" ||
+      hasConsent
     );
   }, [
     step, purpose, credit, employment, housing, firstName, lastName,
     email, phone, dob, usState, monthlyIncome, bankName, accountType,
-    streetAddress, city, zipCode, postSubmitState
+    streetAddress, city, zipCode, hasConsent, postSubmitState
   ]);
 
   useEffect(() => {
@@ -380,7 +382,11 @@ const ApplyForm = () => {
     isRoutingVerified &&
     isAccountNumberValid;
   const isStepFourValid =
-    housing !== "" && streetAddress !== "" && city !== "" && zipCode !== "";
+    housing !== "" &&
+    streetAddress !== "" &&
+    city !== "" &&
+    zipCode !== "" &&
+    hasConsent;
 
   const isCurrentStepValid =
     (step === 1 && isStepOneValid) ||
@@ -705,6 +711,8 @@ const ApplyForm = () => {
                         setCity={setCity}
                         zipCode={zipCode}
                         setZipCode={setZipCode}
+                        hasConsent={hasConsent}
+                        setHasConsent={setHasConsent}
                       />
                     )}
 

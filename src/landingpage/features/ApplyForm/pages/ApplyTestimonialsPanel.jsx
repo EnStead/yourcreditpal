@@ -102,16 +102,16 @@ const ApplyTestimonialsPanel = () => {
 
       <div className="mt-auto mx-auto text-center space-y-5 pt-8 pb-1 text-sm text-brand-title">
         <div className="flex items-center gap-3 justify-center ">
-          <Infos className="h-5 w-5" />
-          <span>Your information is safe</span>
-        </div>
-        <div className="flex items-center gap-3 justify-center ">
           <Heart className="h-5 w-5" />
-          <span>Secure and encrypted data handling</span>
+          <span>256-bit SSL</span>
         </div>
         <div className="flex items-center gap-3 justify-center ">
           <Gps className="h-5 w-5" />
-          <span>Your credit score is also not affected</span>
+          <span>No Hard Credit Pull</span>
+        </div>
+        <div className="flex items-center gap-3 justify-center ">
+          <Infos className="h-5 w-5" />
+          <span>Your information is safe</span>
         </div>
       </div>
     </aside>

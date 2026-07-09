@@ -78,19 +78,19 @@ export const SecureNoticeCard = ({ title, children }) => (
 
 export const ConsentText = () => (
   <p className="mt-4 text-sm font-light text-brand-body">
-    By clicking &ldquo;See My Loan Options,&rdquo; I confirm that I have read and agree to YourCreditPal&apos;s{' '}
-    <NavLink to="/legal/terms" className={legalLinkClass}>
+    By clicking &ldquo;See My Loan Options,&rdquo; you agree to YourCreditPal&apos;s{' '}
+    <NavLink to="/legal/terms-conditions" className={legalLinkClass}>
       Terms of Use
     </NavLink>{' '}
     and{' '}
-    <NavLink to="/legal/privacy" className={legalLinkClass}>
+    <NavLink to="/legal/privacy-policy" className={legalLinkClass}>
       Privacy Policy
-    </NavLink>
-    , and I provide my express written consent to be contacted by YourCreditPal and its network of{' '}
+    </NavLink>{' '}
+    and consent to be contacted by YourCreditPal and its{' '}
     <NavLink to="/legal/marketing-partners" className={legalLinkClass}>
       lending partners
     </NavLink>{' '}
-    regarding personal loan products. I consent to be contacted by telephone, auto-dialer, pre-recorded message, and text message at the phone number I provided above, and by email at the address I provided above. I understand that consent is not required as a condition of obtaining any product or service, and that I may revoke my consent at any time by replying STOP to any text message or clicking Unsubscribe in any email. Message and data rates may apply.
+    about your request. Consent is not required to purchase, and message/data rates may apply.
   </p>
 )
 

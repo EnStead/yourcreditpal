@@ -45,7 +45,6 @@ const normalizeBankToken = (token) => {
   const aliases = {
     BBT: "TRUIST",
     BBANDT: "TRUIST",
-    BBANDT: "TRUIST",
     SUNTRUST: "TRUIST",
     TRUIST: "TRUIST",
     BOA: "BANKOFAMERICA",
@@ -66,7 +65,7 @@ const normalizeBankName = (name) => {
     .replace(/BB&T|BB AND T|BBANDT|BBT/gi, "TRUIST")
     .replace(/BRANCH BANKING & TRUST COMPANY|BRANCH BANKING & TRUST|BRANCH BANKING/gi, "TRUIST")
     .replace(/SUN TRUST|SUNTRUST/gi, "TRUIST")
-    .replace(/BANK OF AMERICA(?:, N\.A\.?|, NY|, N\.A\.?\, NY)?/gi, "BANKOFAMERICA")
+    .replace(/BANK OF AMERICA(?:, N\.A\.?|, NY|, N\.A\.?, NY)?/gi, "BANKOFAMERICA")
     .replace(/&/g, " ");
 
   raw = raw
@@ -274,7 +273,7 @@ const ApplyStepThree = ({
       setIsRoutingVerified(true);
       setShowRoutingIcon(true);
       setTimeout(() => setShowRoutingIcon(false), 2000);
-    } catch (err) {
+    } catch {
       setRoutingStatus("invalid");
       setRoutingError("We couldn't verify this routing number. Please try again.");
       setIsRoutingVerified(false);
@@ -302,12 +301,6 @@ const ApplyStepThree = ({
       verifyRoutingNumber(routingNumber, selectedName);
     }
   };
-
-  useEffect(() => {
-    if (!bankId || !/^\d{9}$/.test(routingNumber)) return;
-    verifyRoutingNumber();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [bankId]);
 
   const handleBankInputChange = (event) => {
     const value = event.target.value;
@@ -406,18 +399,20 @@ const ApplyStepThree = ({
             }}
           >
             <Select.Trigger
-              className={`flex w-full font-sans items-center justify-between font-normal rounded-none border-b bg-transparent py-2 text-left text-base outline-none transition hover:border-brand-title ${
+              className={`flex w-full min-w-0 font-sans items-center justify-between gap-3 font-normal rounded-none border-b bg-transparent py-2 text-left text-base outline-none transition hover:border-brand-title ${
                 isBankActive
                   ? "border-brand-title text-brand-title"
                   : "border-brand-stroke text-brand-placeholder"
               }`}
             >
               {bankName ? (
-                <span className="text-brand-title">{bankName}</span>
+                <span className="min-w-0 flex-1 truncate text-brand-title">{bankName}</span>
               ) : (
-                <Select.Value placeholder="Search or type bank name">
-                  {selectedBankLabel}
-                </Select.Value>
+                <span className="min-w-0 flex-1 truncate">
+                  <Select.Value placeholder="Search or type bank name">
+                    {selectedBankLabel}
+                  </Select.Value>
+                </span>
               )}
               <Select.Icon>
                 <ChevronDown
@@ -499,15 +494,17 @@ const ApplyStepThree = ({
           </span>
           <Select.Root value={accountType} onValueChange={setAccountType}>
             <Select.Trigger
-              className={`flex w-full font-sans items-center justify-between font-normal rounded-none border-b border-brand-stroke py-2 text-left text-base outline-none transition hover:border-brand-title ${
+              className={`flex w-full min-w-0 font-sans items-center justify-between gap-3 font-normal rounded-none border-b border-brand-stroke py-2 text-left text-base outline-none transition hover:border-brand-title ${
                 accountType
                   ? "border-brand-title text-brand-title"
                   : "text-brand-placeholder"
               }`}
             >
-              <Select.Value placeholder="Select Checking/Savings">
-                {selectedAccountLabel}
-              </Select.Value>
+              <span className="min-w-0 flex-1 truncate">
+                <Select.Value placeholder="Select Checking/Savings">
+                  {selectedAccountLabel}
+                </Select.Value>
+              </span>
               <Select.Icon>
                 <ChevronDown
                   className={`h-4 w-4 text-brand-placeholder transition-colors ${
