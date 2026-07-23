@@ -156,6 +156,11 @@ const faqs = {
   ],
 }
 
+// eslint-disable-next-line react-refresh/only-export-components
+export const faqSchemaItems = Object.values(faqs)
+  .flat()
+  .map(({ question, answer }) => ({ question, answer }))
+
 const tabPanels = {
   applications: 'grid-cols-1 lg:grid-cols-2',
   'loan-process': 'grid-cols-1 lg:grid-cols-2',

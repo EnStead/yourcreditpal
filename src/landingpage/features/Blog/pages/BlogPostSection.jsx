@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useRef, useState } from 'react'
 import { ArrowRight } from 'lucide-react'
-import { NavLink, Navigate, useParams } from 'react-router-dom'
+import { NavLink, Navigate, useLoaderData, useParams } from 'react-router-dom'
 import Share from '../../../../assets/Share.svg?react'
 import Twitter from '../../../../assets/Twitter.svg?react'
 import Linkedin2 from '../../../../assets/LinkedinB.svg?react'
@@ -90,7 +90,7 @@ const renderBodyBlock = (block) => {
   if (block._type === 'image') {
     return (
       <figure key={block.alt || block.image} className="mx-auto my-2 w-full max-w-3xl space-y-2">
-        <img src={block.image} alt={block.alt || ''} className="aspect-[16/9] w-full rounded-[0.75rem] object-cover" />
+        <img src={block.image} alt={block.alt || ''} loading="lazy" decoding="async" className="aspect-[16/9] w-full rounded-[0.75rem] object-cover" />
         {block.caption ? <figcaption className="text-xs text-brand-label">{block.caption}</figcaption> : null}
       </figure>
     )
@@ -141,14 +141,17 @@ const renderBodyBlock = (block) => {
 
 const BlogPostSection = () => {
   const { slug } = useParams()
-  const [post, setPost] = useState(null)
-  const [morePosts, setMorePosts] = useState([])
-  const [loading, setLoading] = useState(true)
+  // Seeded from the route loader so the article body prerenders; falls back to client fetch otherwise.
+  const loaderData = useLoaderData()
+  const [post, setPost] = useState(loaderData?.post ?? null)
+  const [morePosts, setMorePosts] = useState(loaderData?.morePosts ?? [])
+  const [loading, setLoading] = useState(!loaderData?.post)
   const [error, setError] = useState('')
   const [toast, setToast] = useState(null)
   const toastTimerRef = useRef(null)
 
   useEffect(() => {
+    if (loaderData?.post) return
     let isMounted = true
 
     const loadPost = async () => {
@@ -175,7 +178,7 @@ const BlogPostSection = () => {
     return () => {
       isMounted = false
     }
-  }, [slug])
+  }, [slug, loaderData])
 
   const renderedBody = useMemo(() => post?.body || [], [post])
   const shareUrl = typeof window === 'undefined' ? '' : window.location.href
@@ -358,6 +361,8 @@ const BlogPostSection = () => {
                 <img
                   src={relatedPost.thumbnailImage}
                   alt={relatedPost.thumbnailAlt || relatedPost.title}
+                  loading="lazy"
+                  decoding="async"
                   className="h-[13rem] w-full object-cover transition duration-500 group-hover:scale-[1.03]"
                 />
               </div>
