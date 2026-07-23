@@ -1,6 +1,8 @@
 import { Links, Meta, Outlet, Scripts, ScrollRestoration } from 'react-router'
 import { buildMeta, SITE_NAME, SITE_URL } from './lib/seo'
 import '../src/index.css'
+import MetaPixelTracker from '../src/landingpage/components/MetaPixelTracker'
+import CookieConsentBanner from '../src/landingpage/components/CookieConsentBanner'
 
 export const links = () => [
   { rel: 'icon', type: 'image/svg+xml', href: '/favicon.svg' },
@@ -40,6 +42,8 @@ export function Layout({ children }) {
       </head>
       <body>
         {children}
+        <MetaPixelTracker />
+        <CookieConsentBanner />
         <ScrollRestoration />
         <Scripts />
       </body>

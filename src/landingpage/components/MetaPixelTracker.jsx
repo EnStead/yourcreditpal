@@ -1,5 +1,6 @@
-import { useEffect, useRef } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { useLocation } from 'react-router-dom'
+import { getCookieConsent } from './CookieConsentBanner'
 
 const PAGEVIEW_PIXEL_ID = '1160272862878464'
 const VIEW_CONTENT_PIXEL_ID = '1689157452266597'
@@ -40,12 +41,27 @@ const loadMetaPixel = () => {
 
 const MetaPixelTracker = () => {
   const { pathname } = useLocation()
+  const [consent, setConsent] = useState(getCookieConsent())
   const lastTrackedPathRef = useRef('')
   const viewContentFiredRef = useRef(false)
   const viewContentTimerRef = useRef(null)
   const viewContentScrollHandlerRef = useRef(null)
   const viewContentTimePassedRef = useRef(false)
   const viewContentScrollPassedRef = useRef(false)
+
+  useEffect(() => {
+    const syncConsent = () => {
+      setConsent(getCookieConsent())
+    }
+
+    window.addEventListener('storage', syncConsent)
+    window.addEventListener('ycp-cookie-consent-changed', syncConsent)
+
+    return () => {
+      window.removeEventListener('storage', syncConsent)
+      window.removeEventListener('ycp-cookie-consent-changed', syncConsent)
+    }
+  }, [])
 
   const maybeFireViewContent = () => {
     if (viewContentFiredRef.current || typeof window === 'undefined') return
@@ -62,6 +78,7 @@ const MetaPixelTracker = () => {
 
   useEffect(() => {
     if (!PAGEVIEW_PIXEL_ID || typeof window === 'undefined') return
+    if (consent !== 'accepted') return
     if (isPrivacyOptedOut()) return
 
     loadMetaPixel()
@@ -105,9 +122,9 @@ const MetaPixelTracker = () => {
       window.clearTimeout(viewContentTimerRef.current)
       window.removeEventListener('scroll', viewContentScrollHandlerRef.current)
     }
-  }, [pathname])
+  }, [pathname, consent])
 
-  if (!PAGEVIEW_PIXEL_ID || isPrivacyOptedOut()) return null
+  if (!PAGEVIEW_PIXEL_ID || isPrivacyOptedOut() || consent !== 'accepted') return null
 
   return (
     <noscript>

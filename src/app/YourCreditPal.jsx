@@ -3,6 +3,7 @@ import {
   ApplyForm,
   Blog,
   BlogPostSection,
+  CookieConsentBanner,
   Faq,
   Home,
   LandingLayout,
@@ -17,6 +18,7 @@ const RouteEffects = () => {
     <>
       <ScrollToTop />
       <MetaPixelTracker />
+      <CookieConsentBanner />
       <Outlet />
     </>
   )

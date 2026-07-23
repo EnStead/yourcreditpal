@@ -9,3 +9,4 @@ export { default as Unsubscribe } from "./features/Unsubscribe/Unsubscribe";
 export { default as ApplyForm } from "./features/ApplyForm";
 export { default as ScrollToTop } from "./components/ScrollToTop";
 export { default as BlogPostSection } from "./features/Blog/pages/BlogPostSection";
+export { default as CookieConsentBanner } from "./components/CookieConsentBanner";
