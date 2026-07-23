@@ -27,6 +27,14 @@ async function blogPaths() {
 export default {
   appDirectory: 'app',
   ssr: false,
+  // Opt into React Router v8 behavior early to smooth the eventual upgrade and silence dev warnings.
+  future: {
+    v8_middleware: true,
+    v8_splitRouteModules: true,
+    v8_viteEnvironmentApi: true,
+    v8_passThroughRequests: true,
+    v8_trailingSlashAwareDataRequests: true,
+  },
   async prerender() {
     return [...STATIC_PATHS, ...LEGAL_PATHS, ...(await blogPaths())]
   },
