@@ -33,15 +33,12 @@ const credTypes = [
   { src: Security, alt: "Security", title: "Secure Application" },
   { src: Fast, alt: "Fast Lender Matching", title: "Fast Lender Matching" },
   { src: Multiple, alt: "Multiple Lenders", title: "Multiple Lending Partners" },
-
-  // add more as needed
 ];
 
 
 const HeroCarousel = () => {
   return (
     <div className="w-full mx-auto bg-brand-secondary py-1 ">
-        {/* Carousel Section */}
         <Swiper
             modules={[Autoplay]}
               slidesPerView="auto"   // allow natural width
@@ -59,7 +56,6 @@ const HeroCarousel = () => {
             {credTypes.concat(credTypes).map((cred, index) => (
                 <SwiperSlide key={index} className="!w-auto">
                     <div className="flex items-center py-2 gap-12 md:gap-18 w-fit">
-                        {/* Image */}
                         <div>
                             <cred.src
                                 className="w-5 md:w-8 h-full object-cover"
@@ -67,7 +63,6 @@ const HeroCarousel = () => {
                             />
                         </div>
 
-                        {/* Text */}
                         <div>
                         <h3 className=" md:text-xl text-brand-white font-bold uppercase">
                             {cred.title}

@@ -7,8 +7,13 @@ const VIEW_CONTENT_DELAY_MS = 5000
 const VIEW_CONTENT_SCROLL_THRESHOLD = 0.35
 const META_PIXEL_IDS = Array.from(new Set([PAGEVIEW_PIXEL_ID, VIEW_CONTENT_PIXEL_ID].filter(Boolean)))
 
+// Honor Global Privacy Control: a GPC signal is a valid opt-out of sale/sharing (CPRA), so we suppress the ad pixel.
+const isPrivacyOptedOut = () =>
+  typeof navigator !== 'undefined' && navigator.globalPrivacyControl === true
+
 const loadMetaPixel = () => {
   if (!META_PIXEL_IDS.length || typeof window === 'undefined') return
+  if (isPrivacyOptedOut()) return
   if (window.fbq) return
 
   !(function (f, b, e, v, n, t, s) {
@@ -57,6 +62,7 @@ const MetaPixelTracker = () => {
 
   useEffect(() => {
     if (!PAGEVIEW_PIXEL_ID || typeof window === 'undefined') return
+    if (isPrivacyOptedOut()) return
 
     loadMetaPixel()
 
@@ -101,7 +107,7 @@ const MetaPixelTracker = () => {
     }
   }, [pathname])
 
-  if (!PAGEVIEW_PIXEL_ID) return null
+  if (!PAGEVIEW_PIXEL_ID || isPrivacyOptedOut()) return null
 
   return (
     <noscript>

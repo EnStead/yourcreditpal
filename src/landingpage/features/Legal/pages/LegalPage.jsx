@@ -31,7 +31,7 @@ const resolveTocHref = (page, item) => {
 
 const emailPattern = /([A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,})/gi
 const isEmail = (value) => /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(value)
-const linkPattern = /\[([^\]]+)\]\(((?:\/|https?:\/\/)[^)]+)\)/g
+const linkPattern = /\[([^\]]+)\]\(((?:\/|https?:\/\/|tel:|mailto:)[^)]+)\)/g
 const boldPattern = /\*\*([^*]+)\*\*/g
 
 const renderTextWithEmails = (text, keyPrefix) => {
@@ -113,13 +113,14 @@ const renderInlineText = (text) => {
 
   return segments.map((segment, index) => {
     if (segment.type === 'link') {
-      if (/^https?:\/\//i.test(segment.href)) {
+      const isExternal = /^https?:\/\//i.test(segment.href)
+      const isProtocol = /^(tel:|mailto:)/i.test(segment.href)
+      if (isExternal || isProtocol) {
         return (
           <a
             key={`link-${index}`}
             href={segment.href}
-            target="_blank"
-            rel="noopener noreferrer"
+            {...(isExternal ? { target: '_blank', rel: 'noopener noreferrer' } : {})}
             className="break-words font-medium text-brand-primary hover:underline"
           >
             {segment.label}
@@ -145,7 +146,7 @@ const renderInlineText = (text) => {
 const renderParagraphText = (text) => {
   const isSubSection = /^\d+\.\d+/.test(text) || /^[a-z]\./i.test(text)
   const isImportantNotice = text === 'THIS SECTION IS IMPORTANT. PLEASE READ IT CAREFULLY.'
-  const isImportantLegal = text === 'PLEASE READ THIS SECTION CAREFULLY. IT AFFECTS YOUR LEGAL RIGHTS.'
+  const isImportantLegal = text === 'PLEASE READ THIS SECTION CAREFULLY. IT AFFECTS YOUR LEGAL RIGHTS, INCLUDING YOUR RIGHT TO FILE A LAWSUIT.'
   const isPrivacyRequest = text === 'How to Submit a Privacy Rights Request'
   const isPrivacyVerify = text === 'Verification of Identity'
   const isVulnerabilityProhibited = text === 'The following voids the safe harbor in Section 3:'
@@ -298,7 +299,14 @@ const LegalPage = ({ page }) => {
           <h1 className="mt-6 max-w-4xl break-words text-3xl font-bold tracking-[-0.04em] text-brand-title sm:text-5xl">
             {page.title}
           </h1>
-          <p className="mt-4 max-w-2xl break-words text-lg text-brand-body [overflow-wrap:anywhere]">{page.intro}</p>
+          {(Array.isArray(page.intro) ? page.intro : [page.intro]).map((para, i) => (
+            <p
+              key={i}
+              className="mt-4 max-w-2xl break-words text-lg text-brand-body [overflow-wrap:anywhere]"
+            >
+              {para}
+            </p>
+          ))}
 
           {page.calloutTitle ? (
             <div className="mt-8 border-l-4 border-brand-accent1 bg-brand-offwhite px-5 py-4">

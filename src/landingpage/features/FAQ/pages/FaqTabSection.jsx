@@ -230,7 +230,6 @@ const FaqTabSection = () => {
 
         <div className="hidden w-full rounded-lg border border-brand-stroke bg-brand-offwhite p-1.5 shadow-[0_8px_24px_rgba(15,23,42,0.04)] ls:block">
           <Tabs.List ref={listRef} className="relative flex w-fit flex-wrap gap-14">
-            {/* Gliding Indicator */}
             <div
               className="absolute rounded-lg bg-white shadow-[0_2px_10px_rgba(15,23,42,0.08)] transition-all duration-300 ease-out pointer-events-none"
               style={{ left: indicatorStyle.left, top: indicatorStyle.top, width: indicatorStyle.width, height: indicatorStyle.height, opacity: indicatorStyle.opacity }}

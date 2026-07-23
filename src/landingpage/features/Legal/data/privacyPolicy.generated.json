@@ -4,7 +4,7 @@
   "intro": "Lead Generation & Loan Referral Platform",
   "updatedAt": "June 2026",
   "calloutTitle": "IMPORTANT NOTICE - PLEASE READ CAREFULLY",
-  "calloutBody": "This Privacy Policy governs how YourCreditPal collects, uses, shares, sells, and retains your personal information in connection with our loan referral and lead generation services. By using yourcreditpal.com or submitting any personal information through our platform, you acknowledge that you have read, understood, and agreed to this Privacy Policy and our Terms of Use. Your use of our services constitutes your express written consent to the collection, sale, and sharing of your personal information as described herein, including consent under the Telephone Consumer Protection Act (TCPA) for automated communications.",
+  "calloutBody": "This Privacy Policy governs how ENSTEAD Company Limited (operating as YourCreditPal) collects, uses, shares, sells, and retains your personal information in connection with our loan referral and lead generation services. By using this Site or submitting any personal information through our platform, you acknowledge that you have read, understood, and agreed to this Privacy Policy and our Terms of Use. Your use of our services constitutes your acknowledgement of the collection, sale, and sharing of your personal information as described herein, including the tracking methods used to record your prior express written consent under the Telephone Consumer Protection Act (TCPA) for automated communications.",
   "toc": [
     "Important Information and Who We Are",
     "Definitions",
@@ -36,8 +36,8 @@
         {
           "title": "About YourCreditPal",
           "paragraphs": [
-            "ENSTEAD, LLC (collectively “ENSTEAD”, “we”, “us”, or “our”) operates as a loan referral and lead generation platform. Our primary business is to assist consumers in identifying and connecting with qualified third-party lenders and financial service providers (“Lending Partners”) within our network. By collecting personal and financial information voluntarily submitted by you through our platform at yourcreditpal.com, we facilitate a matching process that allows you to select and provide express consent to be contacted by specific Lending Partners regarding loan products, credit offers, and related financial services.",
-            "YourCreditPal is not a lender. We do not make lending decisions, issue credit, determine eligibility for any loan product, or bear responsibility for any lending terms offered by Lending Partners. We provide digital infrastructure and lead generation services to connect your request for financial products with the specific providers you choose to engage with."
+            "ENSTEAD Company Limited (operating as YourCreditPal, “we”, “us”, or “our”) operates as a loan referral and lead generation platform. Our primary business is to assist consumers in identifying and connecting with qualified third-party lenders and financial service providers (“Lending Partners”) within our network. By collecting personal and financial information voluntarily submitted by you through our platform at yourcreditpal.com, we facilitate a matching process that allows you to be connected with Lending Partners regarding loan products, credit offers, and related financial services.",
+            "YourCreditPal is not a lender. We do not make lending decisions, issue credit, determine eligibility for any loan product, or bear responsibility for any lending terms offered by Lending Partners. We provide digital infrastructure and lead generation services to connect your request for financial products with providers within our network."
           ],
           "bullets": [],
           "tables": []
@@ -53,7 +53,7 @@
         {
           "title": "1.2 Scope of This Privacy Policy",
           "paragraphs": [
-            "This Privacy Policy describes how we collect, use, share, sell, retain, and protect your personal data through your use of this site, our mobile website, any associated applications, and any other means by which you interact with us (collectively, “Services”). It applies to all personal data collected:"
+            "This Privacy Policy describes how we collect, use, share, sell, retain, and protect your personal data through your use of this site, our mobile application, any associated applications, and any other means by which you interact with us (collectively, “Services”). It applies to all personal data collected:"
           ],
           "bullets": [
             "Directly from you when you use our website or submit a lead generation form;",
@@ -69,7 +69,7 @@
         {
           "title": "1.3 Your Agreement",
           "paragraphs": [
-            "Please read this Privacy Policy carefully before using our Services. By using this site or submitting personal information through our lead generation forms, you acknowledge that you have read and understood these terms. Where you provide personal information, you will be asked to provide express consent to our collection, sale, sharing, and use of your information as described herein. If you do not agree with any part of this Privacy Policy or our Terms of Use, please refrain from using this site or our Services."
+            "Please read this Privacy Policy carefully before using our Services. By using this site or submitting personal information through our lead generation forms, you acknowledge that you have read and understood these terms. Where you provide personal information, you will be asked to provide explicit consent to our collection, sale, sharing, and use of your information as described herein. If you do not agree with any part of this Privacy Policy or our [Terms of Use](/legal/terms-conditions), please refrain from using this site or our Services."
           ],
           "bullets": [],
           "tables": []
@@ -86,18 +86,18 @@
         "Authorized Agent means a natural person or business entity that a Consumer has authorized to act on their behalf in exercising privacy rights.",
         "Automated Dialing System or ATDS refers to equipment which has the capacity to store or produce telephone numbers to be called and to dial such numbers, as defined under the TCPA.",
         "California Privacy Act means collectively the California Consumer Privacy Act of 2018 (CCPA) as amended by the California Privacy Rights Act of 2020 (CPRA) and associated regulations.",
-        "Consumer means a natural person who uses or interacts with our Services. Where state-specific rights are described in this Privacy Policy (including Sections 17 and 18), those rights apply only to residents of the applicable state as defined by the relevant state law.",
+        "Consumer means a natural person who uses or interacts with our Services. Where state-specific rights are described in this Privacy Policy, those rights apply only to residents of the applicable state as defined by the relevant state law.",
         "Consumer Request means a submission by a Consumer expressing interest in being matched with Lending Partners for loan products.",
         "Contractor means a third party to whom YourCreditPal makes available personal data for a business purpose pursuant to a written contract.",
-        "Data Technologies means technologies such as cookies, pixels, web beacons, local shared objects, device identifiers, and similar tracking technologies.",
+        "Data Technologies means technologies such as cookies, pixels, web beacons, local shared objects, device identifiers, advertising identifiers, software development kits, JavaScript tags, session replay or consent-recording tools, and similar tracking technologies.",
         "DPDPA means the Delaware Personal Data Privacy Act, effective January 1, 2025.",
         "Lead means a Consumer’s personal and financial profile submitted through our platform for the purpose of connecting the Consumer with Lending Partners.",
         "Lending Partners means third-party lenders, financial institutions, and financial service providers in our network to whom we sell or transfer Consumer Leads.",
-        "Personal Data or Personal Information means information that identifies, relates to, describes, is reasonably capable of being associated with, or could reasonably be linked, directly or indirectly, with a particular consumer or household. Personal Data includes Sensitive Personal Data.",
+        "Personal Data or Personal Information means information that identifies, relates to, describes, is reasonably capable of being associated with, or could reasonably be linked, directly or indirectly, with a particular Consumer, household, device, browser, session, cookie, pixel, advertising identifier, SDK identifier, online identifier, or other linkable identifier. Personal Data includes Sensitive Personal Data, Technical Data, and Usage Data to the extent such data is reasonably capable of being associated with or linked to a Consumer, household, device, browser, or session.",
         "Sale means selling, renting, releasing, disclosing, disseminating, making available, transferring, or otherwise communicating orally, in writing, or by electronic or other means, a Consumer’s personal data to a third party for monetary or other valuable consideration.",
         "Sensitive Personal Data includes social security or government ID numbers, financial account numbers combined with security codes, precise geolocation data, racial or ethnic origin, religious beliefs, genetic data, biometric data used to identify a Consumer, health information, and information about sexual orientation or sex life.",
         "Service Provider means a third party that processes personal data on YourCreditPal's behalf pursuant to a written contract.",
-        "TCPA means the Telephone Consumer Protection Act of 1991, as amended and interpreted by the Federal Communications Commission, including the FCC’s 2024 one-to-one consent rule requiring that TCPA consent be obtained individually for each seller/caller.",
+        "TCPA means the Telephone Consumer Protection Act of 1991, as amended and interpreted by the Federal Communications Commission.",
         "Terms of Use means the terms and conditions governing your use of yourcreditpal.com."
       ],
       "subsections": [],
@@ -138,8 +138,8 @@
               ],
               "Both. Sold to Lending Partners and shared with Service Providers",
               [
-                "Lending Partners selected by Consumer",
-                "Lead aggregators / resellers",
+                "Lending Partners within our network",
+                "Lead aggregators / marketplaces",
                 "Verification / fraud prevention vendors",
                 "Legal / regulatory authorities"
               ],
@@ -159,12 +159,12 @@
                 "Email and SMS marketing (with consent)",
                 "Customer service"
               ],
-              "Both",
+              "Both. Subject to carrier restrictions.",
               [
-                "Lending Partners selected by Consumer",
-                "Email / SMS marketing vendors",
-                "Lead resellers",
-                "Legal / regulatory authorities"
+                "Lending Partners within our network",
+                "Email / SMS infrastructure vendors",
+                "Lead marketplaces",
+                "Regulatory authorities"
               ],
               "6 years from submission or last use of Services"
             ],
@@ -185,7 +185,7 @@
               ],
               "Both. Financial data is a core component of Leads sold to Lending Partners.",
               [
-                "Lending Partners selected by Consumer",
+                "Lending Partners within our network",
                 "Credit verification providers",
                 "Fraud prevention vendors"
               ],
@@ -207,10 +207,10 @@
                 "Service improvement and analytics",
                 "Interest-based advertising"
               ],
-              "Shared with Service Providers; may be sold to advertising networks",
+              "Shared with Service Providers",
               [
                 "Analytics providers (e.g., Google Analytics)",
-                "Advertising networks",
+                "Approved Service Providers and Contractors subject to written service-provider restrictions prohibiting independent advertising, sale, sharing, profiling, enrichment, or monetization.",
                 "Fraud / lead verification vendors"
               ],
               "3 years from collection"
@@ -298,7 +298,7 @@
             "You may give us your personal data by filling in online lead generation forms, corresponding with us by telephone, email, post, or otherwise. This includes personal data you provide when you:"
           ],
           "bullets": [
-            "Submit a Consumer Request (loan inquiry form) through yourcreditpal.com;",
+            "Submit a Consumer Request (loan inquiry form) through our Site;",
             "Create an account on our website;",
             "Subscribe to our services or publications;",
             "Request marketing to be sent to you;",
@@ -326,7 +326,7 @@
             "Advertising networks and data brokers;",
             "Search information providers;",
             "Credit referencing and identity verification services;",
-            "Other lead generation companies that sell or transfer Consumer Requests to ENSTEAD where the Consumer's personal data was originally collected by that third party from the Consumer on the third party's website."
+            "Other lead generation companies that sell or transfer Consumer Requests to YourCreditPal where the Consumer's personal data was originally collected by that third party from the Consumer on the third party's website."
           ],
           "tables": []
         },
@@ -392,10 +392,10 @@
                   "6 years from submission if no loan is secured."
                 ],
                 [
-                  "To facilitate referrals to Lending Partners: Selling and transferring your Lead profile to Lending Partners you select to obtain quotes on your behalf.",
+                  "To facilitate referrals to Lending Partners: Selling and transferring your Lead profile to the Lending Partners within our hyperlinked network to obtain quotes on your behalf.",
                   ["Identity", "Contact", "Financial", "Transaction"],
                   [
-                    "Consent: by selecting specific Lending Partners from our panel and clicking Submit, you provide one-to-one express written consent for each selected Lending Partner to contact you via the contact methods you provided, including via automated dialing systems or SMS, for the purpose of fulfilling your loan request.",
+                    "Consent: by checking the consent box, submitting a Consumer Request, and utilizing our platform, you provide express written consent for YourCreditPal and the Lending Partners within our hyperlinked network to contact you via the contact methods you provided, including via automated dialing systems or SMS, for the purpose of fulfilling your loan request.",
                     "Performance of a contract, necessary to fulfil the referral service."
                   ],
                   "Minimum 6 years. TCPA consent records: minimum 5 years."
@@ -483,7 +483,7 @@
         {
           "title": "5.5 Opting Out of Marketing",
           "paragraphs": [
-            "You can ask us to stop sending you marketing communications at any time by following the opt-out links in any marketing email or SMS, by replying STOP to any text message, or by contacting us via the details in Section 20. Even if you opt out of marketing, you will continue to receive service-related communications that are essential for administrative or customer service purposes, including updates to our Terms of Use and this Privacy Policy."
+            "You can ask us to stop sending you marketing communications at any time by following the opt-out links in any marketing email or SMS, by replying STOP to any text message, or by contacting us via the details in Section 20. Even if you opt out of marketing, you will continue to receive service-related communications that are essential for administrative or customer service purposes, including updates to our [Terms of Use](/legal/terms-conditions) and this Privacy Policy."
           ],
           "bullets": [],
           "tables": []
@@ -499,20 +499,20 @@
         {
           "title": "6.1 What Is the TCPA",
           "paragraphs": [
-            "The Telephone Consumer Protection Act of 1991 (TCPA) regulates the use of automated telephone equipment to make calls and send text messages to consumers. The TCPA requires prior express written consent before any person or entity may contact you using an automatic telephone dialing system (ATDS), an artificial or pre-recorded voice, or any SMS/text message for marketing purposes."
+            "The Telephone Consumer Protection Act of 1991 (TCPA) regulates the use of automated telephone equipment to make calls and send text messages to consumers. The TCPA requires prior express written consent before any person or entity may contact you using an automatic telephone dialing system (ATDS), automated text infrastructure, or an artificial or pre-recorded voice for marketing purposes."
           ],
           "bullets": [],
           "tables": []
         },
         {
-          "title": "6.2 One-to-One Consent Requirement",
+          "title": "6.2 Clear and Conspicuous Disclosure Requirements",
           "paragraphs": [
-            "Effective January 27, 2025, the FCC’s amended TCPA rules require that TCPA consent be obtained on a one-to-one basis, meaning each Lending Partner that wishes to contact you using automated means must have obtained your prior express written consent individually. We comply with this requirement by:"
+            "We comply with TCPA consent disclosure standards by:"
           ],
           "bullets": [
-            "Presenting you with a panel of Lending Partners during the Consumer Request process;",
-            "Requiring you to individually select and confirm your consent for each Lending Partner you wish to hear from;",
-            "Ensuring the consent language displayed is clear, conspicuous, and specific to each named Lending Partner;",
+            "Displaying a clear, prominent notice directly adjacent to our submission button informing you that your data will be shared with our network of Lending Partners;",
+            "Providing an active, clickable hyperlink directly within that consent text leading to our dedicated [Lending Partners list page](/legal/marketing-partners), allowing you to review potential callers;",
+            "Ensuring the consent language displayed is clear, conspicuous, and meets TCPA disclosure requirements;",
             "Recording and retaining evidence of your consent, including the timestamp, IP address, lead session recording (via TrustedForm), and the specific consent language displayed, for a minimum of five (5) years."
           ],
           "tables": []
@@ -520,7 +520,7 @@
         {
           "title": "6.3 What You Are Consenting To",
           "paragraphs": [
-            "By submitting a Consumer Request and selecting one or more Lending Partners on our platform, you provide your prior express written consent under the TCPA for each selected Lending Partner (and their agents or representatives) to contact you at the telephone number(s) you provided via:"
+            "By checking the consent box, submitting a Consumer Request, and utilizing our platform, you provide your prior express written consent under the TCPA for YourCreditPal and the Lending Partners within our hyperlinked network (including their agents or representatives) to contact you at the telephone number(s) you provided via:"
           ],
           "bullets": [
             "Live telephone calls;",
@@ -567,9 +567,9 @@
       "bullets": [],
       "subsections": [
         {
-          "title": "7.1 Lending Partners (Lead Sales)",
+          "title": "7.1 Lending Partners & Lead Networks (Lead Sales)",
           "paragraphs": [
-            "Our primary disclosure of your personal data is the sale or transfer of your Lead profile to Lending Partners you select during the Consumer Request process. We share your personal data only with the specific Lending Partners you individually select and provide one-to-one TCPA consent for. We do not share your personal data with our entire panel of Lending Partners unless you have explicitly provided individual consent for each. Each selected Lending Partner will act as an independent controller of your data, and their processing will be governed by their own privacy policies."
+            "Our primary disclosure of your personal data is the sale, matching, or transfer of your Lead profile to Lending Partners within our network when you submit an inquiry. By inserting a hyperlink to our [partner network](/legal/marketing-partners) directly into the consent text, we ensure you have clear visibility into the entities receiving your profile. Each Lending Partner will act as an independent controller of your data, and their processing will be governed by their own privacy policies."
           ],
           "bullets": [],
           "tables": []
@@ -630,10 +630,10 @@
     {
       "title": "8. Sale and Sharing of Personal Data",
       "paragraphs": [
-        "YourCreditPal's core business model involves the sale and transfer of Consumer Leads, including personal and financial information to Lending Partners. By submitting a Consumer Request, you understand and agree that:"
+        "YourCreditPal's core business model involves the sale and transfer of Consumer Leads, including personal and financial information, to Lending Partners and lead networks. By submitting a Consumer Request, you understand and agree that:"
       ],
       "bullets": [
-        "Your Lead profile, including your name, contact information, and financial data, will be sold to and used by the Lending Partners you select;",
+        "Your Lead profile, including your name, contact information, and financial data, will be sold to and used by the Lending Partners within our network;",
         "Lending Partners may use your personal data for their own marketing, customer service, and lending purposes in accordance with their own privacy policies;",
         "YourCreditPal may also sell Leads to lead aggregators and resellers who may further transfer your data to their lender clients;",
         "You have the right to opt out of the sale of your personal data as described in Section 12 and, for California residents, in Section 17."
@@ -646,7 +646,7 @@
           ],
           "bullets": [
             "Submitting an opt-out request by email to: contact@yourcreditpal.com;",
-            "Calling our telephone number: (786) 706 4517;",
+            "Calling our telephone number: [(786) 706 4517](tel:+17867064517);",
             "Submitting a Privacy request via Google Form: [Opt-Out Form Link](https://docs.google.com/forms/d/e/1FAIpQLSelUHgUe3kpNQEip5u5ugU1qCQNljanTpYIaS5TkHbAEHq3gQ/viewform)",
             "For California residents: clicking the [Do Not Sell or Share My Personal Information](/legal/do-not-sell) link on our website."
           ],
@@ -661,7 +661,7 @@
     {
       "title": "9. International Transfers",
       "paragraphs": [
-        "We do not intentionally transfer your personal data outside of the United States. All personal data collected through yourcreditpal.com is stored and processed on servers located in the United States. If any processing does occur outside the US, we will ensure appropriate safeguards are in place in accordance with applicable law."
+        "We do not intentionally transfer your personal data outside of the United States. All personal data collected through yourcreditpal.com is stored and processed on secure servers located within the United States. If any processing does occur outside the US, we will ensure appropriate safeguards are in place in accordance with applicable law."
       ],
       "bullets": [],
       "subsections": [],
@@ -800,7 +800,7 @@
           ],
           "bullets": [
             "Email: contact@yourcreditpal.com",
-            "Telephone Call: (786) 706 4517",
+            "Telephone Call: [(786) 706 4517](tel:+17867064517)",
             "Online Privacy Rights Portal: [Privacy Request Form](https://docs.google.com/forms/d/e/1FAIpQLSelUHgUe3kpNQEip5u5ugU1qCQNljanTpYIaS5TkHbAEHq3gQ/viewform)"
           ],
           "paragraphsAfter": [
@@ -949,7 +949,7 @@
             "Clicking the [Do Not Sell or Share My Personal Information](/legal/do-not-sell) link on yourcreditpal.com;",
             "Submitting a request at: 390 Northeast 191st Street, Miami, FL 33179 US;",
             "Emailing: contact@yourcreditpal.com;",
-            "Calling: (786) 706 4517."
+            "Calling: [(786) 706 4517](tel:+17867064517)."
           ],
           "tables": []
         },
@@ -984,7 +984,7 @@
           ],
           "bullets": [
             "Email: contact@yourcreditpal.com",
-            "Telephone: (786) 706 4517",
+            "Telephone: [(786) 706 4517](tel:+17867064517)",
             "Online Portal: [Privacy Request Form](https://docs.google.com/forms/d/e/1FAIpQLSelUHgUe3kpNQEip5u5ugU1qCQNljanTpYIaS5TkHbAEHq3gQ/viewform)"
           ],
           "paragraphsAfter":[
@@ -1003,7 +1003,7 @@
         {
           "title": "17.4 California Minors",
           "paragraphs": [
-            "California residents who are registered users and under the age of 18 may request removal of publicly posted content. Contact our Privacy Team to make such a request, noting that complete removal cannot always be guaranteed."
+            "YourCreditPal and all associated services are strictly intended for individuals who are at least 18 years of age. We do not knowingly market to, solicit, or permit registrations from individuals under the age of 18. However, if you are a California resident under the age of 18 and have registered an account on our site, California law permits you to request the removal of content or information you may have submitted or posted to our platform. Contact our Privacy Team to make such a request, noting that complete removal cannot always be guaranteed."
           ],
           "bullets": [],
           "tables": []
@@ -1073,7 +1073,7 @@
     {
           "title": "19. Residents of Other US States",
           "paragraphs": [
-            "In addition to the state-specific provisions set out in Sections 17 and 18, residents of other US states that have enacted comprehensive consumer privacy legislation (including, without limitation, Virginia, Colorado, Connecticut, Utah, Montana, Oregon, Texas, Indiana, Iowa, and Tennessee) may have similar rights with respect to their personal data, including rights to access, correct, delete, and obtain a portable copy of their personal data, and to opt out of the sale of personal data, targeted advertising, and certain profiling activities.",
+            "In addition to the state-specific provisions set out in Sections 17 and 18, residents of other US states that have enacted comprehensive consumer privacy legislation (including, without limitation, Virginia, Colorado, Connecticut, Utah, Montana, Oregon, Texas, Indiana, Iowa, New Jersey, and Tennessee) may have similar rights with respect to their personal data, including rights to access, correct, delete, and obtain a portable copy of their personal data, and to opt out of the sale of personal data, targeted advertising, and certain profiling activities.",
             "To exercise any rights available to you under your state's applicable privacy law, please contact our Privacy Team using the details in Section 20. We will process your request in accordance with the requirements of the applicable state law, including any verification, response, and appeal procedures required by that law.",
             "We will not discriminate against you for exercising your privacy rights under any applicable state law."
           ],
@@ -1092,7 +1092,7 @@
           ],
           "bullets": [
             "Email: contact@yourcreditpal.com",
-            "Telephone: (786) 706 4517",
+            "Telephone: [(786) 706 4517](tel:+17867064517)",
             "Postal Address: 390 Northeast 191st Street, Miami, FL 33179 US"
           ],
           "tables": []
@@ -1107,6 +1107,15 @@
           "tables": []
         }
       ],
+      "tables": []
+    },
+    {
+      "title": "Copyright",
+      "paragraphs": [
+        "All contents of this website are: © 2026 ENSTEAD Company Limited. All Rights Reserved."
+      ],
+      "bullets": [],
+      "subsections": [],
       "tables": []
     }
   ]

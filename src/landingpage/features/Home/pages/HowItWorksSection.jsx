@@ -179,7 +179,6 @@ const HowItWorksSection = () => {
   return (
     <section id="how-it-works" ref={sectionRef} className="relative px-5 py-12 sm:px-10 lg:px-20">
       <div>
-        {/* Header Text */}
         <div className="flex flex-col ls:flex-row ls:items-center justify-between gap-4">
           <div>
             <div className="flex items-center gap-3">
