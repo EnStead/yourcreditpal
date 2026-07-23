@@ -4,7 +4,6 @@ import { Menu, X } from 'lucide-react'
 import Logo from '../../assets/Logo.svg?react'
 
 const navItems = [
-//   { label: 'Home', to: '/' },
   { label: 'How It Works', to: '/#how-it-works' },
   { label: 'FAQ', to: '/faq' },
   { label: 'Blogs', to: '/blog' },

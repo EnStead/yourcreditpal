@@ -22,11 +22,9 @@ const LoanPurposeSection = () => {
       className="relative px-5 py-20 sm:px-10 lg:px-20 bg-brand-secondary bg-no-repeat bg-cover bg-center"
       style={{ backgroundImage: `url(${GridBg})` }}
     >
-      {/* Gradient Overlay */}
       <div className="absolute inset-0 bg-gradient-to-b from-transparent via-brand-secondary via-40% to-brand-secondary pointer-events-none"></div>
 
       <div className="relative z-10 grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-center">
-        {/* Left Container (Image) */}
         <div className="w-full h-full relative">
           <img
             src={LoanImg}
@@ -34,7 +32,6 @@ const LoanPurposeSection = () => {
             className="w-full h-full object-cover rounded-2xl"
           />
 
-          {/* Floating Icon Grid */}
           <div className="absolute bottom-4 left-4 sm:bottom-6 sm:left-6 bg-brand-white rounded-xl border-4 border-brand-lightblue px-4 py-2 sm:px-6 sm:py-3 flex flex-col justify-center">
             <div className="grid grid-cols-4 gap-2 sm:gap-3">
               {[
@@ -59,9 +56,7 @@ const LoanPurposeSection = () => {
           </div>
         </div>
 
-        {/* Right Container (Texts) */}
         <div className="flex flex-col gap-6">
-          {/* Header */}
           <div>
             <div className="flex items-center gap-3">
               <span className="text-sm font-medium text-brand-accent1">
@@ -77,7 +72,6 @@ const LoanPurposeSection = () => {
             </p>
           </div>
 
-          {/* 3x2 Icon Grid */}
           <div className="grid grid-cols-1 sm:grid-cols-2 border-2 border-brand-body rounded-xl overflow-hidden isolate mt-4">
             {[
               {

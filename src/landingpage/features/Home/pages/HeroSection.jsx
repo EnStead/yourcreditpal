@@ -66,7 +66,6 @@ const HeroSection = () => {
           </div>
 
           <div className="relative overflow-hidden h-72 xsm:h-90 sm:h-90 ls:h-140 rounded-2xl bg-brand-lightblue p-2 md:p-6 md:col-span-3 xls:col-span-2">
-            {/* Right Box (Larger) */}
             <div
               ref={containerRef}
               className="relative z-10 w-full h-full flex items-center justify-center overflow-hidden"
@@ -93,7 +92,6 @@ const HeroSection = () => {
                   ))}
                 </div>
 
-                {/* This decorative line is positioned between the first and second columns */}
                 <img
                   src={Line1}
                   alt=""

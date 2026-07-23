@@ -115,7 +115,6 @@ const TestimonialSection = () => {
   return (
     <section className="relative px-5 py-20 sm:px-10 lg:px-20">
       <div className="flex ml:flex-row flex-col items-center justify-between mb-16 w-full">
-        {/* Left: Title + Subtext */}
         <div className="w-full ml:w-1/2 text-center ml:text-left mb-7 ml:mb-0 ml:pr-8">
           <div className="flex items-center justify-center ml:justify-start gap-3">
             <span className="text-sm font-medium text-brand-accent2">
@@ -132,7 +131,6 @@ const TestimonialSection = () => {
           </p>
         </div>
 
-        {/* Right: Carousel Buttons */}
         <div className="w-full ml:w-1/2 flex justify-center ml:justify-end gap-10">
           <button className="custom-prev !static !w-12 sm:!w-14 !h-12 sm:!h-14 !rounded-full !bg-brand-offwhite border-none flex items-center justify-center font-bold text-brand-black text-2xl  hover:!bg-brand-secondary hover:!text-brand-white active:!bg-brand-secondary active:!text-brand-white ">
             <Left className="h-4 w-4" />
@@ -143,7 +141,6 @@ const TestimonialSection = () => {
         </div>
       </div>
 
-      {/* Carousel */}
       <Swiper
         modules={[Navigation, Autoplay]}
         spaceBetween={40}

@@ -89,7 +89,6 @@ const ApplyStepTwo = ({
           inputRef={firstNameRef}
           onKeyDown={(e) => {
             if (e.key === ' ' || e.code === 'Space') {
-              // only move focus if there's something typed
               if (String(firstName).trim().length > 0) {
                 e.preventDefault()
                 lastNameRef.current?.focus()
