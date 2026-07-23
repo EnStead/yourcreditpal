@@ -1,8 +1,10 @@
 import { useEffect, useMemo, useState } from 'react'
 import { ArrowRight } from 'lucide-react'
-import { NavLink } from 'react-router-dom'
+import { NavLink, useLoaderData } from 'react-router-dom'
 import { fetchBlogCategories, fetchBlogPosts } from '../api/blogQueries'
 import BlogLoadingState from './BlogLoadingState'
+
+const ALL_CATEGORY = { _id: 'all', title: 'All Blogs', slug: 'all-blogs' }
 
 const formatBlogDate = (value) =>
   new Intl.DateTimeFormat('en-US', {
@@ -12,14 +14,21 @@ const formatBlogDate = (value) =>
   }).format(new Date(value))
 
 const BlogListingSection = () => {
+  // Seeded from the route loader so content prerenders; falls back to client fetch if rendered without a loader.
+  const loaderData = useLoaderData()
+  const seededCategories = loaderData?.categories?.length
+    ? [ALL_CATEGORY, ...loaderData.categories]
+    : null
+
   const [activeCategory, setActiveCategory] = useState('all-blogs')
-  const [categories, setCategories] = useState([{ _id: 'all', title: 'All Blogs', slug: 'all-blogs' }])
-  const [posts, setPosts] = useState([])
-  const [loading, setLoading] = useState(true)
+  const [categories, setCategories] = useState(seededCategories || [ALL_CATEGORY])
+  const [posts, setPosts] = useState(loaderData?.posts || [])
+  const [loading, setLoading] = useState(!loaderData?.posts)
   const [error, setError] = useState('')
   const [visibleCount, setVisibleCount] = useState(12)
 
   useEffect(() => {
+    if (loaderData?.posts) return
     let isMounted = true
 
     const loadPosts = async () => {
@@ -28,7 +37,7 @@ const BlogListingSection = () => {
 
         if (isMounted) {
           const shuffledCategories = [...categoryResult].sort(() => Math.random() - 0.5).slice(0, 5)
-          setCategories([{ _id: 'all', title: 'All Blogs', slug: 'all-blogs' }, ...shuffledCategories])
+          setCategories([ALL_CATEGORY, ...shuffledCategories])
           setPosts(postResult)
         }
       } catch (fetchError) {
@@ -47,7 +56,7 @@ const BlogListingSection = () => {
     return () => {
       isMounted = false
     }
-  }, [])
+  }, [loaderData])
 
   const filteredPosts = useMemo(() => {
     if (activeCategory === 'all-blogs') {
@@ -101,6 +110,8 @@ const BlogListingSection = () => {
                   <img
                     src={post.thumbnailImage}
                     alt={post.thumbnailAlt || post.title}
+                    loading="lazy"
+                    decoding="async"
                     className="h-[18rem] w-full object-cover transition duration-500 group-hover:scale-[1.03]"
                   />
                   {post.featured ? (

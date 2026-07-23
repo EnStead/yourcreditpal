@@ -60,7 +60,7 @@ const HeroSection = () => {
           <div className="h-140 rounded-2xl hidden xls:block">
             <img
               src={heroImage}
-              alt="Hero"
+              alt="Person reviewing personal loan offers on YourCreditPal"
               className="w-full h-full object-cover rounded-2xl"
             />
           </div>

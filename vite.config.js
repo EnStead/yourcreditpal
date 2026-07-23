@@ -1,6 +1,5 @@
 import { defineConfig } from 'vite'
-import react, { reactCompilerPreset } from '@vitejs/plugin-react'
-import babel from '@rolldown/plugin-babel'
+import { reactRouter } from '@react-router/dev/vite'
 import tailwindcss from '@tailwindcss/vite'
 import svgr from 'vite-plugin-svgr'
 
@@ -15,9 +14,8 @@ export default defineConfig({
     allowedHosts: ['.loca.lt'],
   },
   plugins: [
-    react(),
-    babel({ presets: [reactCompilerPreset()] }),
     tailwindcss(),
+    reactRouter(),
     svgr({
       svgrOptions: {
         replaceAttrValues: {

@@ -167,6 +167,8 @@ const TestimonialSection = () => {
                   <img
                     src={c.image}
                     alt={c.name}
+                    loading="lazy"
+                    decoding="async"
                     className={`w-full h-full object-cover transition-all duration-700 ease-out transform ${
                       isActive ? "scale-105 opacity-100 translate-x-0 rotate-0 delay-100" : "scale-90 opacity-0 -translate-x-16 -rotate-3"
                     }`}

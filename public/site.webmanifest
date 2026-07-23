@@ -1,0 +1,13 @@
+{
+  "name": "YourCreditPal",
+  "short_name": "YourCreditPal",
+  "description": "Find personal loan offers that match your needs.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#0157FE",
+  "icons": [
+    { "src": "/favicon.svg", "type": "image/svg+xml", "sizes": "any" },
+    { "src": "/apple-touch-icon.png", "type": "image/png", "sizes": "180x180" }
+  ]
+}

@@ -10,6 +10,8 @@ YourCreditPal is a loan discovery and application experience that helps users ex
 
 The app includes a marketing landing page, multi-step application form, FAQ, legal pages, unsubscribe flow, and a Sanity-powered blog.
 
+It runs on React Router in **framework mode with static prerendering (SSG)**: every content route is prerendered to real HTML at build time for SEO, while still deploying as a static site with no server runtime.
+
 ## Design
 
 [YourCreditPal Figma File](https://www.figma.com/design/MZZFCz7O3nBR3RrTTBeEtL/CreditPal)
@@ -18,7 +20,7 @@ The app includes a marketing landing page, multi-step application form, FAQ, leg
 
 | Role | Name | GitHub |
 | --- | --- | --- |
-| Product Designer | DesignedbyBami | [designedbybami](https://github.com/designedbybami) |
+| Product Designer & Developer | DesignedbyBami | [designedbybami](https://github.com/designedbybami) |
 | Developer | Anjyfade | [anjyfade1](https://github.com/anjyfade1) |
 
 ## Features
@@ -31,15 +33,16 @@ The app includes a marketing landing page, multi-step application form, FAQ, leg
 - Unsubscribe and communication preference flow
 - Meta Pixel tracking for PageView, ViewContent, and InitiateCheckout
 - Vercel API route for unsubscribe submissions to Google Sheets
+- SEO: static prerendering (SSG), per-route title/description/canonical, Open Graph & Twitter cards, JSON-LD (Organization, WebSite, FAQPage, BlogPosting), and build-generated `sitemap.xml` + `robots.txt`
 
 ## Tech Stack
 
 | Tool | Purpose |
 | --- | --- |
 | React 19 | UI framework |
+| React Router 7 (framework mode) | Routing + build-time static prerendering (SSG) |
 | Vite 8 | Development and production build |
 | Tailwind CSS 4 | Styling |
-| React Router | Routing |
 | Sanity CMS | Blog content |
 | Google Sheets API | Unsubscribe records |
 | Meta Pixel | Frontend analytics events |
@@ -64,10 +67,11 @@ http://localhost:5173
 
 | Command | Description |
 | --- | --- |
-| `npm run dev` | Start the local dev server |
-| `npm run build` | Build for production |
-| `npm run preview` | Preview the production build |
+| `npm run dev` | Start the React Router dev server |
+| `npm run build` | Prerender all routes to static HTML, then generate `sitemap.xml` + `robots.txt` |
 | `npm run lint` | Run ESLint |
+
+Production output is written to `build/client/` as static files.
 
 ## Routes
 
@@ -97,6 +101,7 @@ GOOGLE_SHEET_ID
 Optional:
 
 ```text
+VITE_SITE_URL             # Canonical base for canonical tags, OG/Twitter URLs, and sitemap (default: https://yourcreditpal.com)
 GOOGLE_UNSUBSCRIBE_RANGE
 ```
 
@@ -111,8 +116,12 @@ Meta Pixel IDs are currently configured directly in the frontend code. Lead trac
 ## Project Structure
 
 ```text
+app/                           # React Router framework mode
+  root.jsx                     # HTML document shell + global meta/JSON-LD
+  routes.js                    # Route config
+  routes/                      # Route modules (meta, loaders) wrapping feature components
+  lib/seo.js                   # Shared SEO/meta helpers
 src/
-  app/                         # App router
   landingpage/
     components/                # Shared UI
     features/
@@ -124,12 +133,17 @@ src/
       Unsubscribe/             # Unsubscribe flow
   sanity/                      # Sanity client
   assets/                      # Images and SVGs
+  index.css                    # Tailwind entry + theme
 api/                           # Vercel API functions
+scripts/                       # Build helpers (sitemap/robots generation)
+react-router.config.js         # Framework mode config (ssr: false + prerender)
 ```
 
 ## Deployment
 
-The project is configured for Vercel using `vercel.json`.
+The project is configured for Vercel using `vercel.json` (build output: `build/client`).
+
+Blog articles are prerendered at build time. When a new post is published in Sanity, trigger a redeploy (e.g. a Sanity webhook to a Vercel deploy hook) so its static HTML is generated.
 
 Before deploying, confirm:
 
