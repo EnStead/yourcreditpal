@@ -22,7 +22,7 @@ export const legalPages = {
       {
         title: "1. Introduction and Purpose",
         paragraphs: [
-          "YourCreditPal Company Limited operates a loan referral and lead generation platform that collects, processes, and transfers sensitive consumer financial data to Lending Partners. The security of these systems is fundamental to our obligations to consumers and regulators. This Vulnerability Disclosure Policy (VDP) establishes a clear, legally protected channel for security researchers to report vulnerabilities to us responsibly. It is aligned to CISA's Coordinated Vulnerability Disclosure guidance and ISO/IEC 29147.",
+          "YourCreditPal (operated by ENSTEAD Company Limited) operates a loan referral and lead generation platform that collects, processes, and transfers sensitive consumer financial data to Lending Partners. The security of these systems is fundamental to our obligations to consumers and regulators. This Vulnerability Disclosure Policy (VDP) establishes a clear, legally protected channel for security researchers to report vulnerabilities to us responsibly. It is aligned to CISA's Coordinated Vulnerability Disclosure guidance and ISO/IEC 29147.",
         ],
       },
       {
@@ -1166,12 +1166,6 @@ export const legalPages = {
           "If you have any questions or concerns about these Terms, our privacy practices, or your TCPA preferences, please contact us:",
         ],
         bullets: ["By Email: contact@yourcreditpal.com"],
-      },
-      {
-        title: "Copyright",
-        paragraphs: [
-          "All contents of this website are: © 2026 ENSTEAD Company Limited. All Rights Reserved.",
-        ],
       },
     ],
   },

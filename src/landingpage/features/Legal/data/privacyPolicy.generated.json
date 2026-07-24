@@ -651,7 +651,7 @@
             "For California residents: clicking the [Do Not Sell or Share My Personal Information](/legal/do-not-sell) link on our website."
           ],
           "paragraphsAfter":[
-            "We will act upon opt-out requests within fifteen (15) business days of receipt. Please note that opting out of future sales does not affect Leads already transferred to Lending Partners prior to your opt-out, as those Lending Partners will have already received and may retain your data pursuant to their own privacy policies and our contractual arrangements."
+            "We will act upon opt-out requests within ten (10) business days of receipt. Please note that opting out of future sales does not affect Leads already transferred to Lending Partners prior to your opt-out, as those Lending Partners will have already received and may retain your data pursuant to their own privacy policies and our contractual arrangements."
           ],
           "tables": []
         }
@@ -859,17 +859,17 @@
           "paragraphs": [],
           "bullets": [
             "Strictly Necessary Cookies: Essential for the operation of our website, including security and form submission functions. These cannot be disabled.",
-            "Analytics Cookies: Used to collect information about how visitors use our website (e.g., Google Analytics). This data is used in aggregate form to improve our Services.",
-            "Advertising and Targeting Cookies: Used to deliver interest-based advertising and to measure the effectiveness of advertising campaigns. These may be set by us or by third-party advertising networks.",
+            "Analytics Cookies: Where enabled, used to collect information about how visitors use our website (for example, through tools such as Google Analytics). Any such data is used in aggregate form to improve our Services. We may add or change the analytics providers we use over time.",
+            "Advertising and Targeting Cookies: Where you have accepted advertising cookies, used to deliver interest-based advertising and to measure the effectiveness of advertising campaigns. These may be set by us or by third-party advertising networks.",
             "Lead Consent Recording Technologies: We use TrustedForm by ActiveProspect to capture your web session at the time of Consumer Request submission to evidence your consent. This technology collects your IP address, browser type, date and time of submission, and the form environment you experienced.",
-            "Meta Pixel / Social Media Pixels: JavaScript code that tracks user activity on our website to measure the effectiveness of advertising on social media platforms. See below for opt-out instructions."
+            "Meta Pixel / Social Media Pixels: Where you have accepted advertising cookies, JavaScript code that tracks user activity on our website to measure the effectiveness of advertising on social media platforms. This pixel does not load unless you accept optional cookies through our consent banner. See below for opt-out instructions."
           ],
           "tables": []
         },
         {
           "title": "15.3 Your Cookie Choices",
           "paragraphs": [
-            "Most web browsers automatically accept cookies. You can modify your browser settings to decline cookies; however, certain features of the site may not function properly if you do so. You may also:"
+            "When you first visit yourcreditpal.com, our cookie consent banner lets you accept or reject optional analytics and advertising cookies; strictly necessary cookies are always active. You can change your choice at any time by selecting \"Cookie Preferences\" in the site footer. Most web browsers also automatically accept cookies. You can modify your browser settings to decline cookies; however, certain features of the site may not function properly if you do so. You may also:"
           ],
           "bullets": [
             "Opt out of interest-based advertising by multiple companies at [www.aboutads.info/choices](https://www.aboutads.info/choices)",
@@ -1107,15 +1107,6 @@
           "tables": []
         }
       ],
-      "tables": []
-    },
-    {
-      "title": "Copyright",
-      "paragraphs": [
-        "All contents of this website are: © 2026 ENSTEAD Company Limited. All Rights Reserved."
-      ],
-      "bullets": [],
-      "subsections": [],
       "tables": []
     }
   ]

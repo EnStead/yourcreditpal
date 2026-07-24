@@ -4,6 +4,7 @@ import Instagram from '../../assets/Instagram.svg'
 import Linkedin from '../../assets/Linkedin.svg'
 import Twitter from '../../assets/Twitter.svg'
 import { NavLink } from 'react-router-dom'
+import { openCookiePreferences } from './CookieConsentBanner'
 
 const quickLinks = [
   { label: 'How It Works', to: '/#how-it-works' },
@@ -26,6 +27,7 @@ const legalLinks = [
 const supportLinks = [
   { label: 'Contact Support', href: 'mailto:contact@yourcreditpal.com' },
   { label: 'Unsubscribe', to: '/unsubscribe' },
+  { label: 'Cookie Preferences', action: openCookiePreferences },
 ]
 
 const socials = [
@@ -94,8 +96,21 @@ const Footer = () => {
           <div>
             <h3 className="text-sm font-semibold text-brand-title">Support</h3>
             <div className="mt-4 flex flex-col gap-3 text-sm text-brand-body">
-              {supportLinks.map((link) => (
-                link.href ? (
+              {supportLinks.map((link) => {
+                if (link.action) {
+                  return (
+                    <button
+                      key={link.label}
+                      type="button"
+                      onClick={link.action}
+                      className="w-fit text-left font-sans text-sm font-normal text-brand-body transition hover:text-brand-primary"
+                    >
+                      {link.label}
+                    </button>
+                  )
+                }
+
+                return link.href ? (
                   <a key={link.label} href={link.href} className="w-fit transition hover:text-brand-primary">
                     {link.label}
                   </a>
@@ -104,7 +119,7 @@ const Footer = () => {
                     {link.label}
                   </NavLink>
                 )
-              ))}
+              })}
             </div>
           </div>
         </div>

@@ -16,12 +16,23 @@ export const setCookieConsent = (value) => {
   window.dispatchEvent(new Event('ycp-cookie-consent-changed'))
 }
 
+export const openCookiePreferences = () => {
+  if (typeof window === 'undefined') return
+  window.dispatchEvent(new Event('ycp-open-cookie-preferences'))
+}
+
 const CookieConsentBanner = () => {
   const [mounted, setMounted] = useState(false)
   const [consent, setConsentState] = useState(() => getCookieConsent())
 
   useEffect(() => {
     setMounted(true)
+  }, [])
+
+  useEffect(() => {
+    const reopen = () => setConsentState(null)
+    window.addEventListener('ycp-open-cookie-preferences', reopen)
+    return () => window.removeEventListener('ycp-open-cookie-preferences', reopen)
   }, [])
 
   if (!mounted || consent) return null
