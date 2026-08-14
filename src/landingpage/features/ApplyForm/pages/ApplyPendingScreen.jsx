@@ -118,6 +118,10 @@ const ApplyPendingScreen = ({ variant = 'loading', message = '' }) => {
           >
             Return Home
           </a>
+
+          <p className="mx-auto max-w-xl text-sm text-brand-label">
+            YourCreditPal is not a lender and does not make credit decisions.
+          </p>
         </div>
       </div>
     )

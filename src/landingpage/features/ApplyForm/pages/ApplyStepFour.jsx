@@ -90,6 +90,11 @@ const ApplyStepFour = ({
         </NavLink>{' '}
         at any time.
       </SecureNoticeCard>
+      <div className="mt-5 rounded-2xl border-2 border-brand-lightblue px-5 py-4 text-sm leading-7 text-brand-body">
+        YourCreditPal is not a lender and does not make credit decisions. Loan approval, rates, and terms are
+        determined by individual lenders based on their own criteria and applicable laws. Submitting a request
+        through YourCreditPal does not guarantee approval for a loan offer.
+      </div>
       <label className="mt-5 flex items-start gap-3 text-sm leading-6 text-brand-body">
         <input
           type="checkbox"

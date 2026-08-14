@@ -2,52 +2,80 @@ import { NavLink } from 'react-router-dom'
 import Warning from '../../../../assets/Warning.webp'
 import FolderPlane from '../../../../assets/FolderPlane.webp'
 
-const reasonMap = {
-  first_name_invalid: 'First name could not be verified',
-  last_name_invalid: 'Last name could not be verified',
-  under_18: 'Applicant must be at least 18 years old',
-  zip_state_mismatch: 'ZIP code does not match the selected state',
-  email_suppressed: 'Email address could not be verified',
-  phone_suppressed: 'Phone number could not be verified',
-  trustedform_invalid: 'TrustedForm consent could not be verified',
-  phone_invalid_or_disconnected: 'Phone number appears invalid or disconnected',
-  phone_type_voip: 'VoIP numbers are not supported',
-  phone_type_non_fixed_voip: 'Non-fixed VoIP numbers are not supported',
-  phone_type_toll_free: 'Toll-free numbers are not supported',
-  phone_type_unknown: 'Phone type could not be verified',
-  email_invalid: 'Email address appears invalid',
-  income_below_1500: 'Monthly income is below the supported threshold',
-  credit_score_below_580: 'Credit score is below the supported threshold',
-  credit_score_unknown: 'Credit score could not be determined',
-  unemployed: 'Employment status is not currently supported',
-  benefits_disability: 'Employment status is not currently supported',
-  loan_purpose_other: 'Loan purpose is not currently supported',
-  ip_submitted_more_than_3x_24h: 'Too many submissions were received from this IP recently',
+const HARD_REJECT_DEFAULT_MESSAGE =
+  'We were unable to process your application, please check your information and try again.'
+const SOFT_REJECT_MESSAGE = 'We are still searching for lenders, you may be contacted shortly.'
+const NEUTRAL_MESSAGE = 'We cannot process this request.'
+const NEUTRAL_PHONE_MESSAGE = 'Please enter a valid mobile or landline number.'
+const NEUTRAL_EMAIL_MESSAGE = 'Please enter a valid email address.'
+
+// Safe to name specifically: self-correctable field issues, not fraud/suppression signals.
+const BENIGN_REASON_COPY = {
+  first_name_invalid: 'First name could not be verified.',
+  last_name_invalid: 'Last name could not be verified.',
+  under_18: 'You must be 18 or older to apply.',
+  zip_state_mismatch: "Your ZIP code doesn't match the selected state.",
+}
+
+const PHONE_NEUTRAL_REASONS = new Set([
+  'phone_suppressed',
+  'phone_invalid_or_disconnected',
+  'phone_type_voip',
+  'phone_type_non_fixed_voip',
+  'phone_type_toll_free',
+  'phone_type_unknown',
+])
+
+const EMAIL_NEUTRAL_REASONS = new Set(['email_suppressed', 'email_invalid'])
+
+const BENIGN_REASONS = new Set(Object.keys(BENIGN_REASON_COPY))
+
+// Never named individually: suppression, credit, employment, duplicate/IP-velocity, TrustedForm,
+// loan purpose, etc. Naming any of these gives litigator-scan sites a map of our fraud/suppression
+// logic, so they all collapse to one neutral sentence with no itemized reasons.
+const resolveHardRejectCopy = (rejectionReasons, fallbackMessage) => {
+  if (!rejectionReasons.length) {
+    return { body: fallbackMessage || HARD_REJECT_DEFAULT_MESSAGE, bullets: [] }
+  }
+
+  const hasOtherSensitiveReason = rejectionReasons.some(
+    (reason) =>
+      !BENIGN_REASONS.has(reason) &&
+      !PHONE_NEUTRAL_REASONS.has(reason) &&
+      !EMAIL_NEUTRAL_REASONS.has(reason),
+  )
+  if (hasOtherSensitiveReason) {
+    return { body: NEUTRAL_MESSAGE, bullets: [] }
+  }
+
+  if (rejectionReasons.some((reason) => PHONE_NEUTRAL_REASONS.has(reason))) {
+    return { body: NEUTRAL_PHONE_MESSAGE, bullets: [] }
+  }
+
+  if (rejectionReasons.some((reason) => EMAIL_NEUTRAL_REASONS.has(reason))) {
+    return { body: NEUTRAL_EMAIL_MESSAGE, bullets: [] }
+  }
+
+  return {
+    body: fallbackMessage || HARD_REJECT_DEFAULT_MESSAGE,
+    bullets: rejectionReasons.map((reason) => BENIGN_REASON_COPY[reason] || reason.replaceAll('_', ' ')),
+  }
 }
 
 const screenCopy = {
   hard_reject: {
     image: Warning,
     title: "We Couldn't Verify Some Information",
-    body: 'The information provided could not be verified at this time. Please review your details and try again.',
     stepsTitle: 'Possible Reasons',
     button: 'Review Application',
   },
   soft_reject: {
     image: FolderPlane,
     title: "We're Still Reviewing Your Request",
-    body: "We weren't able to identify an immediate match at this time, but your information may still be reviewed by participating partners.",
-    stepsTitle: 'What We Know',
-    steps: [
-      'Request Received',
-      'Information Stored',
-      'Additional Reviews May Occur',
-    ],
+    body: SOFT_REJECT_MESSAGE,
     button: 'Return Home',
   },
 }
-
-const formatReason = (reason) => reasonMap[reason] || reason.replaceAll('_', ' ')
 
 const ApplyNoLenderScreen = ({
   variant = 'hard_reject',
@@ -56,13 +84,10 @@ const ApplyNoLenderScreen = ({
   onReviewApplication,
 }) => {
   const copy = screenCopy[variant] || screenCopy.hard_reject
-  const hardRejectSteps = rejectionReasons.length ? rejectionReasons.map(formatReason) : [
-    'Temporary verification issue',
-    'Unsupported phone number type',
-    'Email verification issue',
-    'Information mismatch',
-  ]
-  const steps = variant === 'hard_reject' ? hardRejectSteps : copy.steps
+  const { body, bullets } =
+    variant === 'hard_reject'
+      ? resolveHardRejectCopy(rejectionReasons, message)
+      : { body: message || copy.body, bullets: [] }
 
   return (
     <div className="flex min-h-full flex-col items-center justify-center px-4 text-center lg:px-6">
@@ -76,23 +101,25 @@ const ApplyNoLenderScreen = ({
             {copy.title}
           </h1>
           <p className="mx-auto max-w-lg text-lg text-brand-label">
-            {message || copy.body}
+            {body}
           </p>
         </div>
 
-        <div className="mx-auto max-w-2xl rounded-2xl border-2 border-brand-stroke bg-brand-offwhite px-6 py-6 text-left sm:px-7 sm:py-7">
-          <h2 className="text-lg font-semibold text-brand-title">{copy.stepsTitle}</h2>
-          <div className="mt-5 space-y-4">
-            {steps.map((item, index) => (
-              <div key={item} className="flex items-start gap-3">
-                <div className="flex h-6 w-6 shrink-0 items-center justify-center text-brand-title">
-                  {index + 1}.
+        {bullets.length ? (
+          <div className="mx-auto max-w-2xl rounded-2xl border-2 border-brand-stroke bg-brand-offwhite px-6 py-6 text-left sm:px-7 sm:py-7">
+            <h2 className="text-lg font-semibold text-brand-title">{copy.stepsTitle}</h2>
+            <div className="mt-5 space-y-4">
+              {bullets.map((item, index) => (
+                <div key={item} className="flex items-start gap-3">
+                  <div className="flex h-6 w-6 shrink-0 items-center justify-center text-brand-title">
+                    {index + 1}.
+                  </div>
+                  <p className="text-brand-title">{item}</p>
                 </div>
-                <p className="text-brand-title">{item}</p>
-              </div>
-            ))}
+              ))}
+            </div>
           </div>
-        </div>
+        ) : null}
 
         {variant === 'hard_reject' ? (
           <button

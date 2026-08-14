@@ -22,6 +22,7 @@ const legalLinks = [
   { label: 'Marketing Partners', to: '/legal/marketing-partners' },
   { label: 'Vulnerability Disclosure', to: '/legal/vulnerability-disclosure' },
   { label: 'Do Not Sell My Info', to: '/legal/do-not-sell' },
+  { label: 'Cookie Policy', to: '/legal/privacy-policy#cookies-and-tracking-technologies' },
 ]
 
 const supportLinks = [

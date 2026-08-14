@@ -173,7 +173,7 @@ const FormSection = ({ submitted, onSubmit }) => {
                   disabled={submitting}
                   className="mt-10 inline-flex bg-brand-primary text-brand-white px-10 py-3 transition hover:bg-brand-darkBlue disabled:cursor-not-allowed disabled:opacity-60"
                 >
-                  {submitting ? 'Submitting...' : 'Submit Request'}
+                  {submitting ? 'Submitting...' : 'Unsubscribe'}
                 </button>
               </form>
             </div>
