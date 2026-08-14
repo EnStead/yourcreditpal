@@ -1,9 +1,9 @@
 // Central SEO config + meta helpers shared by every route module.
 export const SITE_URL = (import.meta.env?.VITE_SITE_URL || 'https://yourcreditpal.com').replace(/\/$/, '')
 export const SITE_NAME = 'YourCreditPal'
-export const DEFAULT_TITLE = 'YourCreditPal — Find Personal Loan Offers That Match Your Needs'
+export const DEFAULT_TITLE = 'YourCreditPal | Compare Personal Loan Offers'
 export const DEFAULT_DESCRIPTION =
-  'YourCreditPal matches you with lenders based on your financial profile. Complete a quick, secure application and compare personal loan offers — no hidden fees, no complicated process.'
+  'YourCreditPal matches you with lenders based on your financial profile. Complete a quick, secure application and compare personal loan offers: no hidden fees, no complicated process.'
 export const OG_IMAGE = `${SITE_URL}/og-image.png`
 
 export const AUTHORS = [

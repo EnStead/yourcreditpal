@@ -8,7 +8,7 @@ const CLIENT_DIR = join(process.cwd(), 'build', 'client')
 const EXCLUDE = new Set(['/unsubscribe'])
 
 const CREDITS = `<!--
-  YourCreditPal — built by Bami & Anjola
+  YourCreditPal, built by Bami & Anjola
   Design & Development: Bami   (DesignedbyBami)  https://github.com/designedbybami
   Development:          Anjola (Anjyfade)        https://github.com/anjyfade1
 -->`
