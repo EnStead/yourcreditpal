@@ -1,10 +1,10 @@
 import { useLayoutEffect, useRef } from 'react'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
-import SecurityImg from '../../../../assets/SecurityImg.jpg'
+import SecurityImg from '../../../../assets/SecurityImg.webp'
 import Star from '../../../../assets/Star.svg?react'
 import PieChart from '../../../../assets/PieChart.svg?react'
-import HealthInsur from '../../../../assets/HealthInsur.png'
+import HealthInsur from '../../../../assets/HealthInsur.webp'
 import Signature from '../../../../assets/signature.svg?react'
 import Sign2 from '../../../../assets/sign2.svg?react'
 

@@ -1,6 +1,6 @@
 import { NavLink } from 'react-router-dom'
-import Warning from '../../../../assets/Warning.png'
-import FolderPlane from '../../../../assets/FolderPlane.png'
+import Warning from '../../../../assets/Warning.webp'
+import FolderPlane from '../../../../assets/FolderPlane.webp'
 
 const reasonMap = {
   first_name_invalid: 'First name could not be verified',

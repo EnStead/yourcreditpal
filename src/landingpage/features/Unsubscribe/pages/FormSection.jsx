@@ -1,6 +1,6 @@
 import { useState } from 'react'
-import SubImage from '../../../../assets/SubImage.png'
-import Globe from '../../../../assets/Globe.png'
+import SubImage from '../../../../assets/SubImage.webp'
+import Globe from '../../../../assets/Globe.webp'
 
 const communicationTypes = [
   'Email Marketing',
