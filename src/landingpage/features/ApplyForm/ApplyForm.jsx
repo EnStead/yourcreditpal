@@ -10,6 +10,7 @@ import {
   ApplyNoLenderScreen,
   ApplyTestimonialsPanel,
 } from "./pages";
+import { nameError, emailError, zipError, cityError, streetAddressError } from "./validators";
 import Logo from "../../../assets/Logo.svg?react";
 
 const API_BASE_URL =
@@ -65,7 +66,7 @@ const employmentOptions = [
   "Benefits/Disability",
   "Unemployed",
 ];
-const housingOptions = ["Own Home", "Rent", "Living with Family", "Other"];
+const housingOptions = ["Own", "Rent", "Family / Other"];
 const countPhoneDigits = (value) =>
   value.replace(/\D/g, "").slice(0, 10).length;
 const INITIATE_CHECKOUT_PIXEL_ID = "1723525005474622";
@@ -88,14 +89,9 @@ const EMPLOYMENT_STATUS_MAP = {
   Unemployed: "unemployed",
 };
 const HOUSING_STATUS_MAP = {
-  "Own Home": "own_home",
+  Own: "own",
   Rent: "rent",
-  "Living with Family": "living_with_family",
-  Other: "other",
-};
-const ACCOUNT_TYPE_MAP = {
-  checking: "checking",
-  savings: "savings",
+  "Family / Other": "family_other",
 };
 const CREDIT_SCORE_MAP = {
   "Excellent (720+)": "720+",
@@ -172,7 +168,6 @@ const buildLeadPayload = ({
   employment,
   monthlyIncome,
   bankName,
-  accountType,
   housing,
   streetAddress,
   city,
@@ -181,8 +176,8 @@ const buildLeadPayload = ({
 }) => ({
   first_name: firstName.trim(),
   last_name: lastName.trim(),
-  email: email.trim(),
-  phone: phone.trim(),
+  email: email.trim().toLowerCase(),
+  phone: phone.replace(/\D/g, "").slice(0, 10),
   state: usState,
   zip: zipCode.trim(),
   city: city.trim(),
@@ -194,7 +189,6 @@ const buildLeadPayload = ({
   employment_status: EMPLOYMENT_STATUS_MAP[employment] || "",
   monthly_income: formatMoneyToInteger(monthlyIncome),
   bank_name: bankName.trim(),
-  account_type: ACCOUNT_TYPE_MAP[accountType] || "",
   housing_status: HOUSING_STATUS_MAP[housing] || "",
   trustedform_cert_url: trustedformCertUrl || "",
   fbp: getCookie("_fbp"),
@@ -309,9 +303,7 @@ const ApplyForm = () => {
   const [monthlyIncome, setMonthlyIncome] = useState("");
   const [bankId, setBankId] = useState("");
   const [bankName, setBankName] = useState("");
-  const [accountType, setAccountType] = useState("");
   const [routingNumber, setRoutingNumber] = useState("");
-  const [accountNumber, setAccountNumber] = useState("");
   const [isRoutingVerified, setIsRoutingVerified] = useState(false);
 
   const [streetAddress, setStreetAddress] = useState("");
@@ -335,7 +327,6 @@ const ApplyForm = () => {
       usState !== "" ||
       monthlyIncome !== "" ||
       bankName !== "" ||
-      accountType !== "" ||
       streetAddress !== "" ||
       city !== "" ||
       zipCode !== "" ||
@@ -343,7 +334,7 @@ const ApplyForm = () => {
     );
   }, [
     step, purpose, credit, employment, housing, firstName, lastName,
-    email, phone, dob, usState, monthlyIncome, bankName, accountType,
+    email, phone, dob, usState, monthlyIncome, bankName,
     streetAddress, city, zipCode, hasConsent, postSubmitState
   ]);
 
@@ -368,24 +359,27 @@ const ApplyForm = () => {
   const isStepOneValid = loanAmount > 0 && purpose !== "" && credit !== "";
   const isStepTwoValid =
     firstName !== "" &&
+    !nameError(firstName) &&
     lastName !== "" &&
+    !nameError(lastName) &&
     email !== "" &&
+    !emailError(email) &&
     countPhoneDigits(phone) === 10 &&
     isAtLeast18(dob) &&
-    usState !== "";
-  const isAccountNumberValid = /^\d{4,17}$/.test(accountNumber);
+    usState !== "" &&
+    city !== "" &&
+    !cityError(city) &&
+    zipCode !== "" &&
+    !zipError(zipCode);
   const isStepThreeValid =
     employment !== "" &&
     monthlyIncome !== "" &&
     bankName !== "" &&
-    accountType !== "" &&
-    isRoutingVerified &&
-    isAccountNumberValid;
+    isRoutingVerified;
   const isStepFourValid =
     housing !== "" &&
     streetAddress !== "" &&
-    city !== "" &&
-    zipCode !== "" &&
+    !streetAddressError(streetAddress) &&
     hasConsent;
 
   const isCurrentStepValid =
@@ -460,7 +454,6 @@ const ApplyForm = () => {
           employment,
           monthlyIncome,
           bankName,
-          accountType,
           housing,
           streetAddress,
           city,
@@ -537,7 +530,7 @@ const ApplyForm = () => {
   return (
     <>
       <TrustedForm />
-      <main className="h-screen overflow-hidden">
+      <main className="h-dvh overflow-hidden">
         <form ref={applyFormRef} className="h-full">
           <div className="mx-auto grid h-full grid-cols-1 overflow-hidden bg-brand-white lg:grid-cols-[2.5fr_2fr]">
             <section
@@ -680,6 +673,10 @@ const ApplyForm = () => {
                         setDob={setDob}
                         usState={usState}
                         setUsState={setUsState}
+                        city={city}
+                        setCity={setCity}
+                        zipCode={zipCode}
+                        setZipCode={setZipCode}
                       />
                     ) : step === 3 ? (
                       <ApplyStepThree
@@ -692,12 +689,8 @@ const ApplyForm = () => {
                         setBankId={setBankId}
                         bankName={bankName}
                         setBankName={setBankName}
-                        accountType={accountType}
-                        setAccountType={setAccountType}
                         routingNumber={routingNumber}
                         setRoutingNumber={setRoutingNumber}
-                        accountNumber={accountNumber}
-                        setAccountNumber={setAccountNumber}
                         setIsRoutingVerified={setIsRoutingVerified}
                       />
                     ) : (
@@ -708,9 +701,7 @@ const ApplyForm = () => {
                         streetAddress={streetAddress}
                         setStreetAddress={setStreetAddress}
                         city={city}
-                        setCity={setCity}
                         zipCode={zipCode}
-                        setZipCode={setZipCode}
                         hasConsent={hasConsent}
                         setHasConsent={setHasConsent}
                       />

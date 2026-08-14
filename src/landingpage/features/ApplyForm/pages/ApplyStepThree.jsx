@@ -13,11 +13,12 @@ const API_BASE_URL =
   import.meta.env.VITE_API_BASE_URL ||
   "https://creditpal-backend.onrender.com";
 
-const formatIncome = (value) => {
-  const digits = String(value).replace(/\D/g, "");
-  if (!digits) return "";
-  return "$" + Number(digits).toLocaleString("en-US");
-};
+const incomeBands = [
+  { label: "Less than $1,500", value: 750 },
+  { label: "$1,500 - $3,000", value: 2250 },
+  { label: "$3,000 - $5,000", value: 4000 },
+  { label: "$5,000+", value: 5500 },
+];
 
 const keepSearchFocus = (event) => {
   event.stopPropagation();
@@ -31,11 +32,6 @@ const iconMap = {
   "Benefits/Disability": Benefits,
   Unemployed: Unemployed,
 };
-
-const accountTypeOptions = [
-  { value: "checking", label: "Checking" },
-  { value: "savings", label: "Savings" },
-];
 
 // Use a server-side proxy to avoid CORS when contacting bankrouting.io
 const BANKROUTING_PROXY_ENDPOINT = "/api/validate-aba";
@@ -118,28 +114,21 @@ const ApplyStepThree = ({
   setBankId,
   bankName,
   setBankName,
-  accountType,
-  setAccountType,
   routingNumber,
   setRoutingNumber,
-  accountNumber,
-  setAccountNumber,
   setIsRoutingVerified,
 }) => {
   const bankSearchRef = useRef(null);
-  const [isIncomeFocused, setIsIncomeFocused] = useState(false);
   const [bankQuery, setBankQuery] = useState(bankName || "");
   const [bankResults, setBankResults] = useState([]);
   const [bankLoading, setBankLoading] = useState(false);
   const [bankError, setBankError] = useState("");
-  const [isAccountNumberFocused, setIsAccountNumberFocused] = useState(false);
   const [isRoutingFocused, setIsRoutingFocused] = useState(false);
   const [routingStatus, setRoutingStatus] = useState("idle");
   const [routingError, setRoutingError] = useState("");
   const [routingMessage, setRoutingMessage] = useState("");
   const [showRoutingIcon, setShowRoutingIcon] = useState(false);
 
-  const isIncomeActive = isIncomeFocused || (monthlyIncome && String(monthlyIncome).length > 0);
   const isBankActive = Boolean(bankId || bankName || bankQuery);
 
   useEffect(() => {
@@ -196,8 +185,6 @@ const ApplyStepThree = ({
     setIsRoutingVerified(false);
   };
 
-  const isAccountNumberActive =
-    isAccountNumberFocused || (accountNumber && String(accountNumber).length > 0);
   const isRoutingActive = isRoutingFocused || (routingNumber && String(routingNumber).length > 0);
 
   const verifyRoutingNumber = async (routing = routingNumber, selectedBankName = bankName) => {
@@ -286,10 +273,6 @@ const ApplyStepThree = ({
     return "";
   }, [bankName]);
 
-  const selectedAccountLabel = useMemo(() => {
-    return accountTypeOptions.find((item) => item.value === accountType)?.label || "";
-  }, [accountType]);
-
   const handleBankSelect = (institution) => {
     const selectedName = institution.display_name || institution.canonical_name || institution.name || "";
     setBankId(institution.id);
@@ -354,25 +337,38 @@ const ApplyStepThree = ({
       </div>
 
       <div className="mt-8">
-        <label
-          className={`block font-sans font-medium transition-colors ${
-            isIncomeActive ? "text-brand-title" : "text-brand-label"
-          }`}
-        >
+        <h2 className="font-bold text-brand-title">
           What is your monthly income after taxes?
-        </label>
-        <input
-          inputMode="numeric"
-          className={`mt-4 w-full border-0 border-b bg-transparent px-0 py-3 text-brand-title outline-none placeholder:text-brand-placeholder transition-colors ${
-            isIncomeActive ? "border-brand-title" : "border-brand-stroke"
-          }`}
-          placeholder="$5,500"
-          value={monthlyIncome}
-          onFocus={() => setIsIncomeFocused(true)}
-          onBlur={() => setIsIncomeFocused(false)}
-          onChange={(e) => setMonthlyIncome(formatIncome(e.target.value))}
-        />
-        <p className="mt-2 text-sm text-brand-body">Include income from all reliable sources.</p>
+        </h2>
+        <div className="mt-5 grid gap-3 sm:grid-cols-2">
+          {incomeBands.map((band) => {
+            const active = monthlyIncome === band.value;
+            return (
+              <button
+                key={band.value}
+                type="button"
+                onClick={() => setMonthlyIncome(band.value)}
+                className={`flex items-center gap-3 font-light rounded-xl border px-4 py-3 text-left text-sm transition ${
+                  active
+                    ? "border-brand-primary bg-brand-lightblue text-brand-title"
+                    : "border-brand-stroke bg-brand-white text-brand-body hover:border-brand-secondary"
+                }`}
+              >
+                <span
+                  className={`flex h-4 w-4 items-center justify-center rounded-full border ${active ? "border-brand-primary" : "border-brand-placeholder"}`}
+                >
+                  {active ? (
+                    <span className="h-2 w-2 rounded-full bg-brand-primary" />
+                  ) : null}
+                </span>
+                {band.label}
+              </button>
+            );
+          })}
+        </div>
+        <p className="mt-2 text-sm text-brand-body">
+          Includes all sources: salary, benefits, pension and freelance income.
+        </p>
       </div>
 
       <div className="mt-8 grid gap-6 sm:grid-cols-2">
@@ -485,61 +481,6 @@ const ApplyStepThree = ({
         </div>
 
         <div className="block">
-          <span
-            className={`mb-3 block font-sans text-base font-medium transition-colors ${
-              accountType ? "text-brand-title" : "text-brand-label"
-            }`}
-          >
-            Account Type
-          </span>
-          <Select.Root value={accountType} onValueChange={setAccountType}>
-            <Select.Trigger
-              className={`flex w-full min-w-0 font-sans items-center justify-between gap-3 font-normal rounded-none border-b border-brand-stroke py-2 text-left text-base outline-none transition hover:border-brand-title ${
-                accountType
-                  ? "border-brand-title text-brand-title"
-                  : "text-brand-placeholder"
-              }`}
-            >
-              <span className="min-w-0 flex-1 truncate">
-                <Select.Value placeholder="Select Checking/Savings">
-                  {selectedAccountLabel}
-                </Select.Value>
-              </span>
-              <Select.Icon>
-                <ChevronDown
-                  className={`h-4 w-4 text-brand-placeholder transition-colors ${
-                    accountType ? "text-brand-title" : ""
-                  }`}
-                />
-              </Select.Icon>
-            </Select.Trigger>
-            <Select.Portal>
-              <Select.Content
-                position="popper"
-                sideOffset={8}
-                className="z-50 font-sans w-[var(--radix-select-trigger-width)] overflow-hidden rounded-2xl border border-brand-stroke bg-brand-white shadow-[0_18px_45px_rgba(0,0,0,0.12)]"
-              >
-                <Select.Viewport className="p-2">
-                  {accountTypeOptions.map((type) => (
-                    <Select.Item
-                      key={type.value}
-                      value={type.value}
-                      className="relative flex cursor-pointer font-sans items-center rounded-xl px-3 py-3 text-sm text-brand-body outline-none transition hover:bg-brand-lightblue data-[highlighted]:bg-brand-lightblue data-[highlighted]:text-brand-title data-[state=checked]:bg-transparent data-[state=checked]:text-brand-title"
-                    >
-                      <Select.ItemText>
-                        <span className="font-sans font-normal text-brand-title">{type.label}</span>
-                      </Select.ItemText>
-                    </Select.Item>
-                  ))}
-                </Select.Viewport>
-              </Select.Content>
-            </Select.Portal>
-          </Select.Root>
-        </div>
-      </div>
-
-      <div className="mt-8 grid gap-6 sm:grid-cols-2">
-        <div className="block">
           <label
             className={`mb-3 block font-sans text-base font-medium transition-colors ${
               isRoutingActive ? "text-brand-title" : "text-brand-label"
@@ -551,7 +492,7 @@ const ApplyStepThree = ({
             <input
               inputMode="numeric"
               maxLength={9}
-              className={`w-full border-0 border-b bg-transparent px-0 py-3 pr-10 font-sans text-base text-brand-title outline-none placeholder:text-brand-placeholder transition-colors ${
+              className={`w-full border-0 border-b bg-transparent px-0 py-2 pr-10 font-sans text-base text-brand-title outline-none placeholder:text-brand-placeholder transition-colors ${
                 routingStatus === "invalid"
                   ? "border-red-500"
                   : isRoutingActive
@@ -577,31 +518,6 @@ const ApplyStepThree = ({
             <p className="mt-2 text-sm text-red-500">{routingError}</p>
           ) : routingStatus === "valid" ? (
             <p className="mt-2 text-sm text-brand-body">{routingMessage}</p>
-          ) : null}
-        </div>
-
-        <div className="block">
-          <label
-            className={`mb-3 block font-sans text-base font-medium transition-colors ${
-              isAccountNumberActive ? "text-brand-title" : "text-brand-label"
-            }`}
-          >
-            Account Number
-          </label>
-          <input
-            inputMode="numeric"
-            maxLength={17}
-            className={`w-full border-0 border-b bg-transparent px-0 py-3 font-sans text-base text-brand-title outline-none placeholder:text-brand-placeholder transition-colors ${
-              isAccountNumberActive ? "border-brand-title" : "border-brand-stroke"
-            }`}
-            placeholder="Account number"
-            value={accountNumber}
-            onFocus={() => setIsAccountNumberFocused(true)}
-            onChange={(e) => setAccountNumber(e.target.value.replace(/\D/g, "").slice(0, 17))}
-            onBlur={() => setIsAccountNumberFocused(false)}
-          />
-          {accountNumber && !/^\d{4,17}$/.test(accountNumber) ? (
-            <p className="mt-2 text-sm text-red-500">Enter a valid account number.</p>
           ) : null}
         </div>
       </div>

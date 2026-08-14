@@ -1,16 +1,18 @@
-import { forwardRef, useRef, useMemo, useState } from 'react'
+import { forwardRef, useEffect, useRef, useMemo, useState } from 'react'
 import * as Select from '@radix-ui/react-select'
 import DatePicker from 'react-datepicker'
 import { format, parse, subYears } from 'date-fns'
 import 'react-datepicker/dist/react-datepicker.css'
 import { CalendarDays, ChevronDown, Search, X } from 'lucide-react'
-import { ConfidenceBox, ConsentText, Field, Notice } from './shared'
-import USAFlag from '../../../../assets/USA.png'
+import { ConfidenceBox, ConsentText, Field } from './shared'
+import { nameError, capitalizeName, emailError, zipError, cityError, capitalizeCity } from '../validators'
+import USAFlag from '../../../../assets/USA.webp'
 
 const states = [
   { name: 'Alabama', code: 'AL' }, { name: 'Alaska', code: 'AK' }, { name: 'Arizona', code: 'AZ' },
   { name: 'Arkansas', code: 'AR' }, { name: 'California', code: 'CA' }, { name: 'Colorado', code: 'CO' },
-  { name: 'Connecticut', code: 'CT' }, { name: 'Delaware', code: 'DE' }, { name: 'Florida', code: 'FL' },
+  { name: 'Connecticut', code: 'CT' }, { name: 'Delaware', code: 'DE' },
+  { name: 'District of Columbia', code: 'DC' }, { name: 'Florida', code: 'FL' },
   { name: 'Georgia', code: 'GA' }, { name: 'Hawaii', code: 'HI' }, { name: 'Idaho', code: 'ID' },
   { name: 'Illinois', code: 'IL' }, { name: 'Indiana', code: 'IN' }, { name: 'Iowa', code: 'IA' },
   { name: 'Kansas', code: 'KS' }, { name: 'Kentucky', code: 'KY' }, { name: 'Louisiana', code: 'LA' },
@@ -54,11 +56,16 @@ const ApplyStepTwo = ({
   setDob,
   usState,
   setUsState,
+  city,
+  setCity,
+  zipCode,
+  setZipCode,
 }) => {
   const stateSearchRef = useRef(null)
   const firstNameRef = useRef(null)
   const lastNameRef = useRef(null)
   const [stateSearch, setStateSearch] = useState('')
+  const [zipLookupStatus, setZipLookupStatus] = useState('idle')
   const selectedDate = dob ? parse(dob, 'MM/dd/yyyy', new Date()) : null
   const latestEligibleDob = subYears(new Date(), 18)
   const earliestDob = subYears(new Date(), 100)
@@ -71,6 +78,39 @@ const ApplyStepTwo = ({
     )
   }, [stateSearch])
 
+  useEffect(() => {
+    if (!/^\d{5}$/.test(zipCode)) {
+      return undefined
+    }
+
+    const controller = new AbortController()
+    const timer = window.setTimeout(async () => {
+      try {
+        setZipLookupStatus('checking')
+        const response = await window.fetch(`https://api.zippopotam.us/us/${zipCode}`, {
+          signal: controller.signal,
+        })
+        if (!response.ok) throw new Error('not found')
+        const data = await response.json()
+        const place = data?.places?.[0]
+        if (place?.['place name']) {
+          setCity(place['place name'])
+        }
+        if (place?.['state abbreviation'] && states.some((item) => item.code === place['state abbreviation'])) {
+          setUsState(place['state abbreviation'])
+        }
+        setZipLookupStatus('valid')
+      } catch (error) {
+        if (error.name !== 'AbortError') setZipLookupStatus('invalid')
+      }
+    }, 300)
+
+    return () => {
+      controller.abort()
+      window.clearTimeout(timer)
+    }
+  }, [zipCode, setCity, setUsState])
+
   return (
     <>
       <h1 className="text-2xl font-bold text-brand-title">
@@ -81,36 +121,52 @@ const ApplyStepTwo = ({
       </p>
 
       <div className="mt-8 grid gap-6 sm:grid-cols-2">
-        <Field
-          label="First Name"
-          placeholder="Enter your first name"
-          value={firstName}
-          onChange={(e) => setFirstName(e.target.value)}
-          inputRef={firstNameRef}
-          onKeyDown={(e) => {
-            if (e.key === ' ' || e.code === 'Space') {
-              if (String(firstName).trim().length > 0) {
-                e.preventDefault()
-                lastNameRef.current?.focus()
+        <div>
+          <Field
+            label="First Name"
+            placeholder="Enter your first name"
+            value={firstName}
+            onChange={(e) => setFirstName(e.target.value)}
+            onBlur={() => setFirstName((current) => capitalizeName(current))}
+            inputRef={firstNameRef}
+            onKeyDown={(e) => {
+              if (e.key === ' ' || e.code === 'Space') {
+                if (String(firstName).trim().length > 0) {
+                  e.preventDefault()
+                  lastNameRef.current?.focus()
+                }
               }
-            }
-            if (e.onKeyDown) e.onKeyDown(e)
-          }}
-        />
-        <Field
-          label="Last Name"
-          placeholder="Enter your last name"
-          value={lastName}
-          onChange={(e) => setLastName(e.target.value)}
-          inputRef={lastNameRef}
-        />
+              if (e.onKeyDown) e.onKeyDown(e)
+            }}
+          />
+          {nameError(firstName) ? (
+            <p className="mt-2 text-sm text-red-500">{nameError(firstName)}</p>
+          ) : null}
+        </div>
+        <div>
+          <Field
+            label="Last Name"
+            placeholder="Enter your last name"
+            value={lastName}
+            onChange={(e) => setLastName(e.target.value)}
+            onBlur={() => setLastName((current) => capitalizeName(current))}
+            inputRef={lastNameRef}
+          />
+          {nameError(lastName) ? (
+            <p className="mt-2 text-sm text-red-500">{nameError(lastName)}</p>
+          ) : null}
+        </div>
         <div className="sm:col-span-2">
           <Field
             label="Email Address"
             placeholder="johndoe@gmail.com"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
+            onBlur={() => setEmail((current) => current.trim().toLowerCase())}
           />
+          {emailError(email) ? (
+            <p className="mt-2 text-sm text-red-500">{emailError(email)}</p>
+          ) : null}
         </div>
         <div className="sm:col-span-2">
           <label className="block">
@@ -156,6 +212,37 @@ const ApplyStepTwo = ({
             customInput={<DateInput />}
             wrapperClassName="w-full"
           />
+          <p className="mt-2 text-xs text-brand-label">
+            Applicants must be at least 18 years old.
+          </p>
+        </div>
+
+        <div>
+          <Field
+            label="Postal/Zip Code"
+            placeholder="Enter Zip code"
+            value={zipCode}
+            inputMode="numeric"
+            onChange={(e) => setZipCode(e.target.value.replace(/\D/g, '').slice(0, 5))}
+          />
+          {zipError(zipCode) ? (
+            <p className="mt-2 text-sm text-red-500">{zipError(zipCode)}</p>
+          ) : zipLookupStatus === 'invalid' ? (
+            <p className="mt-2 text-sm text-red-500">We couldn&apos;t find that ZIP code.</p>
+          ) : null}
+        </div>
+
+        <div>
+          <Field
+            label="City"
+            placeholder="E.g Atlanta"
+            value={city}
+            onChange={(e) => setCity(e.target.value)}
+            onBlur={() => setCity((current) => capitalizeCity(current))}
+          />
+          {cityError(city) ? (
+            <p className="mt-2 text-sm text-red-500">{cityError(city)}</p>
+          ) : null}
         </div>
 
         <div className="block">
@@ -212,7 +299,7 @@ const ApplyStepTwo = ({
                     filteredStates.map((item) => (
                       <Select.Item
                         key={item.code}
-                        value={item.name}
+                        value={item.code}
                         className="relative flex cursor-pointer font-sans items-center rounded-xl px-3 py-3 text-sm text-brand-body outline-none transition hover:bg-brand-lightblue data-[highlighted]:bg-brand-lightblue data-[state=checked]:bg-brand-lightblue data-[state=checked]:text-brand-title"
                       >
                         <Select.ItemText>
@@ -233,7 +320,6 @@ const ApplyStepTwo = ({
         </div>
       </div>
 
-      <Notice text="Applicants must be at least 18 years old." />
       <ConfidenceBox items={['Secure Application', 'No Upfront Fees', 'Takes Just a Few Minutes', 'No Obligation to Accept an Offer']} />
       <ConsentText />
     </>
