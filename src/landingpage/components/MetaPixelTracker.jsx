@@ -17,7 +17,7 @@ const loadMetaPixel = () => {
   if (isPrivacyOptedOut()) return
   if (window.fbq) return
 
-  !(function (f, b, e, v, n, t, s) {
+  !(function (f, b, e, v, n, t) {
     if (f.fbq) return
     n = f.fbq = function () {
       n.callMethod ? n.callMethod.apply(n, arguments) : n.queue.push(arguments)
@@ -30,8 +30,9 @@ const loadMetaPixel = () => {
     t = b.createElement(e)
     t.async = true
     t.src = v
-    s = b.getElementsByTagName(e)[0]
-    s.parentNode.insertBefore(t, s)
+    // Append to <head> rather than inserting relative to "the first script tag on the page" —
+    // that position is unpredictable and can land inside React's own tree, confusing hydration.
+    b.head.appendChild(t)
   })(window, document, 'script', 'https://connect.facebook.net/en_US/fbevents.js')
 
   META_PIXEL_IDS.forEach((pixelId) => {
@@ -41,6 +42,7 @@ const loadMetaPixel = () => {
 
 const MetaPixelTracker = () => {
   const { pathname } = useLocation()
+  const [mounted, setMounted] = useState(false)
   const [consent, setConsent] = useState(getCookieConsent())
   const lastTrackedPathRef = useRef('')
   const viewContentFiredRef = useRef(false)
@@ -48,6 +50,10 @@ const MetaPixelTracker = () => {
   const viewContentScrollHandlerRef = useRef(null)
   const viewContentTimePassedRef = useRef(false)
   const viewContentScrollPassedRef = useRef(false)
+
+  useEffect(() => {
+    setMounted(true)
+  }, [])
 
   useEffect(() => {
     const syncConsent = () => {
@@ -124,7 +130,7 @@ const MetaPixelTracker = () => {
     }
   }, [pathname, consent])
 
-  if (!PAGEVIEW_PIXEL_ID || isPrivacyOptedOut() || consent !== 'accepted') return null
+  if (!mounted || !PAGEVIEW_PIXEL_ID || isPrivacyOptedOut() || consent !== 'accepted') return null
 
   return (
     <noscript>
