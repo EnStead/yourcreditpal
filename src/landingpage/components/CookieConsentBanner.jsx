@@ -13,6 +13,15 @@ export const getCookieConsent = () => {
 export const setCookieConsent = (value) => {
   if (typeof window === 'undefined') return
   document.cookie = `${CONSENT_KEY}=${encodeURIComponent(value)}; max-age=${CONSENT_MAX_AGE_SECONDS}; path=/; samesite=lax`
+
+  const granted = value === 'accepted' ? 'granted' : 'denied'
+  window.gtag?.('consent', 'update', {
+    ad_storage: granted,
+    analytics_storage: granted,
+    ad_user_data: granted,
+    ad_personalization: granted,
+  })
+
   window.dispatchEvent(new Event('ycp-cookie-consent-changed'))
 }
 

@@ -12,6 +12,8 @@ import {
 } from "./pages";
 import { nameError, emailError, zipError, cityError, streetAddressError } from "./validators";
 import Logo from "../../../assets/Logo.svg?react";
+import { pushToDataLayer } from "../../lib/dataLayer";
+import { buildAttributionFields } from "../../lib/attribution";
 
 const API_BASE_URL =
   import.meta.env.VITE_APPLY_API_BASE_URL ||
@@ -72,6 +74,7 @@ const countPhoneDigits = (value) =>
   value.replace(/\D/g, "").slice(0, 10).length;
 const INITIATE_CHECKOUT_PIXEL_ID = "1723525005474622";
 const SUBMIT_PIXEL_ID = "1634731517818041";
+const STEP1_VIEWED_DELAY_MS = 5000;
 const LOAN_PURPOSE_MAP = {
   "Debt Consolidation": "debt_consolidation",
   "Medical Bills": "medical",
@@ -192,6 +195,7 @@ const buildLeadPayload = ({
   trustedform_cert_url: trustedformCertUrl || "",
   fbp: getCookie("_fbp"),
   fbc: getCookie("_fbc"),
+  ...buildAttributionFields(),
 });
 
 const submitLead = async (payload) => {
@@ -277,6 +281,7 @@ const ApplyForm = () => {
   const applyFormRef = useRef(null);
   const initiateCheckoutFiredRef = useRef(false);
   const submitPixelFiredRef = useRef(false);
+  const step1ViewedFiredRef = useRef(false);
 
   const [step, setStep] = useState(1);
   const [highestStep, setHighestStep] = useState(1);
@@ -335,6 +340,17 @@ const ApplyForm = () => {
     email, phone, dob, usState, monthlyIncome, bankName,
     streetAddress, city, zipCode, hasConsent, postSubmitState
   ]);
+
+  useEffect(() => {
+    if (step1ViewedFiredRef.current) return undefined;
+
+    const timer = window.setTimeout(() => {
+      step1ViewedFiredRef.current = true;
+      pushToDataLayer("step1_viewed", { page_path: window.location.pathname });
+    }, STEP1_VIEWED_DELAY_MS);
+
+    return () => window.clearTimeout(timer);
+  }, []);
 
   useEffect(() => {
     const handleBeforeUnload = (e) => {
@@ -442,6 +458,8 @@ const ApplyForm = () => {
         fireSubmitPixel();
       }
 
+      pushToDataLayer("step2_submitted");
+
       try {
         setSubmitResponse(null);
         setIsSubmitting(true);
@@ -482,6 +500,16 @@ const ApplyForm = () => {
 
         if (result?.event_id) {
           fireLeadPixel(result.event_name || "Lead", result.event_id);
+          pushToDataLayer("lead_validated", {
+            lead_id: result.lead_id,
+            lead_score: result.lead_score,
+            sale_value: result.sale_value,
+            buyer_tier: result.buyer_tier,
+          });
+        } else if (result?.status === "hard_reject" || result?.status === "soft_reject" || !result?.status) {
+          pushToDataLayer("lead_rejected", {
+            reason_code: result?.reason_code || result?.rejection_reasons?.[0] || result?.status || "hard_reject",
+          });
         }
 
         setPostSubmitState(result?.status || "hard_reject");
@@ -520,6 +548,11 @@ const ApplyForm = () => {
           INITIATE_CHECKOUT_PIXEL_ID,
           "InitiateCheckout",
         );
+        pushToDataLayer("step1_completed", {
+          loan_amount: Number(loanAmount),
+          credit_score: CREDIT_SCORE_MAP[credit] || credit,
+          state: usState,
+        });
       }
 
       if (markReached) {
