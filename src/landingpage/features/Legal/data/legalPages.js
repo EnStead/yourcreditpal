@@ -1,4 +1,9 @@
 import privacyPolicy from "./privacyPolicy.generated.json";
+import { marketingPartners } from "./marketingPartners";
+
+const namedPartnerBullets = marketingPartners.length
+  ? marketingPartners.map((p) => (p.url ? `[${p.name}](${p.url})` : p.name))
+  : ["Partner list to be announced."];
 
 export const legalPages = {
   "vulnerability-disclosure": {
@@ -374,18 +379,11 @@ export const legalPages = {
       {
         title: "2. Lending Partners",
         paragraphs: [
-          "Information submitted through YourCreditPal may be shared with participating lending partners for the purpose of evaluating potential loan opportunities.",
-          "Participating lenders independently determine:",
+          "Information submitted through YourCreditPal may be shared with the following participating lending partners for the purpose of evaluating potential loan opportunities:",
         ],
-        bullets: [
-          "loan eligibility",
-          "approval decisions",
-          "repayment terms",
-          "interest rates",
-          "funding timelines",
-        ],
+        bullets: namedPartnerBullets,
         paragraphsAfter: [
-          "YourCreditPal does not control lender decisions or financial products offered by lenders.",
+          "Participating lenders independently determine loan eligibility, approval decisions, repayment terms, interest rates, and funding timelines. YourCreditPal does not control lender decisions or financial products offered by lenders.",
         ],
       },
       {
