@@ -18,6 +18,9 @@ const API_BASE_URL =
   import.meta.env.VITE_API_BASE_URL ||
   "https://creditpal-backend.onrender.com";
 
+// Mirrors ApplyStepFour's CONSENT_MODE — implied mode treats clicking submit as consent.
+const CONSENT_MODE = import.meta.env.VITE_CONSENT_MODE === "implied" ? "implied" : "checkbox";
+
 const steps = [
   {
     id: 1,
@@ -43,7 +46,6 @@ const steps = [
 
 const purposeOptions = [
   { label: "Debt Consolidation" },
-  { label: "Emergency Expenses" },
   { label: "Medical Bills" },
   { label: "Home Improvement" },
   { label: "Auto Repairs" },
@@ -56,7 +58,6 @@ const creditOptions = [
   "Good (660-719)",
   "Fair (580-659)",
   "Poor (Below 580)",
-  "Not sure of my score",
 ];
 const employmentOptions = [
   "Employed Full-Time",
@@ -73,12 +74,11 @@ const INITIATE_CHECKOUT_PIXEL_ID = "1723525005474622";
 const SUBMIT_PIXEL_ID = "1634731517818041";
 const LOAN_PURPOSE_MAP = {
   "Debt Consolidation": "debt_consolidation",
-  "Emergency Expenses": "emergency_expenses",
-  "Medical Bills": "medical_bills",
+  "Medical Bills": "medical",
   "Home Improvement": "home_improvement",
-  "Auto Repairs": "auto_repairs",
+  "Auto Repairs": "auto",
   "Major Purchase": "major_purchase",
-  Others: "others",
+  Others: "other",
 };
 const EMPLOYMENT_STATUS_MAP = {
   "Employed Full-Time": "employed_full_time",
@@ -98,7 +98,6 @@ const CREDIT_SCORE_MAP = {
   "Good (660-719)": "660-719",
   "Fair (580-659)": "580-659",
   "Poor (Below 580)": "Below 580",
-  "Not sure of my score": "Not sure",
 };
 
 const fireSubmitPixel = () => {
@@ -304,7 +303,6 @@ const ApplyForm = () => {
   const [bankId, setBankId] = useState("");
   const [bankName, setBankName] = useState("");
   const [routingNumber, setRoutingNumber] = useState("");
-  const [isRoutingVerified, setIsRoutingVerified] = useState(false);
 
   const [streetAddress, setStreetAddress] = useState("");
   const [city, setCity] = useState("");
@@ -349,6 +347,28 @@ const ApplyForm = () => {
     return () => window.removeEventListener("beforeunload", handleBeforeUnload);
   }, [hasUnsavedChanges]);
 
+  // `100dvh` alone doesn't reliably recover on some mobile browsers after the on-screen
+  // keyboard closes, leaving the scroll container taller than its content. Track the real
+  // visual viewport height in JS as a fallback so the container always matches what's visible.
+  useEffect(() => {
+    const viewport = window.visualViewport;
+    const setAppHeight = () => {
+      const height = viewport?.height || window.innerHeight;
+      document.documentElement.style.setProperty("--app-vh", `${height}px`);
+    };
+
+    setAppHeight();
+    viewport?.addEventListener("resize", setAppHeight);
+    window.addEventListener("resize", setAppHeight);
+    window.addEventListener("orientationchange", setAppHeight);
+
+    return () => {
+      viewport?.removeEventListener("resize", setAppHeight);
+      window.removeEventListener("resize", setAppHeight);
+      window.removeEventListener("orientationchange", setAppHeight);
+    };
+  }, []);
+
   const sliderPct = useMemo(() => {
     const min = 1000;
     const max = 35000;
@@ -371,16 +391,12 @@ const ApplyForm = () => {
     !cityError(city) &&
     zipCode !== "" &&
     !zipError(zipCode);
-  const isStepThreeValid =
-    employment !== "" &&
-    monthlyIncome !== "" &&
-    bankName !== "" &&
-    isRoutingVerified;
+  const isStepThreeValid = employment !== "" && monthlyIncome !== "";
   const isStepFourValid =
     housing !== "" &&
     streetAddress !== "" &&
     !streetAddressError(streetAddress) &&
-    hasConsent;
+    (CONSENT_MODE === "implied" || hasConsent);
 
   const isCurrentStepValid =
     (step === 1 && isStepOneValid) ||
@@ -530,7 +546,7 @@ const ApplyForm = () => {
   return (
     <>
       <TrustedForm />
-      <main className="h-dvh overflow-hidden">
+      <main className="h-dvh overflow-hidden" style={{ height: "var(--app-vh, 100dvh)" }}>
         <form ref={applyFormRef} className="h-full">
           <div className="mx-auto grid h-full grid-cols-1 overflow-hidden bg-brand-white lg:grid-cols-[2.5fr_2fr]">
             <section
@@ -691,7 +707,6 @@ const ApplyForm = () => {
                         setBankName={setBankName}
                         routingNumber={routingNumber}
                         setRoutingNumber={setRoutingNumber}
-                        setIsRoutingVerified={setIsRoutingVerified}
                       />
                     ) : (
                       <ApplyStepFour

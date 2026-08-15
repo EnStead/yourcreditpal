@@ -46,6 +46,14 @@ export const cityError = (value) => {
   return ''
 }
 
+// Standard ABA routing-number checksum: weighted 3-7-1 digit sum must divide evenly by 10.
+export const isValidAbaChecksum = (routing) => {
+  if (!/^\d{9}$/.test(routing)) return false
+  const d = routing.split('').map(Number)
+  const sum = 3 * (d[0] + d[3] + d[6]) + 7 * (d[1] + d[4] + d[7]) + 1 * (d[2] + d[5] + d[8])
+  return sum % 10 === 0
+}
+
 export const capitalizeCity = (value) => {
   const trimmed = value.trim()
   return trimmed

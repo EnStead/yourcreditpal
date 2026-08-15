@@ -7,6 +7,7 @@ import Retired from "../../../../assets/Retired.svg?react";
 import Benefits from "../../../../assets/Benefits.svg?react";
 import Unemployed from "../../../../assets/Unemployed.svg?react";
 import { ConfidenceBox } from "./shared";
+import { isValidAbaChecksum } from "../validators";
 
 const API_BASE_URL =
   import.meta.env.VITE_APPLY_API_BASE_URL ||
@@ -116,7 +117,6 @@ const ApplyStepThree = ({
   setBankName,
   routingNumber,
   setRoutingNumber,
-  setIsRoutingVerified,
 }) => {
   const bankSearchRef = useRef(null);
   const [bankQuery, setBankQuery] = useState(bankName || "");
@@ -182,7 +182,6 @@ const ApplyStepThree = ({
     setRoutingError("");
     setRoutingMessage("");
     setShowRoutingIcon(false);
-    setIsRoutingVerified(false);
   };
 
   const isRoutingActive = isRoutingFocused || (routingNumber && String(routingNumber).length > 0);
@@ -194,8 +193,14 @@ const ApplyStepThree = ({
         setRoutingStatus("invalid");
         setRoutingError("Routing number must be 9 digits.");
         setShowRoutingIcon(true);
-        setIsRoutingVerified(false);
       }
+      return;
+    }
+
+    if (!isValidAbaChecksum(normalizedRouting)) {
+      setRoutingStatus("invalid");
+      setRoutingError("That routing number isn't valid. Please check it and try again.");
+      setShowRoutingIcon(true);
       return;
     }
 
@@ -215,7 +220,6 @@ const ApplyStepThree = ({
       if (validateStatus === 404) {
         setRoutingStatus("invalid");
         setRoutingError("Couldn't verify bank. Use another bank.");
-        setIsRoutingVerified(false);
         setRoutingMessage("");
         setShowRoutingIcon(true);
         return;
@@ -224,7 +228,6 @@ const ApplyStepThree = ({
       if (!validateData?.data?.valid) {
         setRoutingStatus("invalid");
         setRoutingError("We couldn't verify this routing number. Please try again.");
-        setIsRoutingVerified(false);
         setRoutingMessage("");
         setShowRoutingIcon(true);
         return;
@@ -241,7 +244,6 @@ const ApplyStepThree = ({
         if (!lookedUpBankName) {
           setRoutingStatus("valid");
           setRoutingMessage("Routing number checked.");
-          setIsRoutingVerified(true);
           setShowRoutingIcon(true);
           setTimeout(() => setShowRoutingIcon(false), 2000);
           return;
@@ -250,20 +252,17 @@ const ApplyStepThree = ({
         setRoutingStatus("invalid");
         setRoutingError("Routing number doesn't match your bank. Please try again.");
         setRoutingMessage("");
-        setIsRoutingVerified(false);
         setShowRoutingIcon(true);
         return;
       }
 
       setRoutingStatus("valid");
       setRoutingMessage("Routing number verified.");
-      setIsRoutingVerified(true);
       setShowRoutingIcon(true);
       setTimeout(() => setShowRoutingIcon(false), 2000);
     } catch {
       setRoutingStatus("invalid");
       setRoutingError("We couldn't verify this routing number. Please try again.");
-      setIsRoutingVerified(false);
       setShowRoutingIcon(true);
     }
   };
@@ -378,7 +377,7 @@ const ApplyStepThree = ({
               isBankActive ? "text-brand-title" : "text-brand-label"
             }`}
           >
-            Bank Name
+            Bank Name <span className="font-normal text-brand-label">(Optional)</span>
           </span>
           <Select.Root
             value={bankId}
@@ -486,7 +485,7 @@ const ApplyStepThree = ({
               isRoutingActive ? "text-brand-title" : "text-brand-label"
             }`}
           >
-            Routing Number
+            Routing Number <span className="font-normal text-brand-label">(Optional)</span>
           </label>
           <div className="relative">
             <input
