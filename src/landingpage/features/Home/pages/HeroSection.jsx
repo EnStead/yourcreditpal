@@ -3,17 +3,17 @@ import { NavLink } from "react-router-dom";
 import heroImage from "../../../../assets/HeroImg.webp"; // Update with your actual image name and extension
 import Logo from "../../../../assets/Logo.svg?react";
 import GreenTick from "../../../../assets/GreenTick.svg?react";
-import Line1 from "../../../../assets/Line1.png";
-import Line2 from "../../../../assets/Line 2.png";
-import Line3 from "../../../../assets/Line 3.png";
-import Line4 from "../../../../assets/Line 4.png";
-import Line5 from "../../../../assets/Line 5.png";
-import Line7 from "../../../../assets/Line 7.png";
-import RacingCar from "../../../../assets/RacingCar.png";
-import MedicalCase from "../../../../assets/MedicalCase.png";
-import HouseGarden from "../../../../assets/HouseGarden.png";
-import Confetti from "../../../../assets/Confetti.png";
-import CapConfetti from "../../../../assets/CapConfetti.png";
+import Line1 from "../../../../assets/Line1.webp";
+import Line2 from "../../../../assets/Line 2.webp";
+import Line3 from "../../../../assets/Line 3.webp";
+import Line4 from "../../../../assets/Line 4.webp";
+import Line5 from "../../../../assets/Line 5.webp";
+import Line7 from "../../../../assets/Line 7.webp";
+import RacingCar from "../../../../assets/RacingCar.webp";
+import MedicalCase from "../../../../assets/MedicalCase.webp";
+import HouseGarden from "../../../../assets/HouseGarden.webp";
+import Confetti from "../../../../assets/Confetti.webp";
+import CapConfetti from "../../../../assets/CapConfetti.webp";
 import HeroCarousel from "../components/HeroCarousel";
 
 const HeroSection = () => {

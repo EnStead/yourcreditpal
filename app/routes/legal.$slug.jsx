@@ -19,9 +19,9 @@ const introText = (intro) => (Array.isArray(intro) ? intro[0] : intro) || ''
 
 export function meta({ params }) {
   const page = legalPages[slugMap[params.slug]]
-  if (!page) return buildMeta({ title: 'Legal — YourCreditPal', path: `/legal/${params.slug}`, noindex: true })
+  if (!page) return buildMeta({ title: 'Legal | YourCreditPal', path: `/legal/${params.slug}`, noindex: true })
   return buildMeta({
-    title: `${page.title} — YourCreditPal`,
+    title: `${page.title} | YourCreditPal`,
     description: introText(page.intro).slice(0, 300),
     path: `/legal/${params.slug}`,
     type: 'article',

@@ -16,7 +16,7 @@ export const clientLoader = () => loadList()
 
 export const meta = () =>
   buildMeta({
-    title: 'Blog — Personal Finance & Loan Guides | YourCreditPal',
+    title: 'Blog: Personal Finance & Loan Guides | YourCreditPal',
     description:
       'Practical guides on personal loans, credit, and borrowing decisions from YourCreditPal.',
     path: '/blog',

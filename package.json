@@ -24,6 +24,7 @@
     "date-fns": "^4.4.0",
     "googleapis": "^173.0.0",
     "gsap": "^3.15.0",
+    "isbot": "^5",
     "lottie-react": "^2.4.1",
     "lucide-react": "^1.17.0",
     "react": "^19.2.6",
@@ -35,8 +36,7 @@
     "remark-gfm": "^4.0.1",
     "swiper": "^12.1.4",
     "tailwindcss": "^4.3.0",
-    "web-haptics": "^0.0.6",
-    "isbot": "^5"
+    "web-haptics": "^0.0.6"
   },
   "devDependencies": {
     "@babel/core": "^7.29.0",
@@ -51,6 +51,7 @@
     "eslint-plugin-react-hooks": "^7.1.1",
     "eslint-plugin-react-refresh": "^0.5.2",
     "globals": "^17.6.0",
+    "sharp": "^0.35.3",
     "vite": "^8.0.12",
     "vite-plugin-svgr": "^5.2.0"
   }

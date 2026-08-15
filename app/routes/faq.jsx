@@ -15,7 +15,7 @@ export const meta = () => {
 
   return [
     ...buildMeta({
-      title: 'Frequently Asked Questions — YourCreditPal',
+      title: 'Frequently Asked Questions | YourCreditPal',
       description:
         'Answers about how YourCreditPal matches you with lenders: applications, loan process, eligibility, security & privacy, and repayment.',
       path: '/faq',

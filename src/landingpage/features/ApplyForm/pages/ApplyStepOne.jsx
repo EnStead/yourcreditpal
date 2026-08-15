@@ -1,7 +1,6 @@
 import { useRef } from "react";
 import { useWebHaptics } from "web-haptics/react";
 import MoneyBag from "../../../../assets/MoneyBag.svg?react";
-import Emergency from "../../../../assets/Emergency.svg?react";
 import HomeIcon from "../../../../assets/Home.svg?react";
 import MedicalIcon from "../../../../assets/MedicalKit.svg?react";
 import Settings from "../../../../assets/Settings.svg?react";
@@ -10,7 +9,6 @@ import Bolt from "../../../../assets/Bolt.svg?react";
 
 const iconMap = {
   "Debt Consolidation": MoneyBag,
-  "Emergency Expenses": Emergency,
   "Medical Bills": MedicalIcon,
   "Home Improvement": HomeIcon,
   "Auto Repairs": Settings,

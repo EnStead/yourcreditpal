@@ -10,12 +10,18 @@ import {
   ApplyNoLenderScreen,
   ApplyTestimonialsPanel,
 } from "./pages";
+import { nameError, emailError, zipError, cityError, streetAddressError } from "./validators";
 import Logo from "../../../assets/Logo.svg?react";
+import { pushToDataLayer } from "../../lib/dataLayer";
+import { buildAttributionFields } from "../../lib/attribution";
 
 const API_BASE_URL =
   import.meta.env.VITE_APPLY_API_BASE_URL ||
   import.meta.env.VITE_API_BASE_URL ||
   "https://creditpal-backend.onrender.com";
+
+// Mirrors ApplyStepFour's CONSENT_MODE — implied mode treats clicking submit as consent.
+const CONSENT_MODE = import.meta.env.VITE_CONSENT_MODE === "implied" ? "implied" : "checkbox";
 
 const steps = [
   {
@@ -42,7 +48,6 @@ const steps = [
 
 const purposeOptions = [
   { label: "Debt Consolidation" },
-  { label: "Emergency Expenses" },
   { label: "Medical Bills" },
   { label: "Home Improvement" },
   { label: "Auto Repairs" },
@@ -55,7 +60,6 @@ const creditOptions = [
   "Good (660-719)",
   "Fair (580-659)",
   "Poor (Below 580)",
-  "Not sure of my score",
 ];
 const employmentOptions = [
   "Employed Full-Time",
@@ -65,19 +69,19 @@ const employmentOptions = [
   "Benefits/Disability",
   "Unemployed",
 ];
-const housingOptions = ["Own Home", "Rent", "Living with Family", "Other"];
+const housingOptions = ["Own", "Rent", "Family / Other"];
 const countPhoneDigits = (value) =>
   value.replace(/\D/g, "").slice(0, 10).length;
 const INITIATE_CHECKOUT_PIXEL_ID = "1723525005474622";
 const SUBMIT_PIXEL_ID = "1634731517818041";
+const STEP1_VIEWED_DELAY_MS = 5000;
 const LOAN_PURPOSE_MAP = {
   "Debt Consolidation": "debt_consolidation",
-  "Emergency Expenses": "emergency_expenses",
-  "Medical Bills": "medical_bills",
+  "Medical Bills": "medical",
   "Home Improvement": "home_improvement",
-  "Auto Repairs": "auto_repairs",
+  "Auto Repairs": "auto",
   "Major Purchase": "major_purchase",
-  Others: "others",
+  Others: "other",
 };
 const EMPLOYMENT_STATUS_MAP = {
   "Employed Full-Time": "employed_full_time",
@@ -88,21 +92,15 @@ const EMPLOYMENT_STATUS_MAP = {
   Unemployed: "unemployed",
 };
 const HOUSING_STATUS_MAP = {
-  "Own Home": "own_home",
+  Own: "own",
   Rent: "rent",
-  "Living with Family": "living_with_family",
-  Other: "other",
-};
-const ACCOUNT_TYPE_MAP = {
-  checking: "checking",
-  savings: "savings",
+  "Family / Other": "family_other",
 };
 const CREDIT_SCORE_MAP = {
   "Excellent (720+)": "720+",
   "Good (660-719)": "660-719",
   "Fair (580-659)": "580-659",
   "Poor (Below 580)": "Below 580",
-  "Not sure of my score": "Not sure",
 };
 
 const fireSubmitPixel = () => {
@@ -172,7 +170,6 @@ const buildLeadPayload = ({
   employment,
   monthlyIncome,
   bankName,
-  accountType,
   housing,
   streetAddress,
   city,
@@ -181,8 +178,8 @@ const buildLeadPayload = ({
 }) => ({
   first_name: firstName.trim(),
   last_name: lastName.trim(),
-  email: email.trim(),
-  phone: phone.trim(),
+  email: email.trim().toLowerCase(),
+  phone: phone.replace(/\D/g, "").slice(0, 10),
   state: usState,
   zip: zipCode.trim(),
   city: city.trim(),
@@ -194,11 +191,11 @@ const buildLeadPayload = ({
   employment_status: EMPLOYMENT_STATUS_MAP[employment] || "",
   monthly_income: formatMoneyToInteger(monthlyIncome),
   bank_name: bankName.trim(),
-  account_type: ACCOUNT_TYPE_MAP[accountType] || "",
   housing_status: HOUSING_STATUS_MAP[housing] || "",
   trustedform_cert_url: trustedformCertUrl || "",
   fbp: getCookie("_fbp"),
   fbc: getCookie("_fbc"),
+  ...buildAttributionFields(),
 });
 
 const submitLead = async (payload) => {
@@ -284,6 +281,7 @@ const ApplyForm = () => {
   const applyFormRef = useRef(null);
   const initiateCheckoutFiredRef = useRef(false);
   const submitPixelFiredRef = useRef(false);
+  const step1ViewedFiredRef = useRef(false);
 
   const [step, setStep] = useState(1);
   const [highestStep, setHighestStep] = useState(1);
@@ -309,10 +307,7 @@ const ApplyForm = () => {
   const [monthlyIncome, setMonthlyIncome] = useState("");
   const [bankId, setBankId] = useState("");
   const [bankName, setBankName] = useState("");
-  const [accountType, setAccountType] = useState("");
   const [routingNumber, setRoutingNumber] = useState("");
-  const [accountNumber, setAccountNumber] = useState("");
-  const [isRoutingVerified, setIsRoutingVerified] = useState(false);
 
   const [streetAddress, setStreetAddress] = useState("");
   const [city, setCity] = useState("");
@@ -335,7 +330,6 @@ const ApplyForm = () => {
       usState !== "" ||
       monthlyIncome !== "" ||
       bankName !== "" ||
-      accountType !== "" ||
       streetAddress !== "" ||
       city !== "" ||
       zipCode !== "" ||
@@ -343,9 +337,20 @@ const ApplyForm = () => {
     );
   }, [
     step, purpose, credit, employment, housing, firstName, lastName,
-    email, phone, dob, usState, monthlyIncome, bankName, accountType,
+    email, phone, dob, usState, monthlyIncome, bankName,
     streetAddress, city, zipCode, hasConsent, postSubmitState
   ]);
+
+  useEffect(() => {
+    if (step1ViewedFiredRef.current) return undefined;
+
+    const timer = window.setTimeout(() => {
+      step1ViewedFiredRef.current = true;
+      pushToDataLayer("step1_viewed", { page_path: window.location.pathname });
+    }, STEP1_VIEWED_DELAY_MS);
+
+    return () => window.clearTimeout(timer);
+  }, []);
 
   useEffect(() => {
     const handleBeforeUnload = (e) => {
@@ -358,6 +363,28 @@ const ApplyForm = () => {
     return () => window.removeEventListener("beforeunload", handleBeforeUnload);
   }, [hasUnsavedChanges]);
 
+  // `100dvh` alone doesn't reliably recover on some mobile browsers after the on-screen
+  // keyboard closes, leaving the scroll container taller than its content. Track the real
+  // visual viewport height in JS as a fallback so the container always matches what's visible.
+  useEffect(() => {
+    const viewport = window.visualViewport;
+    const setAppHeight = () => {
+      const height = viewport?.height || window.innerHeight;
+      document.documentElement.style.setProperty("--app-vh", `${height}px`);
+    };
+
+    setAppHeight();
+    viewport?.addEventListener("resize", setAppHeight);
+    window.addEventListener("resize", setAppHeight);
+    window.addEventListener("orientationchange", setAppHeight);
+
+    return () => {
+      viewport?.removeEventListener("resize", setAppHeight);
+      window.removeEventListener("resize", setAppHeight);
+      window.removeEventListener("orientationchange", setAppHeight);
+    };
+  }, []);
+
   const sliderPct = useMemo(() => {
     const min = 1000;
     const max = 35000;
@@ -368,25 +395,24 @@ const ApplyForm = () => {
   const isStepOneValid = loanAmount > 0 && purpose !== "" && credit !== "";
   const isStepTwoValid =
     firstName !== "" &&
+    !nameError(firstName) &&
     lastName !== "" &&
+    !nameError(lastName) &&
     email !== "" &&
+    !emailError(email) &&
     countPhoneDigits(phone) === 10 &&
     isAtLeast18(dob) &&
-    usState !== "";
-  const isAccountNumberValid = /^\d{4,17}$/.test(accountNumber);
-  const isStepThreeValid =
-    employment !== "" &&
-    monthlyIncome !== "" &&
-    bankName !== "" &&
-    accountType !== "" &&
-    isRoutingVerified &&
-    isAccountNumberValid;
+    usState !== "" &&
+    city !== "" &&
+    !cityError(city) &&
+    zipCode !== "" &&
+    !zipError(zipCode);
+  const isStepThreeValid = employment !== "" && monthlyIncome !== "";
   const isStepFourValid =
     housing !== "" &&
     streetAddress !== "" &&
-    city !== "" &&
-    zipCode !== "" &&
-    hasConsent;
+    !streetAddressError(streetAddress) &&
+    (CONSENT_MODE === "implied" || hasConsent);
 
   const isCurrentStepValid =
     (step === 1 && isStepOneValid) ||
@@ -432,6 +458,8 @@ const ApplyForm = () => {
         fireSubmitPixel();
       }
 
+      pushToDataLayer("step2_submitted");
+
       try {
         setSubmitResponse(null);
         setIsSubmitting(true);
@@ -460,7 +488,6 @@ const ApplyForm = () => {
           employment,
           monthlyIncome,
           bankName,
-          accountType,
           housing,
           streetAddress,
           city,
@@ -473,6 +500,16 @@ const ApplyForm = () => {
 
         if (result?.event_id) {
           fireLeadPixel(result.event_name || "Lead", result.event_id);
+          pushToDataLayer("lead_validated", {
+            lead_id: result.lead_id,
+            lead_score: result.lead_score,
+            sale_value: result.sale_value,
+            buyer_tier: result.buyer_tier,
+          });
+        } else if (result?.status === "hard_reject" || result?.status === "soft_reject" || !result?.status) {
+          pushToDataLayer("lead_rejected", {
+            reason_code: result?.reason_code || result?.rejection_reasons?.[0] || result?.status || "hard_reject",
+          });
         }
 
         setPostSubmitState(result?.status || "hard_reject");
@@ -511,6 +548,11 @@ const ApplyForm = () => {
           INITIATE_CHECKOUT_PIXEL_ID,
           "InitiateCheckout",
         );
+        pushToDataLayer("step1_completed", {
+          loan_amount: Number(loanAmount),
+          credit_score: CREDIT_SCORE_MAP[credit] || credit,
+          state: usState,
+        });
       }
 
       if (markReached) {
@@ -537,7 +579,7 @@ const ApplyForm = () => {
   return (
     <>
       <TrustedForm />
-      <main className="h-screen overflow-hidden">
+      <main className="h-dvh overflow-hidden" style={{ height: "var(--app-vh, 100dvh)" }}>
         <form ref={applyFormRef} className="h-full">
           <div className="mx-auto grid h-full grid-cols-1 overflow-hidden bg-brand-white lg:grid-cols-[2.5fr_2fr]">
             <section
@@ -680,6 +722,10 @@ const ApplyForm = () => {
                         setDob={setDob}
                         usState={usState}
                         setUsState={setUsState}
+                        city={city}
+                        setCity={setCity}
+                        zipCode={zipCode}
+                        setZipCode={setZipCode}
                       />
                     ) : step === 3 ? (
                       <ApplyStepThree
@@ -692,13 +738,8 @@ const ApplyForm = () => {
                         setBankId={setBankId}
                         bankName={bankName}
                         setBankName={setBankName}
-                        accountType={accountType}
-                        setAccountType={setAccountType}
                         routingNumber={routingNumber}
                         setRoutingNumber={setRoutingNumber}
-                        accountNumber={accountNumber}
-                        setAccountNumber={setAccountNumber}
-                        setIsRoutingVerified={setIsRoutingVerified}
                       />
                     ) : (
                       <ApplyStepFour
@@ -708,9 +749,7 @@ const ApplyForm = () => {
                         streetAddress={streetAddress}
                         setStreetAddress={setStreetAddress}
                         city={city}
-                        setCity={setCity}
                         zipCode={zipCode}
-                        setZipCode={setZipCode}
                         hasConsent={hasConsent}
                         setHasConsent={setHasConsent}
                       />

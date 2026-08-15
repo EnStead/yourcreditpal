@@ -20,11 +20,11 @@ export const clientLoader = ({ params }) => loadPost(params.slug)
 export function meta({ data, params }) {
   const post = data?.post
   if (!post) {
-    return buildMeta({ title: 'Blog — YourCreditPal', path: `/blog/${params.slug}` })
+    return buildMeta({ title: 'Blog | YourCreditPal', path: `/blog/${params.slug}` })
   }
   const tags = buildMeta({
-    title: `${post.title} — YourCreditPal`,
-    description: post.excerpt || `${post.title} — a personal finance guide from YourCreditPal.`,
+    title: `${post.title} | YourCreditPal`,
+    description: post.excerpt || `${post.title}: a personal finance guide from YourCreditPal.`,
     path: `/blog/${params.slug}`,
     image: post.heroImage || undefined,
     type: 'article',

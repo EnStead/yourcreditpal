@@ -10,6 +10,7 @@ export default [
       route('blog/:slug', 'routes/blog.$slug.jsx'),
       route('legal/:slug', 'routes/legal.$slug.jsx'),
       route('unsubscribe', 'routes/unsubscribe.jsx'),
+      route('thank-you', 'routes/thank-you.jsx'),
     ]),
   ]),
 ]

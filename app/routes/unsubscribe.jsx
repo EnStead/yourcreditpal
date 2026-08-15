@@ -3,7 +3,7 @@ import { buildMeta } from '../lib/seo'
 
 export const meta = () =>
   buildMeta({
-    title: 'Unsubscribe — YourCreditPal',
+    title: 'Unsubscribe | YourCreditPal',
     description: 'Manage your communication preferences or unsubscribe from YourCreditPal messages.',
     path: '/unsubscribe',
     noindex: true,

@@ -1,14 +1,14 @@
 import Star from "../../../../assets/Star.svg?react";
 import Logo from "../../../../assets/Logo.svg?react";
-import LooperBg from "../../../../assets/Looper.png";
-import Grid2 from "../../../../assets/Grid2.png"; // Update extension if it's .svg
-import File from "../../../../assets/File.png"; // Update extension if it's .png
-import Upfront from "../../../../assets/Upfront.png";
-import Lend from "../../../../assets/Lend.png";
-import Flexible from "../../../../assets/Flexible.png";
-import Mobile from "../../../../assets/Mobile.png";
+import LooperBg from "../../../../assets/Looper.webp";
+import Grid2 from "../../../../assets/Grid2.png";
+import File from "../../../../assets/File.webp";
+import Upfront from "../../../../assets/Upfront.webp";
+import Lend from "../../../../assets/Lend.webp";
+import Flexible from "../../../../assets/Flexible.webp";
+import Mobile from "../../../../assets/Mobile.webp";
 import Quick from "../../../../assets/Quick.png";
-import Quick2 from "../../../../assets/Quick2.png"; // Make sure to use the correct extension if it's not a .png
+import Quick2 from "../../../../assets/Quick2.png";
 
 const whyCards = [
   {
