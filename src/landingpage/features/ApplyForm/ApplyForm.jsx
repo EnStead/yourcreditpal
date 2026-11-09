@@ -506,7 +506,7 @@ const ApplyForm = () => {
             sale_value: result.sale_value,
             buyer_tier: result.buyer_tier,
           });
-        } else if (result?.status === "hard_reject" || result?.status === "soft_reject" || !result?.status) {
+        } else if (result?.status === "rejected" || result?.status === "hard_reject" || result?.status === "soft_reject" || !result?.status) {
           pushToDataLayer("lead_rejected", {
             reason_code: result?.reason_code || result?.rejection_reasons?.[0] || result?.status || "hard_reject",
           });
@@ -674,7 +674,7 @@ const ApplyForm = () => {
                 {postSubmitState ? (
                   postSubmitState === "loading" ? (
                     <ApplyPendingScreen />
-                  ) : postSubmitState === "hard_reject" ? (
+                  ) : postSubmitState === "hard_reject" || postSubmitState === "rejected" ? (
                     <ApplyNoLenderScreen
                       variant="hard_reject"
                       message={submitResponse?.message}
@@ -684,6 +684,11 @@ const ApplyForm = () => {
                   ) : postSubmitState === "soft_reject" ? (
                     <ApplyNoLenderScreen
                       variant="soft_reject"
+                      message={submitResponse?.message}
+                    />
+                  ) : postSubmitState === "recorded" || postSubmitState === "lookup_unverified" ? (
+                    <ApplyPendingScreen
+                      variant="recorded"
                       message={submitResponse?.message}
                     />
                   ) : postSubmitState === "boberdoo_pending" ? (

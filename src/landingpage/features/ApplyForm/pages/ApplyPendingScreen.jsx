@@ -77,7 +77,7 @@ const ApplyPendingScreen = ({ variant = 'loading', message = '' }) => {
     }
   }, [stage, variant])
 
-  if (variant === 'boberdoo_pending') {
+  if (variant === 'boberdoo_pending' || variant === 'recorded') {
     return (
       <div className="flex min-h-full flex-col items-center justify-center px-4 text-center lg:px-6">
         <div className="w-full max-w-2xl space-y-8">
@@ -87,14 +87,14 @@ const ApplyPendingScreen = ({ variant = 'loading', message = '' }) => {
 
           <div className="space-y-3">
             <h1 className="text-2xl font-bold tracking-[-0.03em] text-brand-title">
-              {successCopy.title}
+              {variant === 'recorded' ? 'Application received' : successCopy.title}
             </h1>
             <p className="mx-auto max-w-xl text-lg text-brand-label">
-              {message || successCopy.body}
+              {message || (variant === 'recorded' ? 'Your application has been received.' : successCopy.body)}
             </p>
           </div>
 
-          <div className="mx-auto max-w-2xl rounded-2xl border-2 border-brand-stroke bg-brand-offwhite px-6 py-6 text-left sm:px-7 sm:py-7">
+          {variant === 'boberdoo_pending' && <div className="mx-auto max-w-2xl rounded-2xl border-2 border-brand-stroke bg-brand-offwhite px-6 py-6 text-left sm:px-7 sm:py-7">
             <h2 className="text-lg font-semibold text-brand-title">What Happens Next</h2>
             <div className="mt-5 space-y-4">
               {[
@@ -110,7 +110,7 @@ const ApplyPendingScreen = ({ variant = 'loading', message = '' }) => {
                 </div>
               ))}
             </div>
-          </div>
+          </div>}
 
           <a
             href="/"
