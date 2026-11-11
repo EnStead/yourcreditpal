@@ -170,6 +170,7 @@ const buildLeadPayload = ({
   employment,
   monthlyIncome,
   bankName,
+  accountType,
   housing,
   streetAddress,
   city,
@@ -191,6 +192,7 @@ const buildLeadPayload = ({
   employment_status: EMPLOYMENT_STATUS_MAP[employment] || "",
   monthly_income: formatMoneyToInteger(monthlyIncome),
   bank_name: bankName.trim(),
+  account_type: accountType,
   housing_status: HOUSING_STATUS_MAP[housing] || "",
   trustedform_cert_url: trustedformCertUrl || "",
   fbp: getCookie("_fbp"),
@@ -307,7 +309,7 @@ const ApplyForm = () => {
   const [monthlyIncome, setMonthlyIncome] = useState("");
   const [bankId, setBankId] = useState("");
   const [bankName, setBankName] = useState("");
-  const [routingNumber, setRoutingNumber] = useState("");
+  const [accountType, setAccountType] = useState("");
 
   const [streetAddress, setStreetAddress] = useState("");
   const [city, setCity] = useState("");
@@ -330,6 +332,7 @@ const ApplyForm = () => {
       usState !== "" ||
       monthlyIncome !== "" ||
       bankName !== "" ||
+      accountType !== "" ||
       streetAddress !== "" ||
       city !== "" ||
       zipCode !== "" ||
@@ -337,7 +340,7 @@ const ApplyForm = () => {
     );
   }, [
     step, purpose, credit, employment, housing, firstName, lastName,
-    email, phone, dob, usState, monthlyIncome, bankName,
+    email, phone, dob, usState, monthlyIncome, bankName, accountType,
     streetAddress, city, zipCode, hasConsent, postSubmitState
   ]);
 
@@ -407,7 +410,8 @@ const ApplyForm = () => {
     !cityError(city) &&
     zipCode !== "" &&
     !zipError(zipCode);
-  const isStepThreeValid = employment !== "" && monthlyIncome !== "";
+  const isStepThreeValid = employment !== "" && monthlyIncome !== "" &&
+    bankName.trim() !== "" && (accountType === "checking" || accountType === "savings");
   const isStepFourValid =
     housing !== "" &&
     streetAddress !== "" &&
@@ -488,6 +492,7 @@ const ApplyForm = () => {
           employment,
           monthlyIncome,
           bankName,
+          accountType,
           housing,
           streetAddress,
           city,
@@ -743,8 +748,8 @@ const ApplyForm = () => {
                         setBankId={setBankId}
                         bankName={bankName}
                         setBankName={setBankName}
-                        routingNumber={routingNumber}
-                        setRoutingNumber={setRoutingNumber}
+                        accountType={accountType}
+                        setAccountType={setAccountType}
                       />
                     ) : (
                       <ApplyStepFour
