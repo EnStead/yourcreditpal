@@ -14,6 +14,7 @@ import { nameError, emailError, zipError, cityError, streetAddressError } from "
 import Logo from "../../../assets/Logo.svg?react";
 import { pushToDataLayer } from "../../lib/dataLayer";
 import { buildAttributionFields } from "../../lib/attribution";
+import { readTrustedFormCertificate } from "./trustedForm";
 
 const API_BASE_URL =
   import.meta.env.VITE_APPLY_API_BASE_URL ||
@@ -128,21 +129,13 @@ const getCookie = (name) => {
   return entry.split("=").slice(1).join("=");
 };
 
-const getTrustedFormCertUrl = (root = document) => {
-  if (typeof document === "undefined") return "";
-
-  const element =
-    root?.querySelector?.('input[name="xxTrustedFormCertUrl"]') ||
-    document.querySelector('input[name="xxTrustedFormCertUrl"]');
-  return element?.value || "";
-};
-
-const waitForTrustedFormCertUrl = async (root, timeoutMs = 5000) => {
+const waitForTrustedFormCertUrl = async (form, timeoutMs = 15000) => {
   const startedAt = Date.now();
 
   while (Date.now() - startedAt < timeoutMs) {
-    const cert = getTrustedFormCertUrl(root);
+    const cert = readTrustedFormCertificate(form);
     if (cert) return cert;
+    if (!form?.isConnected || document.querySelector('script[data-trustedform="failed"]')) break;
 
     await new Promise((resolve) => window.setTimeout(resolve, 120));
   }
@@ -259,8 +252,11 @@ const TrustedForm = () => {
     script.type = "text/javascript";
     script.async = true;
     script.dataset.trustedform = "true";
+    script.addEventListener("error", () => {
+      script.dataset.trustedform = "failed";
+    }, { once: true });
     script.src =
-      `${window.location.protocol === "https:" ? "https" : "http"}://api.trustedform.com/trustedform.js?field=xxTrustedFormCertUrl&use_tagged_consent=true&l=` +
+      "https://api.trustedform.com/trustedform.js?field=xxTrustedFormCertUrl&use_tagged_consent=true&l=" +
       `${Date.now()}${Math.random()}`;
 
     const firstScript = document.getElementsByTagName("script")[0];
@@ -457,27 +453,26 @@ const ApplyForm = () => {
         return;
       }
 
-      if (!submitPixelFiredRef.current) {
-        submitPixelFiredRef.current = true;
-        fireSubmitPixel();
-      }
-
-      pushToDataLayer("step2_submitted");
-
       try {
         setSubmitResponse(null);
         setIsSubmitting(true);
-        setPostSubmitState("loading");
-        scrollFormToTop();
 
         const trustedformCertUrl = await waitForTrustedFormCertUrl(
           applyFormRef.current,
         );
         if (!trustedformCertUrl) {
           throw new Error(
-            "TrustedForm is still loading. Please wait a moment and try again.",
+            "We couldn't verify your consent. Check your connection and site blockers, then reload and try again.",
           );
         }
+
+        if (!submitPixelFiredRef.current) {
+          submitPixelFiredRef.current = true;
+          fireSubmitPixel();
+        }
+        pushToDataLayer("step2_submitted");
+        setPostSubmitState("loading");
+        scrollFormToTop();
 
         const payload = buildLeadPayload({
           firstName,
@@ -536,6 +531,7 @@ const ApplyForm = () => {
   };
 
   const goToStep = (nextStep, { markReached = false } = {}) => {
+    if (isSubmitting) return;
     setStep((current) => {
       const targetStep =
         typeof nextStep === "function" ? nextStep(current) : nextStep;
@@ -773,6 +769,7 @@ const ApplyForm = () => {
                       {step > 1 && (
                         <button
                           type="button"
+                          disabled={isSubmitting}
                           onClick={() => goToStep((current) => current - 1)}
                           className="rounded-xl border border-brand-title bg-brand-white px-6 py-3 text-sm font-semibold text-brand-title transition hover:bg-brand-offwhite"
                         >
