@@ -671,6 +671,7 @@ const ApplyForm = () => {
                     <ApplyNoLenderScreen
                       variant="soft_reject"
                       message={submitResponse?.message}
+                      rejectionReasons={submitResponse?.rejection_reasons || []}
                     />
                   ) : postSubmitState === "recorded" || postSubmitState === "lookup_unverified" ? (
                     <ApplyPendingScreen
