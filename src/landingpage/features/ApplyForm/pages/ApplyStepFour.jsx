@@ -1,8 +1,9 @@
-import { Check, House } from 'lucide-react'
+import { Check } from 'lucide-react'
 import { NavLink } from 'react-router-dom'
 import Home from "../../../../assets/Homes.svg?react";
 import Rent from "../../../../assets/Rent.svg?react";
 import Family from "../../../../assets/Family.svg?react";
+import Other from "../../../../assets/Other.svg?react";
 import { SecureNoticeCard, Field } from './shared'
 import { streetAddressError } from '../validators'
 
@@ -16,6 +17,7 @@ const iconMap = {
   "Own": Home,
   "Rent": Rent,
   "Living with Family": Family,
+  "Other": Other,
 };
 
 const ApplyStepFour = ({
@@ -40,22 +42,22 @@ const ApplyStepFour = ({
 
       <div className="mt-8">
         <h2 className="font-bold text-brand-title">Housing Status</h2>
-        <div className="mt-5 grid gap-3 sm:grid-cols-3">
+        <div className="mt-4 flex flex-wrap gap-3">
           {housingOptions.map((item) => {
             const active = housing === item
-            const Icon = iconMap[item] || House;
+            const Icon = iconMap[item];
             return (
               <button
                 key={item}
                 type="button"
                 onClick={() => setHousing(item)}
-                className={`flex items-center gap-3 font-sans font-medium rounded-xl border-2 px-4 py-3 text-left text-sm transition ${
+                className={`inline-flex items-center gap-2 rounded-full border px-4 py-2 text-sm font-light font-sans transition ${
                   active
-                    ? 'border-brand-primary bg-brand-lightblue text-brand-title'
-                    : 'border-brand-stroke bg-brand-white text-brand-title hover:border-brand-secondary'
+                    ? 'bg-brand-primary text-brand-white'
+                    : 'border-brand-stroke bg-brand-white text-brand-body hover:border-brand-secondary hover:text-brand-secondary'
                 }`}
               >
-                <Icon className={`h-5 w-5 ${active ? 'text-brand-primary' : 'text-brand-secondary'}`} />
+                <Icon className={`h-4 w-4 ${active ? 'text-brand-white' : 'text-brand-lightblue'}`} />
                 {item}
               </button>
             )
