@@ -365,28 +365,6 @@ const ApplyForm = () => {
     return () => window.removeEventListener("beforeunload", handleBeforeUnload);
   }, [hasUnsavedChanges]);
 
-  // `100dvh` alone doesn't reliably recover on some mobile browsers after the on-screen
-  // keyboard closes, leaving the scroll container taller than its content. Track the real
-  // visual viewport height in JS as a fallback so the container always matches what's visible.
-  useEffect(() => {
-    const viewport = window.visualViewport;
-    const setAppHeight = () => {
-      const height = viewport?.height || window.innerHeight;
-      document.documentElement.style.setProperty("--app-vh", `${height}px`);
-    };
-
-    setAppHeight();
-    viewport?.addEventListener("resize", setAppHeight);
-    window.addEventListener("resize", setAppHeight);
-    window.addEventListener("orientationchange", setAppHeight);
-
-    return () => {
-      viewport?.removeEventListener("resize", setAppHeight);
-      window.removeEventListener("resize", setAppHeight);
-      window.removeEventListener("orientationchange", setAppHeight);
-    };
-  }, []);
-
   const sliderPct = useMemo(() => {
     const min = 1000;
     const max = 35000;
@@ -433,7 +411,11 @@ const ApplyForm = () => {
 
   const scrollFormToTop = () => {
     requestAnimationFrame(() => {
-      formPanelRef.current?.scrollTo({ top: 0, behavior: "smooth" });
+      if (window.matchMedia("(min-width: 1024px)").matches) {
+        formPanelRef.current?.scrollTo({ top: 0, behavior: "smooth" });
+      } else {
+        window.scrollTo({ top: 0, behavior: "smooth" });
+      }
     });
   };
 
@@ -583,12 +565,12 @@ const ApplyForm = () => {
   return (
     <>
       <TrustedForm />
-      <main className="h-dvh overflow-hidden" style={{ height: "var(--app-vh, 100dvh)" }}>
-        <form ref={applyFormRef} className="h-full">
-          <div className="mx-auto grid h-full grid-cols-1 overflow-hidden bg-brand-white lg:grid-cols-[2.5fr_2fr]">
+      <main className="min-h-[100svh] overflow-x-hidden bg-brand-white lg:h-dvh lg:overflow-hidden">
+        <form ref={applyFormRef} className="min-h-[100svh] lg:h-full">
+          <div className="mx-auto grid min-h-[100svh] grid-cols-1 bg-brand-white lg:h-full lg:grid-cols-[2.5fr_2fr] lg:overflow-hidden">
             <section
               ref={formPanelRef}
-              className="flex h-full flex-col overflow-y-auto px-5 py-6 sm:px-8 lg:px-14 lg:py-10 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
+              className="flex min-h-[100svh] flex-col px-5 py-6 sm:px-8 lg:h-full lg:overflow-y-auto lg:px-14 lg:py-10 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
             >
               <div className="flex items-center justify-between gap-4">
                 <div className="flex items-center gap-3">
