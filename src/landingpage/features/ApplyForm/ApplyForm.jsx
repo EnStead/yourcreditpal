@@ -50,6 +50,7 @@ const steps = [
 const purposeOptions = [
   { label: "Debt Consolidation" },
   { label: "Medical Bills" },
+  { label: "Emergency Expenses" },
   { label: "Home Improvement" },
   { label: "Auto Repairs" },
   { label: "Major Purchase" },
@@ -70,7 +71,7 @@ const employmentOptions = [
   "Benefits/Disability",
   "Unemployed",
 ];
-const housingOptions = ["Own", "Rent", "Family / Other"];
+const housingOptions = ["Own", "Rent", "Living with Family", "Other"];
 const countPhoneDigits = (value) =>
   value.replace(/\D/g, "").slice(0, 10).length;
 const INITIATE_CHECKOUT_PIXEL_ID = "1723525005474622";
@@ -78,11 +79,12 @@ const SUBMIT_PIXEL_ID = "1634731517818041";
 const STEP1_VIEWED_DELAY_MS = 5000;
 const LOAN_PURPOSE_MAP = {
   "Debt Consolidation": "debt_consolidation",
-  "Medical Bills": "medical",
+  "Medical Bills": "medical_bills",
+  "Emergency Expenses": "emergency_expenses",
   "Home Improvement": "home_improvement",
-  "Auto Repairs": "auto",
+  "Auto Repairs": "auto_repairs",
   "Major Purchase": "major_purchase",
-  Others: "other",
+  Others: "others",
 };
 const EMPLOYMENT_STATUS_MAP = {
   "Employed Full-Time": "employed_full_time",
@@ -93,9 +95,10 @@ const EMPLOYMENT_STATUS_MAP = {
   Unemployed: "unemployed",
 };
 const HOUSING_STATUS_MAP = {
-  Own: "own",
+  Own: "own_home",
   Rent: "rent",
-  "Family / Other": "family_other",
+  "Living with Family": "living_with_family",
+  Other: "other",
 };
 const CREDIT_SCORE_MAP = {
   "Excellent (720+)": "720+",

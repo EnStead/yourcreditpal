@@ -15,7 +15,7 @@ const CONSENT_MODE = import.meta.env.VITE_CONSENT_MODE === 'implied' ? 'implied'
 const iconMap = {
   "Own": Home,
   "Rent": Rent,
-  "Family / Other": Family,
+  "Living with Family": Family,
 };
 
 const ApplyStepFour = ({
