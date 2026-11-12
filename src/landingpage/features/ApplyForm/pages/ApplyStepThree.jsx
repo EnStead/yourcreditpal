@@ -1,6 +1,5 @@
-import { useEffect, useMemo, useRef, useState } from "react";
-import * as Select from "@radix-ui/react-select";
-import { BriefcaseBusiness, Search, ChevronDown } from "lucide-react";
+import { useEffect, useRef, useState } from "react";
+import { BriefcaseBusiness, Search } from "lucide-react";
 import MoneyBag from "../../../../assets/MoneyBag.svg?react";
 import Self from "../../../../assets/Self.svg?react";
 import Retired from "../../../../assets/Retired.svg?react";
@@ -19,10 +18,6 @@ const incomeBands = [
   { label: "$3,000 - $5,000", value: 4000 },
   { label: "$5,000+", value: 5500 },
 ];
-
-const keepSearchFocus = (event) => {
-  event.stopPropagation();
-};
 
 const iconMap = {
   "Employed Full-Time": MoneyBag,
@@ -47,10 +42,12 @@ const ApplyStepThree = ({
   setAccountType,
 }) => {
   const bankSearchRef = useRef(null);
+  const bankFieldRef = useRef(null);
   const [bankQuery, setBankQuery] = useState(bankName || "");
   const [bankResults, setBankResults] = useState([]);
   const [bankLoading, setBankLoading] = useState(false);
   const [bankError, setBankError] = useState("");
+  const [bankSelectOpen, setBankSelectOpen] = useState(false);
   const isBankActive = Boolean(bankId || bankName || bankQuery);
 
   useEffect(() => {
@@ -99,17 +96,13 @@ const ApplyStepThree = ({
     };
   }, [bankQuery]);
 
-  const selectedBankLabel = useMemo(() => {
-    if (bankName) return bankName;
-    return "";
-  }, [bankName]);
-
   const handleBankSelect = (institution) => {
     const selectedName = institution.display_name || institution.canonical_name || institution.name || "";
     setBankId(institution.id);
     setBankName(selectedName);
     setBankQuery(selectedName);
     setBankResults([]);
+    setBankSelectOpen(false);
   };
 
   const handleBankInputChange = (event) => {
@@ -124,6 +117,17 @@ const ApplyStepThree = ({
       setBankLoading(false);
     }
   };
+
+  useEffect(() => {
+    const closeBankSuggestions = (event) => {
+      if (!bankFieldRef.current?.contains(event.target)) {
+        setBankSelectOpen(false);
+      }
+    };
+
+    document.addEventListener("pointerdown", closeBankSuggestions);
+    return () => document.removeEventListener("pointerdown", closeBankSuggestions);
+  }, []);
 
   return (
     <>
@@ -201,78 +205,41 @@ const ApplyStepThree = ({
           >
             Bank Name
           </span>
-          <Select.Root
-            value={bankId}
-            onOpenChange={(open) => {
-              if (open) {
-                requestAnimationFrame(() => bankSearchRef.current?.focus());
-              }
-            }}
-            onValueChange={(value) => {
-              const selected = bankResults.find((item) => item.id === value);
-              if (selected) {
-                handleBankSelect(selected);
-              }
-            }}
-          >
-            <Select.Trigger
-              className={`flex w-full min-w-0 font-sans items-center justify-between gap-3 font-normal rounded-none border-b bg-transparent py-2 text-left text-base outline-none transition hover:border-brand-title ${
-                isBankActive
-                  ? "border-brand-title text-brand-title"
-                  : "border-brand-stroke text-brand-placeholder"
+          <div ref={bankFieldRef} className="relative">
+            <div
+              className={`flex w-full min-w-0 items-center gap-3 border-b bg-transparent py-2 transition focus-within:border-brand-primary ${
+                isBankActive ? "border-brand-title" : "border-brand-stroke"
               }`}
             >
-              {bankName ? (
-                <span className="min-w-0 flex-1 truncate text-brand-title">{bankName}</span>
-              ) : (
-                <span className="min-w-0 flex-1 truncate">
-                  <Select.Value placeholder="Search or type bank name">
-                    {selectedBankLabel}
-                  </Select.Value>
-                </span>
-              )}
-              <Select.Icon>
-                <ChevronDown
-                  className={`h-4 w-4 text-brand-placeholder transition-colors ${
-                    isBankActive ? "text-brand-title" : ""
-                  }`}
-                />
-              </Select.Icon>
-            </Select.Trigger>
-            <Select.Portal>
-              <Select.Content
-                position="popper"
-                sideOffset={8}
-                className="z-50 font-sans w-[var(--radix-select-trigger-width)] overflow-hidden rounded-2xl border border-brand-stroke bg-brand-white shadow-[0_18px_45px_rgba(0,0,0,0.12)]"
-              >
-                <div className="border-b border-brand-stroke px-3 py-3">
-                  <div className="flex items-center gap-2 rounded-xl border border-brand-stroke bg-brand-offwhite px-3 py-2">
-                    <Search className="h-4 w-4 text-brand-placeholder" />
-                    <input
-                      ref={bankSearchRef}
-                      value={bankQuery}
-                      onChange={handleBankInputChange}
-                      onKeyDown={keepSearchFocus}
-                      onKeyUp={keepSearchFocus}
-                      placeholder="Search banks..."
-                      className="w-full bg-transparent font-sans text-sm text-brand-title outline-none placeholder:text-brand-placeholder"
-                    />
-                  </div>
-                </div>
-                <Select.Viewport className="max-h-72 overflow-auto p-2">
+              <Search className="h-4 w-4 shrink-0 text-brand-placeholder" />
+              <input
+                ref={bankSearchRef}
+                value={bankQuery}
+                onChange={handleBankInputChange}
+                onFocus={() => setBankSelectOpen(true)}
+                placeholder="Search or type bank name"
+                autoComplete="organization"
+                className="min-w-0 flex-1 bg-transparent font-sans text-base text-brand-title outline-none placeholder:text-brand-placeholder"
+              />
+            </div>
+
+            {bankSelectOpen ? (
+              <div className="absolute inset-x-0 z-20 mt-2 overflow-hidden rounded-2xl border border-brand-stroke bg-brand-white shadow-[0_18px_45px_rgba(0,0,0,0.12)]">
+                <div className="max-h-72 overflow-auto p-2">
                   {bankLoading ? (
                     <div className="px-3 py-4 text-sm text-brand-label">Searching banks...</div>
                   ) : bankError ? (
                     <div className="px-3 py-4 text-sm text-brand-label">{bankError}</div>
                   ) : bankResults.length ? (
                     bankResults.map((bank) => (
-                      <Select.Item
+                      <button
                         key={bank.id}
-                        value={bank.id}
-                        className="relative flex cursor-pointer font-sans items-center rounded-xl px-3 py-3 text-sm text-brand-body outline-none transition hover:bg-brand-lightblue data-[highlighted]:bg-brand-lightblue data-[highlighted]:text-brand-title data-[state=checked]:bg-transparent data-[state=checked]:text-brand-title"
+                        type="button"
+                        onMouseDown={(event) => event.preventDefault()}
+                        onClick={() => handleBankSelect(bank)}
+                        className="flex w-full cursor-pointer items-center rounded-xl px-3 py-3 text-left font-sans text-sm text-brand-body transition hover:bg-brand-lightblue hover:text-brand-title"
                       >
-                        <Select.ItemText>
-                          <span className="block">
+                        <span className="block">
                             <span className="block font-normal text-brand-title">
                               {bank.display_name || bank.canonical_name}
                             </span>
@@ -282,9 +249,8 @@ const ApplyStepThree = ({
                                   ? ` · ${[bank.city, bank.state_code].filter(Boolean).join(", ")}`
                                   : "")}
                             </span>
-                          </span>
-                        </Select.ItemText>
-                      </Select.Item>
+                        </span>
+                      </button>
                     ))
                   ) : bankQuery.trim().length >= 2 ? (
                     <div className="px-3 py-4 text-sm text-brand-label">
@@ -295,10 +261,10 @@ const ApplyStepThree = ({
                       Type at least 2 characters to search for your bank.
                     </div>
                   )}
-                </Select.Viewport>
-              </Select.Content>
-            </Select.Portal>
-          </Select.Root>
+                </div>
+              </div>
+            ) : null}
+          </div>
         </div>
 
         <div className="block">
